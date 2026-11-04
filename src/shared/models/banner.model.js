@@ -1,21 +1,59 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes } from "sequelize";
 
 export default (sequelize) =>
   sequelize.define(
-    'banner',
+    "banner",
     {
-      id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
-      title: { type: DataTypes.STRING, allowNull: false },
-      subtitle: { type: DataTypes.STRING },
-      image: { type: DataTypes.STRING },
-      link: { type: DataTypes.STRING },
-      sortOrder: { type: DataTypes.INTEGER, defaultValue: 0 },
-      status: { type: DataTypes.ENUM('draft', 'published'), defaultValue: 'draft' },
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false,
+      },
+      page: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      page_slug: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+
+      header_title: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      title: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      description: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+      },
+
+      status: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+        allowNull: false,
+      },
+      banner_desktop_media_path: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      banner_mobile_media_path: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      banner_media_alt: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
     },
     {
-      tableName: 'banners',
+      tableName: "banners",
       timestamps: true,
       paranoid: true,
-      deletedAt: 'deleted_at',
+      deletedAt: "deleted_at",
     },
   );

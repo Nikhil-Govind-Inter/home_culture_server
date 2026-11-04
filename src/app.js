@@ -26,6 +26,12 @@ export default class App {
 
   static initRoutes(app) {
     app.get('/health', (req, res) => res.json({ status: 'ok' }));
+    // Helmet defaults to `Cross-Origin-Resource-Policy: same-origin`, which makes browsers
+    // refuse to render these images on the admin app (a different origin/port).
+    app.use('/uploads', (req, res, next) => {
+      res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+      next();
+    });
     app.use('/uploads', express.static(config.uploadDir)); // uploaded media
     app.use('/api', frontendRoutes); // public
     app.use('/admin', adminRoutes); // private (JWT)
