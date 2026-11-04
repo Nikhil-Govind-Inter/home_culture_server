@@ -1,8 +1,8 @@
 import express from 'express';
-import authRoutes from './auth.routes.js';
-import bannerRoutes from './banner.routes.js';
-import blogRoutes from './blog.routes.js';
-import contactCmsRoutes from './contactCms.routes.js';
+import authRoutes from './auth/auth.routes.js';
+import bannerRoutes from './sitesettings/banner.routes.js';
+import blogRoutes from './blog/blog.routes.js';
+import contactCmsRoutes from './contactCms/contactCms.routes.js';
 
 const router = express.Router();
 

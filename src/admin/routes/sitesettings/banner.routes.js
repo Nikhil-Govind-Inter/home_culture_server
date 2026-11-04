@@ -1,7 +1,7 @@
 import express from 'express';
-import BannerController from '../controllers/banner.controller.js';
-import authMiddleware from '../middlewares/auth.middleware.js';
-import { createUploadMiddleware } from '../middlewares/multer.middleware.js';
+import BannerController from '../../controllers/sitesettings/banner.controller.js';
+import authMiddleware from '../../middlewares/auth.middleware.js';
+import { createUploadMiddleware } from '../../middlewares/multer.middleware.js';
 
 const router = express.Router();
 

@@ -1,7 +1,7 @@
 import express from 'express';
-import BlogController from '../controllers/blog.controller.js';
-import authMiddleware from '../middlewares/auth.middleware.js';
-import { createUploadMiddleware } from '../middlewares/multer.middleware.js';
+import BlogController from '../../controllers/blog/blog.controller.js';
+import authMiddleware from '../../middlewares/auth.middleware.js';
+import { createUploadMiddleware } from '../../middlewares/multer.middleware.js';
 
 const router = express.Router();
 

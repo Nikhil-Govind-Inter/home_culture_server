@@ -1,6 +1,6 @@
 import express from 'express';
-import ContactCmsController from '../controllers/contactCms.controller.js';
-import authMiddleware from '../middlewares/auth.middleware.js';
+import ContactCmsController from '../../controllers/contactCms/contactCms.controller.js';
+import authMiddleware from '../../middlewares/auth.middleware.js';
 
 const router = express.Router();
 

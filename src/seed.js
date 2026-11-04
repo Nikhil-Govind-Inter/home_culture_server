@@ -1,7 +1,7 @@
 import config from './shared/config/index.js';
 import Database from './shared/config/database.js';
 import { models } from './shared/models/index.js';
-import { hashPassword } from './admin/controllers/auth.controller.js';
+import { hashPassword } from './admin/controllers/auth/auth.controller.js';
 import logger from './shared/utils/logger.js';
 
 // Media paths are empty placeholders until an admin uploads images (PUT /admin/banners/:id).
@@ -29,7 +29,27 @@ const defaultBanners = [
   banner('How It Works', 'how-it-works', 'How It Works', 'How It Works', 'See how booking and hosting works, step by step.'),
 ];
 
-// Seeds the first admin user and default banners: npm run seed
+const meta = (page, page_slug, meta_title, meta_description, meta_keywords) => ({
+  page,
+  page_slug,
+  meta_title,
+  meta_description,
+  meta_keywords,
+});
+
+const defaultMetaData = [
+  meta('Home', 'home', 'Home Culture | Authentic Home Stays & Local Experiences', 'Discover authentic home stays and local experiences with Home Culture.', 'home stay, local experiences, home culture, travel'),
+  meta('About', 'about', 'About Us | Home Culture', 'Learn more about Home Culture and what we stand for.', 'about home culture, our story, home stays'),
+  meta('Privacy Policy', 'privacy-policy', 'Privacy Policy | Home Culture', 'How Home Culture collects, uses and protects your information.', 'privacy policy, data protection, home culture'),
+  meta('Contact Us', 'contact-us', 'Contact Us | Home Culture', 'Get in touch with the Home Culture team. We would love to hear from you.', 'contact home culture, support, enquiry'),
+  meta('Blogs', 'blogs', 'Blogs | Home Culture', 'Stories, tips and travel inspiration from Home Culture.', 'travel blog, home stay tips, travel stories'),
+  meta('Careers', 'careers', 'Careers | Home Culture', 'Explore opportunities to work with Home Culture.', 'careers, jobs, work with us'),
+  meta('FAQ', 'faq', 'FAQ | Home Culture', 'Answers to the questions we hear most about Home Culture stays.', 'faq, questions, help, home stay'),
+  meta('Experience Stay', 'experience-stay', 'Experience Stay | Home Culture', 'Live like a local with a Home Culture stay.', 'experience stay, live like a local, home stay'),
+  meta('How It Works', 'how-it-works', 'How It Works | Home Culture', 'See how booking and hosting works with Home Culture, step by step.', 'how it works, booking, hosting'),
+];
+
+// Seeds the first admin user, default banners and page metadata: npm run seed
 async function seed() {
   await Database.connect();
 
@@ -47,6 +67,16 @@ async function seed() {
     });
     logger.info(
       bannerCreated ? `Banner created: ${data.page_slug}` : `Banner already exists: ${data.page_slug}`,
+    );
+  }
+
+  for (const data of defaultMetaData) {
+    const [, metaCreated] = await models.MetaData.findOrCreate({
+      where: { page_slug: data.page_slug },
+      defaults: data,
+    });
+    logger.info(
+      metaCreated ? `Metadata created: ${data.page_slug}` : `Metadata already exists: ${data.page_slug}`,
     );
   }
 

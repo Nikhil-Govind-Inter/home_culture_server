@@ -1,12 +1,12 @@
 import { validationResult } from 'express-validator';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import config from '../../shared/config/index.js';
-import ApiError from '../../shared/utils/ApiError.js';
-import ApiResponse from '../../shared/utils/ApiResponse.js';
-import sendValidationError from '../../shared/utils/sendValidationError.js';
-import { login } from '../validations/auth.validation.js';
-import { models } from '../../shared/models/index.js';
+import config from '../../../shared/config/index.js';
+import ApiError from '../../../shared/utils/ApiError.js';
+import ApiResponse from '../../../shared/utils/ApiResponse.js';
+import sendValidationError from '../../../shared/utils/sendValidationError.js';
+import { login } from '../../validations/auth.validation.js';
+import { models } from '../../../shared/models/index.js';
 
 const { Admin } = models;
 

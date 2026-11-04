@@ -1,13 +1,13 @@
 import { validationResult } from "express-validator";
-import ApiError from "../../shared/utils/ApiError.js";
-import ApiResponse from "../../shared/utils/ApiResponse.js";
-import sendValidationError from "../../shared/utils/sendValidationError.js";
-import paginate from "../../shared/utils/paginate.js";
-import uploadedPath from "../../shared/utils/uploadedPath.js";
-import deleteUpload from "../../shared/utils/deleteUpload.js";
-import { idParam } from "../validations/common.validation.js";
-import { validateFields, listQuery } from "../validations/banner.validation.js";
-import { models } from "../../shared/models/index.js";
+import ApiError from "../../../shared/utils/ApiError.js";
+import ApiResponse from "../../../shared/utils/ApiResponse.js";
+import sendValidationError from "../../../shared/utils/sendValidationError.js";
+import paginate from "../../../shared/utils/paginate.js";
+import uploadedPath from "../../../shared/utils/uploadedPath.js";
+import deleteUpload from "../../../shared/utils/deleteUpload.js";
+import { idParam } from "../../validations/common.validation.js";
+import { validateFields, listQuery } from "../../validations/banner.validation.js";
+import { models } from "../../../shared/models/index.js";
 
 const { Banner } = models;
 
