@@ -4,7 +4,7 @@ import authMiddleware from '../../middlewares/auth.middleware.js';
 
 const router = express.Router();
 
-router.use(authMiddleware(['admin']));
+router.use(authMiddleware());
 router.get('/', ContactCmsController.get);
 router.put('/', ContactCmsController.update);
 

@@ -6,6 +6,7 @@ import paginate from '../../../shared/utils/paginate.js';
 import slugify from '../../../shared/utils/slugify.js';
 import uploadedPath from '../../../shared/utils/uploadedPath.js';
 import deleteUpload from '../../../shared/utils/deleteUpload.js';
+import { handleFileUploadStore, handleFileUploadUpdate } from '../../../shared/utils/fileUpload.js';
 import { idParam } from '../../validations/common.validation.js';
 import { validateFields } from '../../validations/blog.validation.js';
 import { models } from '../../../shared/models/index.js';
@@ -45,9 +46,8 @@ export default class BlogController {
         await deleteUpload(uploadedPath(req, 'image', 'blogs'));
         return sendValidationError(res, errors);
       }
+      handleFileUploadStore(req, ['image']);
       const data = { ...req.body };
-      const image = uploadedPath(req, 'image', 'blogs');
-      if (image) data.image = image;
       if (!data.slug) data.slug = slugify(data.title);
       const record = await Blog.create(data);
       ApiResponse.created(res, record, 'Blog created');
@@ -68,15 +68,12 @@ export default class BlogController {
       const { id } = req.params;
       const record = await Blog.findByPk(id);
       if (!record) throw ApiError.notFound('Blog not found');
-      const oldImage = record.image;
+      await handleFileUploadUpdate(req, record, ['image']);
       const changes = { ...req.body };
-      const image = uploadedPath(req, 'image', 'blogs');
-      if (image) changes.image = image;
       if (!changes.slug && changes.title && changes.title !== record.title) {
         changes.slug = slugify(changes.title);
       }
       await record.update(changes);
-      if (image && oldImage) await deleteUpload(oldImage);
       ApiResponse.success(res, record, 'Blog updated');
     } catch (error) {
       await deleteUpload(uploadedPath(req, 'image', 'blogs'));

@@ -5,6 +5,6 @@ import authMiddleware from '../../middlewares/auth.middleware.js';
 const router = express.Router();
 
 router.post('/login', AuthController.login); // public
-router.get('/profile', authMiddleware(['admin']), AuthController.profile);
+router.get('/profile', authMiddleware(), AuthController.profile);
 
 export default router;

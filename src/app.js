@@ -34,7 +34,7 @@ export default class App {
     });
     app.use('/uploads', express.static(config.uploadDir)); // uploaded media
     app.use('/api', frontendRoutes); // public
-    app.use('/admin', adminRoutes); // private (JWT)
+    app.use('/api/backend', adminRoutes); // private (JWT)
   }
 
   static initErrorHandling(app) {

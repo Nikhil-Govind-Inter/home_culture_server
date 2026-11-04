@@ -11,7 +11,8 @@ const uploadFields = [
 ];
 const upload = createUploadMiddleware('banners', uploadFields);
 
-router.use(authMiddleware(['admin']));
+router.use(authMiddleware());
+
 router.get('/', BannerController.getAll);
 router.get('/:id', BannerController.getById);
 router.put('/:id', upload, BannerController.update);

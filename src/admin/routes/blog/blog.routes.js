@@ -8,7 +8,7 @@ const router = express.Router();
 const uploadFields = [{ name: 'image', maxCount: 1 }];
 const upload = createUploadMiddleware('blogs', uploadFields);
 
-router.use(authMiddleware(['admin']));
+router.use(authMiddleware());
 router.get('/', BlogController.getAll);
 router.get('/:id', BlogController.getById);
 router.post('/', upload, BlogController.create);

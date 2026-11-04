@@ -15,7 +15,7 @@ export default async function paginate(
   { page, limit, where = {}, search, searchFields = [], order = [['createdAt', 'DESC']] } = {},
 ) {
   const pageNo = Math.max(Number(page) || 1, 1);
-  const size = Math.min(Math.max(Number(limit) || 20, 1), 100);
+  const size = Math.min(Math.max(Number(limit) || 10, 1), 100);
 
   const finalWhere =
     search && searchFields.length
