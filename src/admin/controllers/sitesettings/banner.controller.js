@@ -25,14 +25,14 @@ export default class BannerController {
 
       const { page, limit, search } = req.query;
 
-      const { rows, meta } = await paginate(Banner, {
+      const { rows, pagination } = await paginate(Banner, {
         page,
         limit,
         search,
         searchFields: ["page"],
       });
 
-      ApiResponse.success(res, rows, "Fetched successfully", 200, meta);
+      ApiResponse.success(res, rows, "Fetched successfully", 200, pagination);
     } catch (error) {
       next(error);
     }

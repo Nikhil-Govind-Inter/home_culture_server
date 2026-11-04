@@ -29,5 +29,5 @@ export default async function paginate(
     offset: (pageNo - 1) * size,
   });
 
-  return { rows, meta: { total: count, page: pageNo, limit: size, totalPages: Math.ceil(count / size) } };
+  return { rows, pagination: { total: count, page: pageNo, limit: size, totalPages: Math.ceil(count / size) } };
 }
