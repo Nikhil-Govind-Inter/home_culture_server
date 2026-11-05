@@ -1,8 +1,8 @@
 import config from './shared/config/index.js';
 import Database from './shared/config/database.js';
 import { models } from './shared/models/index.js';
-import { hashPassword } from './admin/controllers/auth/auth.controller.js';
 import logger from './shared/utils/logger.js';
+import bcrypt from 'bcryptjs';
 
 // Media paths are empty placeholders until an admin uploads images (PUT /admin/banners/:id).
 const banner = (page, page_slug, header_title, title, description) => ({

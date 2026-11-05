@@ -18,6 +18,14 @@ export default (sequelize) =>
         type: DataTypes.TEXT,
         allowNull: false,
       },
+      header_button_text: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      header_button_link: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       logo_alt: {
         type: DataTypes.STRING,
         allowNull: false,
