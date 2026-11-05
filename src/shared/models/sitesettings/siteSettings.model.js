@@ -26,7 +26,7 @@ export default (sequelize) =>
         type: DataTypes.STRING,
         allowNull: false,
       },
-      footer_description: {
+      description: {
         type: DataTypes.TEXT,
         allowNull: false,
       },
