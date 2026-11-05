@@ -81,7 +81,6 @@ export default class JourneyStepController {
       const record = await JourneyStep.findByPk(req.params.id);
       if (!record) throw ApiError.notFound("Journey step not found");
 
-      // The primary key can't be set from the body.
       await record.update(req.body);
       
       ApiResponse.success(res, record, "Journey step updated");

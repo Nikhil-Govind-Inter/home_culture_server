@@ -5,22 +5,66 @@ export default (sequelize) => {
     'contactCms',
     {
       id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false,
       },
-      title: { type: DataTypes.STRING, allowNull: false },
-      description: { type: DataTypes.TEXT, allowNull: false },
-      form_title: { type: DataTypes.STRING, allowNull: false },
-      social_media_title: { type: DataTypes.STRING, allowNull: false },
-      map_url: { type: DataTypes.TEXT, allowNull: false },
+
+      // Form Section
+      form_section_status: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+      },
+      form_section_title: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      form_section_description: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
+
+      google_map_link: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
+
+      // Form
+      form_title: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      form_description: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
+
+      // Faq Section
+      faq_section_status: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+      },
+      faq_section_title: {
+      type: DataTypes.STRING,
+        allowNull: true,
+      },
+      faq_section_description: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
+      faq_section_button_text: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      faq_section_button_link: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
     },
     {
       tableName: 'contact_cms',
       timestamps: true,
-      paranoid: true,
-      deletedAt: 'deleted_at',
     },
   );
 
