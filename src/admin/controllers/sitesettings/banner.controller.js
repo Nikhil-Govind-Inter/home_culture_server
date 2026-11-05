@@ -71,7 +71,7 @@ export default class BannerController {
       // media paths are filled in by handleFileUploadUpdate from uploaded files.
       const { id: _id, ...data } = req.body;
       req.body = data;
-      MEDIA_FIELDS.forEach((f) => delete req.body[f]);
+      MEDIA_FIELDS.forEach((field) => delete req.body[field]);
 
       await handleFileUploadUpdate(req, record, MEDIA_FIELDS);
       await record.update(req.body);
