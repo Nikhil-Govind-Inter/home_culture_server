@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 
-export default (sequelize) =>
-  sequelize.define(
+export default (sequelize) => {
+  const Admin = sequelize.define(
     "admin",
     {
       id: {
@@ -21,3 +21,6 @@ export default (sequelize) =>
       deletedAt: "deleted_at",
     },
   );
+
+  return Admin;
+};

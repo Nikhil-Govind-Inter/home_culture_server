@@ -9,6 +9,7 @@ import { models } from '../../../shared/models/index.js';
 
 const { AboutCms } = models;
 
+// FILES
 export const FOLDER = 'about-cms';
 export const MEDIA_FIELDS = [
   'story_section_media_path',
@@ -23,6 +24,8 @@ export const MEDIA_FIELDS = [
 
 // About CMS is a single record: it can only be fetched and updated.
 export default class AboutCmsController {
+
+  // GET
   static async get(req, res, next) {
     try {
       const record = await AboutCms.findOne();
@@ -32,6 +35,8 @@ export default class AboutCmsController {
     }
   }
 
+
+  // UPDATE
   static async update(req, res, next) {
     try {
       await Promise.all(validationRequestPut.map((v) => v.run(req)));
@@ -42,12 +47,12 @@ export default class AboutCmsController {
       }
 
       // Media paths come from uploaded files, never from plain body values.
-      MEDIA_FIELDS.forEach((f) => delete req.body[f]);
+      MEDIA_FIELDS.forEach((fields) => delete req.body[fields]);
 
       const record = await AboutCms.findOne();
 
       if (!record) {
-        const missing = MEDIA_FIELDS.filter((f) => !req.files?.[f]?.[0]);
+        const missing = MEDIA_FIELDS.filter((fields) => !req.files?.[fields]?.[0]);
         if (missing.length) throw ApiError.badRequest(`Missing required files: ${missing.join(', ')}`);
 
         handleFileUploadStore(req, MEDIA_FIELDS);

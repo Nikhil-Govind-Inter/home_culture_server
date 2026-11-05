@@ -1,6 +1,7 @@
 import sequelize from '../config/sequelize.js';
 import logger from '../utils/logger.js';
 import defineAboutCms from './aboutCms/aboutCms.model.js';
+import defineAboutHighlight from './aboutCms/aboutHighlight.model.js';
 import defineAdmin from './auth/admin.model.js';
 import defineBanner from './sitesettings/banner.model.js';
 import defineBlog from './blog/blog.model.js';
@@ -11,6 +12,7 @@ import defineSocialMedia from './sitesettings/socialMedia.model.js';
 
 const models = {
   AboutCms: defineAboutCms(sequelize),
+  AboutHighlight: defineAboutHighlight(sequelize),
   Admin: defineAdmin(sequelize),
   Banner: defineBanner(sequelize),
   Blog: defineBlog(sequelize),

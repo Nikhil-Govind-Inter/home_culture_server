@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 
-export default (sequelize) =>
-  sequelize.define(
+export default (sequelize) => {
+  const SocialMedia = sequelize.define(
     "social_media",
     {
       id: {
@@ -41,3 +41,6 @@ export default (sequelize) =>
       deletedAt: "deleted_at",
     },
   );
+
+  return SocialMedia;
+};

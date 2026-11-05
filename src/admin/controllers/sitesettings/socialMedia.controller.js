@@ -76,7 +76,7 @@ export default class SocialMediaController {
       // Media paths come from uploaded files only, never from body values.
       const { id: _id, ...data } = req.body;
       req.body = data;
-      MEDIA_FIELDS.forEach((f) => delete req.body[f]);
+      MEDIA_FIELDS.forEach((fields) => delete req.body[fields]);
 
       handleFileUploadStore(req, MEDIA_FIELDS);
       const record = await SocialMedia.create(req.body);
@@ -104,7 +104,7 @@ export default class SocialMediaController {
       // media paths are filled in by handleFileUploadUpdate from uploaded files.
       const { id: _id, ...data } = req.body;
       req.body = data;
-      MEDIA_FIELDS.forEach((f) => delete req.body[f]);
+      MEDIA_FIELDS.forEach((fields) => delete req.body[fields]);
 
       await handleFileUploadUpdate(req, record, MEDIA_FIELDS);
       await record.update(req.body);

@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 
-export default (sequelize) =>
-  sequelize.define(
+export default (sequelize) => {
+  const SiteSettings = sequelize.define(
     "siteSettings",
     {
       id: {
@@ -62,3 +62,6 @@ export default (sequelize) =>
       deletedAt: "deleted_at",
     },
   );
+
+  return SiteSettings;
+};
