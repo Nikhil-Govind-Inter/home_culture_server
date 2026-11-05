@@ -56,7 +56,7 @@ async function seed() {
   const { name, email, password } = config.seedAdmin;
   const [, created] = await models.Admin.findOrCreate({
     where: { email },
-    defaults: { name, password: await hashPassword(password) },
+    defaults: { name, password: await bcrypt.hash(password, 10) },
   });
   logger.info(created ? `Admin created: ${email}` : `Admin already exists: ${email}`);
 

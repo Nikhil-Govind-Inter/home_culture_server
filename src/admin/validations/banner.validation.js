@@ -1,21 +1,21 @@
-import { body, query } from 'express-validator';
+import { body } from 'express-validator';
 
-const optionalText = (field) =>
-  body(field).optional().isString().trim().notEmpty().withMessage(`${field} must be a non-empty string`);
-
-export const validateFields = [
-  optionalText('page'),
-  optionalText('page_slug'),
-  optionalText('header_title'),
-  optionalText('title'),
-  optionalText('description'),
-  optionalText('banner_media_alt'),
-  body('status').optional().isBoolean().withMessage('status must be a boolean').toBoolean(),
+export const validationRequestPost = [
+  body('page').notEmpty().withMessage('Page is required').isString().withMessage('Page must be a string').trim(),
+  body('page_slug').notEmpty().withMessage('Page slug is required').isString().withMessage('Page slug must be a string').trim(),
+  body('header_title').notEmpty().withMessage('Header title is required').isString().withMessage('Header title must be a string').trim(),
+  body('title').notEmpty().withMessage('Title is required').isString().withMessage('Title must be a string').trim(),
+  body('description').notEmpty().withMessage('Description is required').isString().withMessage('Description must be a string').trim(),
+  body('banner_media_alt').notEmpty().withMessage('Banner media alt is required').isString().withMessage('Banner media alt must be a string').trim(),
+  body('status').optional().isBoolean().withMessage('Status must be a boolean').toBoolean(),
 ];
 
-export const listQuery = [
-  query('page').optional().isInt({ min: 1 }).withMessage('page must be a positive integer'),
-  query('limit').optional().isInt({ min: 1, max: 100 }).withMessage('limit must be between 1 and 100'),
-  query('search').optional().isString().trim().isLength({ max: 100 }).withMessage('search must be at most 100 characters'),
-  query('status').optional().isBoolean().withMessage('status must be true or false'),
+export const validationRequestPut = [
+  body('page').optional().notEmpty().withMessage('Page cannot be empty').isString().withMessage('Page must be a string').trim(),
+  body('page_slug').optional().notEmpty().withMessage('Page slug cannot be empty').isString().withMessage('Page slug must be a string').trim(),
+  body('header_title').optional().notEmpty().withMessage('Header title cannot be empty').isString().withMessage('Header title must be a string').trim(),
+  body('title').optional().notEmpty().withMessage('Title cannot be empty').isString().withMessage('Title must be a string').trim(),
+  body('description').optional().notEmpty().withMessage('Description cannot be empty').isString().withMessage('Description must be a string').trim(),
+  body('banner_media_alt').optional().notEmpty().withMessage('Banner media alt cannot be empty').isString().withMessage('Banner media alt must be a string').trim(),
+  body('status').optional().isBoolean().withMessage('Status must be a boolean').toBoolean(),
 ];

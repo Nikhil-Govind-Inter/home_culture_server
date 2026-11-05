@@ -5,10 +5,9 @@ import sendValidationError from "../../../shared/utils/sendValidationError.js";
 import paginate from "../../../shared/utils/paginate.js";
 import { handleFileUploadUpdate } from "../../../shared/utils/fileUpload.js";
 import { cleanupUploads } from "../../../shared/utils/uploads.js";
-import { idParam } from "../../validations/common.validation.js";
+import { validateId } from "../../validations/common.validation.js";
 import {
-  validateFields,
-  listQuery,
+  validationRequestPut,
 } from "../../validations/banner.validation.js";
 import { models } from "../../../shared/models/index.js";
 
@@ -19,17 +18,15 @@ const MEDIA_FIELDS = ["banner_desktop_media_path", "banner_mobile_media_path"];
 export default class BannerController {
   static async getAll(req, res, next) {
     try {
-      await Promise.all(listQuery.map((v) => v.run(req)));
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) return sendValidationError(res, errors);
 
       const { page, limit, search } = req.query;
 
       const { rows, pagination } = await paginate(Banner, {
         page,
-        limit,
+      limit,
         search,
         searchFields: ["page"],
+        order: [['page', 'ASC']],
       });
 
       ApiResponse.success(res, rows, "Fetched successfully", 200, pagination);
@@ -40,7 +37,7 @@ export default class BannerController {
 
   static async getById(req, res, next) {
     try {
-      await Promise.all(idParam.map((v) => v.run(req)));
+      await Promise.all(validateId.map((v) => v.run(req)));
       const errors = validationResult(req);
       if (!errors.isEmpty()) return sendValidationError(res, errors);
 
@@ -58,7 +55,7 @@ export default class BannerController {
 
   static async update(req, res, next) {
     try {
-      await Promise.all([...idParam, ...validateFields].map((v) => v.run(req)));
+      await Promise.all([...validateId, ...validationRequestPut].map((v) => v.run(req)));
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         await cleanupUploads(req, MEDIA_FIELDS, "banners");

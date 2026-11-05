@@ -7,8 +7,8 @@ import slugify from '../../../shared/utils/slugify.js';
 import uploadedPath from '../../../shared/utils/uploadedPath.js';
 import deleteUpload from '../../../shared/utils/deleteUpload.js';
 import { handleFileUploadStore, handleFileUploadUpdate } from '../../../shared/utils/fileUpload.js';
-import { idParam } from '../../validations/common.validation.js';
-import { validateFields } from '../../validations/blog.validation.js';
+import { validateId } from '../../validations/common.validation.js';
+import { validationRequestPost, validationRequestPut } from '../../validations/blog.validation.js';
 import { models } from '../../../shared/models/index.js';
 
 const { Blog } = models;
@@ -26,7 +26,7 @@ export default class BlogController {
 
   static async getById(req, res, next) {
     try {
-      await Promise.all(idParam.map((v) => v.run(req)));
+      await Promise.all(validateId.map((v) => v.run(req)));
       const errors = validationResult(req);
       if (!errors.isEmpty()) return sendValidationError(res, errors);
       const { id } = req.params;
@@ -40,7 +40,7 @@ export default class BlogController {
 
   static async create(req, res, next) {
     try {
-      await Promise.all(validateFields.map((v) => v.run(req)));
+      await Promise.all(validationRequestPost.map((v) => v.run(req)));
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         await deleteUpload(uploadedPath(req, 'image', 'blogs'));
@@ -59,7 +59,7 @@ export default class BlogController {
 
   static async update(req, res, next) {
     try {
-      await Promise.all([...idParam, ...validateFields].map((v) => v.run(req)));
+      await Promise.all([...validateId, ...validationRequestPut].map((v) => v.run(req)));
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         await deleteUpload(uploadedPath(req, 'image', 'blogs'));
@@ -83,7 +83,7 @@ export default class BlogController {
 
   static async delete(req, res, next) {
     try {
-      await Promise.all(idParam.map((v) => v.run(req)));
+      await Promise.all(validateId.map((v) => v.run(req)));
       const errors = validationResult(req);
       if (!errors.isEmpty()) return sendValidationError(res, errors);
       const { id } = req.params;

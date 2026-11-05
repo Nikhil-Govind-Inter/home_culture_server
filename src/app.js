@@ -1,44 +1,70 @@
-import express from 'express';
-import cors from 'cors';
-import helmet from 'helmet';
-import morgan from 'morgan';
-import config from './shared/config/index.js';
-import frontendRoutes from './frontend/routes/index.js';
-import adminRoutes from './admin/routes/index.js';
-import { notFoundHandler, errorHandler } from './shared/middlewares/error.middleware.js';
+import express from "express";
+import cors from "cors";
+import helmet from "helmet";
+import morgan from "morgan";
 
-export default class App {
-  static create() {
-    const app = express();
-    App.initMiddlewares(app);
-    App.initRoutes(app);
-    App.initErrorHandling(app);
-    return app;
-  }
+import config from "./shared/config/index.js";
+import frontendRoutes from "./frontend/routes/index.js";
+import adminRoutes from "./admin/routes/index.js";
+import {
+  notFoundHandler,
+  errorHandler,
+} from "./shared/middlewares/error.middleware.js";
 
-  static initMiddlewares(app) {
-    app.use(helmet());
-    app.use(cors({ origin: config.corsOrigin }));
-    app.use(express.json());
-    app.use(express.urlencoded({ extended: true }));
-    if (config.env !== 'test') app.use(morgan('dev'));
-  }
+const app = express();
 
-  static initRoutes(app) {
-    app.get('/health', (req, res) => res.json({ status: 'ok' }));
-    // Helmet defaults to `Cross-Origin-Resource-Policy: same-origin`, which makes browsers
-    // refuse to render these images on the admin app (a different origin/port).
-    app.use('/uploads', (req, res, next) => {
-      res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
-      next();
-    });
-    app.use('/uploads', express.static(config.uploadDir)); // uploaded media
-    app.use('/api', frontendRoutes); // public
-    app.use('/api/backend', adminRoutes); // private (JWT)
-  }
+// Security
+app.use(helmet());
 
-  static initErrorHandling(app) {
-    app.use(notFoundHandler);
-    app.use(errorHandler);
-  }
+
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://localhost:8080",
+];
+
+
+// CORS
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests without an Origin header (e.g. server-to-server)
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error("Not allowed by CORS"));
+    },
+    credentials: true,
+  })
+);
+// Body parsers
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Logger
+if (config.env !== "test") {
+  app.use(morgan("dev"));
 }
+
+// Health check
+app.get("/health", (req, res) => {
+  res.json({ status: "ok" });
+});
+
+// Static files
+app.use("/uploads", (req, res, next) => {
+  res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
+  next();
+});
+
+app.use("/uploads", express.static(config.uploadDir));
+
+// Routes
+app.use("/api", frontendRoutes);
+app.use("/api/backend", adminRoutes);
+
+// Error handling
+app.use(notFoundHandler);
+app.use(errorHandler);
+
+export default app;

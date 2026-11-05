@@ -10,7 +10,6 @@ import { models } from '../../../shared/models/index.js';
 
 const { Admin } = models;
 
-export const hashPassword = (plain) => bcrypt.hash(plain, 10);
 
 export default class AuthController {
   static async login(req, res, next) {

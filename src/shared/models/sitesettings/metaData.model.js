@@ -17,6 +17,7 @@ export default (sequelize) =>
       page_slug: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
       },
       meta_title: {
         type: DataTypes.STRING,

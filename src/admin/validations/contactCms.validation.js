@@ -1,9 +1,9 @@
 import { body } from 'express-validator';
 
-export const validateFields = [
-  body('title').notEmpty().withMessage('title is required'),
-  body('description').notEmpty().withMessage('description is required'),
-  body('form_title').notEmpty().withMessage('form_title is required'),
-  body('social_media_title').notEmpty().withMessage('social_media_title is required'),
-  body('map_url').notEmpty().withMessage('map_url is required'),
+export const validationRequestPost = [
+  body('title').notEmpty().withMessage('Title is required').isString().withMessage('Title must be a string').trim(),
+  body('description').notEmpty().withMessage('Description is required').isString().withMessage('Description must be a string').trim(),
+  body('form_title').notEmpty().withMessage('Form title is required').isString().withMessage('Form title must be a string').trim(),
+  body('social_media_title').notEmpty().withMessage('Social media title is required').isString().withMessage('Social media title must be a string').trim(),
+  body('map_url').notEmpty().withMessage('Map URL is required').isString().withMessage('Map URL must be a string').trim(),
 ];

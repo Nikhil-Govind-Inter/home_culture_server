@@ -8,11 +8,10 @@ import {
   handleFileUploadUpdate,
 } from "../../../shared/utils/fileUpload.js";
 import { cleanupUploads } from "../../../shared/utils/uploads.js";
-import { idParam } from "../../validations/common.validation.js";
+import { validateId } from "../../validations/common.validation.js";
 import {
-  createFields,
-  updateFields,
-  listQuery,
+  validationRequestPost,
+  validationRequestPut,
 } from "../../validations/socialMedia.validation.js";
 import { models } from "../../../shared/models/index.js";
 
@@ -24,9 +23,6 @@ const MEDIA_FIELDS = ["icon_media_path"];
 export default class SocialMediaController {
   static async getAll(req, res, next) {
     try {
-      await Promise.all(listQuery.map((v) => v.run(req)));
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) return sendValidationError(res, errors);
 
       const { page, limit, search, status } = req.query;
 
@@ -50,7 +46,7 @@ export default class SocialMediaController {
 
   static async getById(req, res, next) {
     try {
-      await Promise.all(idParam.map((v) => v.run(req)));
+      await Promise.all(validateId.map((v) => v.run(req)));
       const errors = validationResult(req);
       if (!errors.isEmpty()) return sendValidationError(res, errors);
 
@@ -65,7 +61,7 @@ export default class SocialMediaController {
 
   static async create(req, res, next) {
     try {
-      await Promise.all(createFields.map((v) => v.run(req)));
+      await Promise.all(validationRequestPost.map((v) => v.run(req)));
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         await cleanupUploads(req, MEDIA_FIELDS, FOLDER);
@@ -94,7 +90,7 @@ export default class SocialMediaController {
 
   static async update(req, res, next) {
     try {
-      await Promise.all([...idParam, ...updateFields].map((v) => v.run(req)));
+      await Promise.all([...validateId, ...validationRequestPut].map((v) => v.run(req)));
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         await cleanupUploads(req, MEDIA_FIELDS, FOLDER);
@@ -122,7 +118,7 @@ export default class SocialMediaController {
 
   static async delete(req, res, next) {
     try {
-      await Promise.all(idParam.map((v) => v.run(req)));
+      await Promise.all(validateId.map((v) => v.run(req)));
       const errors = validationResult(req);
       if (!errors.isEmpty()) return sendValidationError(res, errors);
 
