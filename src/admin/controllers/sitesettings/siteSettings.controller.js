@@ -33,14 +33,12 @@ export default class SiteSettingsController {
       }
 
       // Logo paths come from uploaded files, never from plain body values.
-      const { id: _id, ...data } = req.body;
-      req.body = data;
-      MEDIA_FIELDS.forEach((f) => delete req.body[f]);
+      MEDIA_FIELDS.forEach((field) => delete req.body[field]);
 
       const record = await SiteSettings.findOne();
 
       if (!record) {
-        const missing = MEDIA_FIELDS.filter((f) => !req.files?.[f]?.[0]);
+        const missing = MEDIA_FIELDS.filter((field) => !req.files?.[field]?.[0]);
         if (missing.length) throw ApiError.badRequest(`Missing required files: ${missing.join(', ')}`);
 
         handleFileUploadStore(req, MEDIA_FIELDS);

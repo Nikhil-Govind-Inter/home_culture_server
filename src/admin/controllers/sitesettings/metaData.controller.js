@@ -21,6 +21,7 @@ export default class MetaDataController {
         limit,
         search,
         searchFields: ["page", "meta_title"],
+        order: [["page", "ASC"]],
       });
 
       ApiResponse.success(res, rows, "Fetched successfully", 200, pagination);
@@ -53,8 +54,7 @@ export default class MetaDataController {
       const record = await MetaData.findByPk(req.params.id);
       if (!record) throw ApiError.notFound("MetaData not found");
 
-      // Only body fields covered by validationRequestPut (so id/timestamps can't be overwritten).
-      await record.update(matchedData(req, { locations: ["body"] }));
+      await record.update(req.body);
       ApiResponse.success(res, record, "MetaData updated");
     } catch (error) {
       next(error);

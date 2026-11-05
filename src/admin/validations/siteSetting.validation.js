@@ -5,7 +5,8 @@ const requiredFields = (field, label) =>
 
 // All fields are optional here; the controller requires them when creating the first record.
 export const validationRequestPut = [
-  requiredFields('logo_alt', 'Logo alt'),
+  requiredFields('header_logo_alt', 'Header logo alt'),
+  requiredFields('footer_logo_alt', 'Footer logo alt'),
   requiredFields('header_button_text', 'Header button text'),
   requiredFields('header_button_link', 'Header button link'),
   requiredFields('footer_title', 'Footer title'),

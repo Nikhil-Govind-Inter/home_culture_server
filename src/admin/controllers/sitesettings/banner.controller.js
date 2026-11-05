@@ -69,8 +69,6 @@ export default class BannerController {
 
       // Protected keys and media paths can't be set from plain body values;
       // media paths are filled in by handleFileUploadUpdate from uploaded files.
-      const { id: _id, ...data } = req.body;
-      req.body = data;
       MEDIA_FIELDS.forEach((field) => delete req.body[field]);
 
       await handleFileUploadUpdate(req, record, MEDIA_FIELDS);

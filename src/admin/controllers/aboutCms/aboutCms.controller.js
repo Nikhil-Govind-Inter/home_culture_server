@@ -42,8 +42,6 @@ export default class AboutCmsController {
       }
 
       // Media paths come from uploaded files, never from plain body values.
-      const { id: _id, created_at: _c, updated_at: _u, ...data } = req.body;
-      req.body = data;
       MEDIA_FIELDS.forEach((f) => delete req.body[f]);
 
       const record = await AboutCms.findOne();
