@@ -18,6 +18,14 @@ const config = {
     secret: process.env.JWT_SECRET,
     expiresIn: process.env.JWT_EXPIRES_IN,
   },
+  smtp: {
+    host: process.env.SMTP_HOST,
+    port: Number(process.env.SMTP_PORT) || 587,
+    user: process.env.SMTP_USER,
+    pass: (process.env.SMTP_PASS).replace(/\s/g, ''),
+    from: process.env.SMTP_USER,
+  },
+  otpExpiresMinutes: Number(process.env.OTP_EXPIRES_MINUTES) || 10,
   seedAdmin: {
     name: process.env.ADMIN_NAME || 'Admin',
     email: process.env.ADMIN_EMAIL || 'admin@intersmart.in',
