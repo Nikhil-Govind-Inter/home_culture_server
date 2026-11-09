@@ -1,6 +1,5 @@
 import { validationResult } from "express-validator";
 import ApiError from "../../../shared/utils/ApiError.js";
-import ApiResponse from "../../../shared/utils/ApiResponse.js";
 import sendValidationError from "../../../shared/utils/sendValidationError.js";
 import paginate from "../../../shared/utils/paginate.js";
 import {
@@ -24,21 +23,20 @@ export default class WorkshopMaterialController {
   static async getAll(req, res, next) {
     try {
 
-      const { page, limit, search, status } = req.query;
+      const { page, limit, search } = req.query;
 
       const { rows, pagination } = await paginate(WorkshopMaterial, {
         page,
         limit,
         search,
         searchFields: ["title"],
-        where: status === undefined ? {} : { status: status === "true" },
         order: [
           ["sort_order", "ASC"],
           ["id", "ASC"],
         ],
       });
 
-      ApiResponse.success(res, rows, "Fetched successfully", 200, pagination);
+      res.status(200).json({ success: true, statusCode: 200, message: "Fetched successfully", data: rows, pagination: pagination });
     } catch (error) {
       next(error);
     }
@@ -53,7 +51,7 @@ export default class WorkshopMaterialController {
       const record = await WorkshopMaterial.findByPk(req.params.id);
       if (!record) throw ApiError.notFound("Workshop material not found");
 
-      ApiResponse.success(res, record);
+      res.status(200).json({ success: true, statusCode: 200, message: 'Success', data: record });
     } catch (error) {
       next(error);
     }
@@ -81,7 +79,7 @@ export default class WorkshopMaterialController {
       handleFileUploadStore(req, MEDIA_FIELDS);
       const record = await WorkshopMaterial.create(req.body);
 
-      ApiResponse.created(res, record, "Workshop material created");
+      res.status(201).json({ success: true, statusCode: 201, message: "Workshop material created", data: record });
     } catch (error) {
       await cleanupUploads(req, MEDIA_FIELDS, FOLDER);
       next(error);
@@ -107,7 +105,7 @@ export default class WorkshopMaterialController {
       await handleFileUploadUpdate(req, record, MEDIA_FIELDS);
       await record.update(req.body);
 
-      ApiResponse.success(res, record, "Workshop material updated");
+      res.status(200).json({ success: true, statusCode: 200, message: "Workshop material updated", data: record });
     } catch (error) {
       await cleanupUploads(req, MEDIA_FIELDS, FOLDER);
       next(error);
@@ -125,7 +123,7 @@ export default class WorkshopMaterialController {
       if (!record) throw ApiError.notFound("Workshop material not found");
 
       await record.destroy(); // soft delete
-      ApiResponse.success(res, { id }, "Workshop material deleted");
+      res.status(200).json({ success: true, statusCode: 200, message: "Workshop material deleted", data: { id } });
     } catch (error) {
       next(error);
     }

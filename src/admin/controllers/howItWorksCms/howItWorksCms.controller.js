@@ -1,6 +1,5 @@
 import { validationResult } from 'express-validator';
 import ApiError from '../../../shared/utils/ApiError.js';
-import ApiResponse from '../../../shared/utils/ApiResponse.js';
 import sendValidationError from '../../../shared/utils/sendValidationError.js';
 import { handleFileUploadStore, handleFileUploadUpdate } from '../../../shared/utils/fileUpload.js';
 import { cleanupUploads } from '../../../shared/utils/uploads.js';
@@ -26,7 +25,7 @@ export default class HowItWorksCmsController {
   static async get(req, res, next) {
     try {
       const record = await HowItWorksCms.findOne();
-      ApiResponse.success(res, record);
+      res.status(200).json({ success: true, statusCode: 200, message: 'Success', data: record });
     } catch (error) {
       next(error);
     }
@@ -54,12 +53,12 @@ export default class HowItWorksCmsController {
 
         handleFileUploadStore(req, MEDIA_FIELDS);
         const created = await HowItWorksCms.create(req.body);
-        return ApiResponse.created(res, created, 'How It Works CMS created');
+        return res.status(201).json({ success: true, statusCode: 201, message: 'How It Works CMS created', data: created });
       }
 
       await handleFileUploadUpdate(req, record, MEDIA_FIELDS);
       await record.update(req.body);
-      ApiResponse.success(res, record, 'How It Works CMS updated');
+      res.status(200).json({ success: true, statusCode: 200, message: 'How It Works CMS updated', data: record });
     } catch (error) {
       await cleanupUploads(req, MEDIA_FIELDS, FOLDER);
       next(error);

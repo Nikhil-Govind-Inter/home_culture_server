@@ -1,6 +1,5 @@
 import { validationResult, matchedData } from "express-validator";
 import ApiError from "../../../shared/utils/ApiError.js";
-import ApiResponse from "../../../shared/utils/ApiResponse.js";
 import sendValidationError from "../../../shared/utils/sendValidationError.js";
 import paginate from "../../../shared/utils/paginate.js";import { validateId } from "../../validations/common.validation.js";
 import {
@@ -24,7 +23,7 @@ export default class MetaDataController {
         order: [["page", "ASC"]],
       });
 
-      ApiResponse.success(res, rows, "Fetched successfully", 200, pagination);
+      res.status(200).json({ success: true, statusCode: 200, message: "Fetched successfully", data: rows, pagination: pagination });
     } catch (error) {
       next(error);
     }
@@ -39,7 +38,7 @@ export default class MetaDataController {
       const record = await MetaData.findByPk(req.params.id);
       if (!record) throw ApiError.notFound("MetaData not found");
 
-      ApiResponse.success(res, record);
+      res.status(200).json({ success: true, statusCode: 200, message: 'Success', data: record });
     } catch (error) {
       next(error);
     }
@@ -55,7 +54,7 @@ export default class MetaDataController {
       if (!record) throw ApiError.notFound("MetaData not found");
 
       await record.update(req.body);
-      ApiResponse.success(res, record, "MetaData updated");
+      res.status(200).json({ success: true, statusCode: 200, message: "MetaData updated", data: record });
     } catch (error) {
       next(error);
     }

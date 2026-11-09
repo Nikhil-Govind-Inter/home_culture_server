@@ -1,5 +1,4 @@
 import { validationResult } from 'express-validator';
-import ApiResponse from '../../../shared/utils/ApiResponse.js';
 import sendValidationError from '../../../shared/utils/sendValidationError.js';
 import { validationRequestPost } from '../../validations/contactCms.validation.js';
 import { models } from '../../../shared/models/index.js';
@@ -28,7 +27,7 @@ export default class ContactCmsController {
   static async get(req, res, next) {
     try {
       const record = await ContactCms.findOne();
-      ApiResponse.success(res, record);
+      res.status(200).json({ success: true, statusCode: 200, message: 'Success', data: record });
     } catch (error) {
       next(error);
     }
@@ -44,10 +43,10 @@ export default class ContactCmsController {
       let record = await ContactCms.findOne();
       if (!record) {
         record = await ContactCms.create(data);
-        return ApiResponse.created(res, record, 'Contact CMS created');
+        return res.status(201).json({ success: true, statusCode: 201, message: 'Contact CMS created', data: record });
       }
       await record.update(data);
-      ApiResponse.success(res, record, 'Contact CMS updated');
+      res.status(200).json({ success: true, statusCode: 200, message: 'Contact CMS updated', data: record });
     } catch (error) {
       next(error);
     }

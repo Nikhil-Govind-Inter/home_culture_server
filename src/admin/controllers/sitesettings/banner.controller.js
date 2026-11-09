@@ -1,6 +1,5 @@
 import { validationResult } from "express-validator";
 import ApiError from "../../../shared/utils/ApiError.js";
-import ApiResponse from "../../../shared/utils/ApiResponse.js";
 import sendValidationError from "../../../shared/utils/sendValidationError.js";
 import paginate from "../../../shared/utils/paginate.js";
 import { handleFileUploadUpdate } from "../../../shared/utils/fileUpload.js";
@@ -29,7 +28,7 @@ export default class BannerController {
         order: [['page', 'ASC']],
       });
 
-      ApiResponse.success(res, rows, "Fetched successfully", 200, pagination);
+      res.status(200).json({ success: true, statusCode: 200, message: "Fetched successfully", data: rows, pagination: pagination });
     } catch (error) {
       next(error);
     }
@@ -47,7 +46,7 @@ export default class BannerController {
 
       if (!record) throw ApiError.notFound("Banner not found");
 
-      ApiResponse.success(res, record);
+      res.status(200).json({ success: true, statusCode: 200, message: 'Success', data: record });
     } catch (error) {
       next(error);
     }
@@ -74,7 +73,7 @@ export default class BannerController {
       await handleFileUploadUpdate(req, record, MEDIA_FIELDS);
       await record.update(req.body);
 
-      ApiResponse.success(res, record, "Banner updated");
+      res.status(200).json({ success: true, statusCode: 200, message: "Banner updated", data: record });
     } catch (error) {
       await cleanupUploads(req, MEDIA_FIELDS, "banners");
       next(error);

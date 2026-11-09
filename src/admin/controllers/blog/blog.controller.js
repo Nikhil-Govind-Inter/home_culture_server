@@ -1,6 +1,5 @@
 import { validationResult } from 'express-validator';
 import ApiError from '../../../shared/utils/ApiError.js';
-import ApiResponse from '../../../shared/utils/ApiResponse.js';
 import sendValidationError from '../../../shared/utils/sendValidationError.js';
 import paginate from '../../../shared/utils/paginate.js';
 import slugify from '../../../shared/utils/slugify.js';
@@ -16,9 +15,9 @@ const { Blog } = models;
 export default class BlogController {
   static async getAll(req, res, next) {
     try {
-      const { page, limit, status } = req.query;
-      const { rows, meta } = await paginate(Blog, { page, limit, where: status ? { status } : {} });
-      ApiResponse.success(res, rows, 'Fetched successfully', 200, meta);
+      const { page, limit } = req.query;
+      const { rows, meta } = await paginate(Blog, { page, limit });
+      res.status(200).json({ success: true, statusCode: 200, message: 'Fetched successfully', data: rows, pagination: meta });
     } catch (error) {
       next(error);
     }
@@ -32,7 +31,7 @@ export default class BlogController {
       const { id } = req.params;
       const record = await Blog.findByPk(id);
       if (!record) throw ApiError.notFound('Blog not found');
-      ApiResponse.success(res, record);
+      res.status(200).json({ success: true, statusCode: 200, message: 'Success', data: record });
     } catch (error) {
       next(error);
     }
@@ -50,7 +49,7 @@ export default class BlogController {
       const data = { ...req.body };
       if (!data.slug) data.slug = slugify(data.title);
       const record = await Blog.create(data);
-      ApiResponse.created(res, record, 'Blog created');
+      res.status(201).json({ success: true, statusCode: 201, message: 'Blog created', data: record });
     } catch (error) {
       await deleteUpload(uploadedPath(req, 'image', 'blogs'));
       next(error);
@@ -74,7 +73,7 @@ export default class BlogController {
         changes.slug = slugify(changes.title);
       }
       await record.update(changes);
-      ApiResponse.success(res, record, 'Blog updated');
+      res.status(200).json({ success: true, statusCode: 200, message: 'Blog updated', data: record });
     } catch (error) {
       await deleteUpload(uploadedPath(req, 'image', 'blogs'));
       next(error);
@@ -90,7 +89,7 @@ export default class BlogController {
       const record = await Blog.findByPk(id);
       if (!record) throw ApiError.notFound('Blog not found');
       await record.destroy(); // soft delete
-      ApiResponse.success(res, { id }, 'Blog deleted');
+      res.status(200).json({ success: true, statusCode: 200, message: 'Blog deleted', data: { id } });
     } catch (error) {
       next(error);
     }

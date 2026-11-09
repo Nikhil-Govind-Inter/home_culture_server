@@ -1,6 +1,5 @@
 import { validationResult } from 'express-validator';
 import ApiError from '../../../shared/utils/ApiError.js';
-import ApiResponse from '../../../shared/utils/ApiResponse.js';
 import sendValidationError from '../../../shared/utils/sendValidationError.js';
 import paginate from '../../../shared/utils/paginate.js';
 import {
@@ -23,21 +22,20 @@ export const MEDIA_FIELDS = ['icon_media_path'];
 export default class AboutHighlightController {
   static async getAll(req, res, next) {
     try {
-      const { page, limit, search, status } = req.query;
+      const { page, limit, search } = req.query;
 
       const { rows, pagination } = await paginate(AboutHighlight, {
         page,
         limit,
         search,
         searchFields: ['title', 'description'],
-        where: status === undefined ? {} : { status: status === 'true' },
         order: [
           ['sort_order', 'ASC'],
           ['id', 'ASC'],
         ],
       });
 
-      ApiResponse.success(res, rows, 'Fetched successfully', 200, pagination);
+      res.status(200).json({ success: true, statusCode: 200, message: 'Fetched successfully', data: rows, pagination: pagination });
     } catch (error) {
       next(error);
     }
@@ -52,7 +50,7 @@ export default class AboutHighlightController {
       const record = await AboutHighlight.findByPk(req.params.id);
       if (!record) throw ApiError.notFound('About highlight not found');
 
-      ApiResponse.success(res, record);
+      res.status(200).json({ success: true, statusCode: 200, message: 'Success', data: record });
     } catch (error) {
       next(error);
     }
@@ -78,7 +76,7 @@ export default class AboutHighlightController {
       handleFileUploadStore(req, MEDIA_FIELDS);
       const record = await AboutHighlight.create(req.body);
 
-      ApiResponse.created(res, record, 'About highlight created');
+      res.status(201).json({ success: true, statusCode: 201, message: 'About highlight created', data: record });
     } catch (error) {
       await cleanupUploads(req, MEDIA_FIELDS, FOLDER);
       next(error);
@@ -104,7 +102,7 @@ export default class AboutHighlightController {
       await handleFileUploadUpdate(req, record, MEDIA_FIELDS);
       await record.update(req.body);
 
-      ApiResponse.success(res, record, 'About highlight updated');
+      res.status(200).json({ success: true, statusCode: 200, message: 'About highlight updated', data: record });
     } catch (error) {
       await cleanupUploads(req, MEDIA_FIELDS, FOLDER);
       next(error);
@@ -122,7 +120,7 @@ export default class AboutHighlightController {
       if (!record) throw ApiError.notFound('About highlight not found');
 
       await record.destroy(); // soft delete
-      ApiResponse.success(res, { id }, 'About highlight deleted');
+      res.status(200).json({ success: true, statusCode: 200, message: 'About highlight deleted', data: { id } });
     } catch (error) {
       next(error);
     }

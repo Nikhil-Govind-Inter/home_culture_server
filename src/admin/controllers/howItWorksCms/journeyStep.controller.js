@@ -1,6 +1,5 @@
 import { validationResult } from "express-validator";
 import ApiError from "../../../shared/utils/ApiError.js";
-import ApiResponse from "../../../shared/utils/ApiResponse.js";
 import sendValidationError from "../../../shared/utils/sendValidationError.js";
 import paginate from "../../../shared/utils/paginate.js";
 import { validateId } from "../../validations/common.validation.js";
@@ -16,21 +15,20 @@ export default class JourneyStepController {
   static async getAll(req, res, next) {
     try {
 
-      const { page, limit, search, status } = req.query;
+      const { page, limit, search } = req.query;
 
       const { rows, pagination } = await paginate(JourneyStep, {
         page,
         limit,
         search,
         searchFields: ["title", "description"],
-        where: status === undefined ? {} : { status: status === "true" },
         order: [
           ["sort_order", "ASC"],
           ["id", "ASC"],
         ],
       });
 
-      ApiResponse.success(res, rows, "Fetched successfully", 200, pagination);
+      res.status(200).json({ success: true, statusCode: 200, message: "Fetched successfully", data: rows, pagination: pagination });
     } catch (error) {
       next(error);
     }
@@ -45,7 +43,7 @@ export default class JourneyStepController {
       const record = await JourneyStep.findByPk(req.params.id);
       if (!record) throw ApiError.notFound("Journey step not found");
 
-      ApiResponse.success(res, record);
+      res.status(200).json({ success: true, statusCode: 200, message: 'Success', data: record });
     } catch (error) {
       next(error);
     }
@@ -64,7 +62,7 @@ export default class JourneyStepController {
 
       const record = await JourneyStep.create(req.body);
 
-      ApiResponse.created(res, record, "Journey step created");
+      res.status(201).json({ success: true, statusCode: 201, message: "Journey step created", data: record });
     } catch (error) {
       next(error);
     }
@@ -83,7 +81,7 @@ export default class JourneyStepController {
 
       await record.update(req.body);
       
-      ApiResponse.success(res, record, "Journey step updated");
+      res.status(200).json({ success: true, statusCode: 200, message: "Journey step updated", data: record });
     } catch (error) {
       next(error);
     }
@@ -100,7 +98,7 @@ export default class JourneyStepController {
       if (!record) throw ApiError.notFound("Journey step not found");
 
       await record.destroy(); // soft delete
-      ApiResponse.success(res, { id }, "Journey step deleted");
+      res.status(200).json({ success: true, statusCode: 200, message: "Journey step deleted", data: { id } });
     } catch (error) {
       next(error);
     }
