@@ -12,6 +12,7 @@ import defineFaqCategory from './faqCms/faqCategory.model.js';
 import defineHowItWorksCms from './howItWorks/howItWorksCms.model.js';
 import defineJourneyStep from './howItWorks/journeyStep.model.js';
 import defineMetaData from './sitesettings/metaData.model.js';
+import definePrivacyPolicy from './privacyPolicy/privacyPolicy.model.js';
 import defineSiteSettings from './sitesettings/siteSettings.model.js';
 import defineSocialMedia from './sitesettings/socialMedia.model.js';
 import defineTestimonial from './howItWorks/testimonial.model.js';
@@ -30,6 +31,7 @@ const models = {
   JourneyStep: defineJourneyStep(sequelize),
   MetaData: defineMetaData(sequelize),
   ContactCms: defineContactCms(sequelize),
+  PrivacyPolicy: definePrivacyPolicy(sequelize),
   SocialMedia: defineSocialMedia(sequelize),
   SiteSettings: defineSiteSettings(sequelize),
   Testimonial: defineTestimonial(sequelize),
