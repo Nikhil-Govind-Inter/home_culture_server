@@ -6,6 +6,9 @@ import defineAdmin from './auth/admin.model.js';
 import defineBanner from './sitesettings/banner.model.js';
 import defineBlog from './blog/blog.model.js';
 import defineContactCms from './contactCms/contactCms.model.js';
+import defineFaq from './faqCms/faq.model.js';
+import defineFaqCms from './faqCms/faqCms.model.js';
+import defineFaqCategory from './faqCms/faqCategory.model.js';
 import defineHowItWorksCms from './howItWorks/howItWorksCms.model.js';
 import defineJourneyStep from './howItWorks/journeyStep.model.js';
 import defineMetaData from './sitesettings/metaData.model.js';
@@ -20,6 +23,9 @@ const models = {
   Admin: defineAdmin(sequelize),
   Banner: defineBanner(sequelize),
   Blog: defineBlog(sequelize),
+  Faq: defineFaq(sequelize),
+  FaqCms: defineFaqCms(sequelize),
+  FaqCategory: defineFaqCategory(sequelize),
   HowItWorksCms: defineHowItWorksCms(sequelize),
   JourneyStep: defineJourneyStep(sequelize),
   MetaData: defineMetaData(sequelize),

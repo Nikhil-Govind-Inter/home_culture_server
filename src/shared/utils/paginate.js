@@ -12,7 +12,7 @@ const buildSearchWhere = (search, fields) => {
 // matches when any of those columns contains the term. It is AND-ed with `where`.
 export default async function paginate(
   model,
-  { page, limit, where = {}, search, searchFields = [], order = [['createdAt', 'DESC']] } = {},
+  { page, limit, where = {}, search, searchFields = [], order = [['createdAt', 'DESC']], include } = {},
 ) {
   const pageNo = Math.max(Number(page) || 1, 1);
   const size = Math.min(Math.max(Number(limit) || 10, 1), 100);
@@ -25,6 +25,7 @@ export default async function paginate(
   const { rows, count } = await model.findAndCountAll({
     where: finalWhere,
     order,
+    ...(include ? { include } : {}),
     limit: size,
     offset: (pageNo - 1) * size,
   });

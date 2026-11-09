@@ -20,4 +20,9 @@ export default class ApiError extends Error {
   static notFound(message = 'Not found') {
     return new ApiError(404, message);
   }
+
+
+  static requiredFieldMissing(fieldName) {
+    return new ApiError(400, `${fieldName} is required`);
+  }
 }
