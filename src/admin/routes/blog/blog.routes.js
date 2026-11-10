@@ -1,12 +1,14 @@
 import express from 'express';
-import BlogController from '../../controllers/blog/blog.controller.js';
+import BlogController, { FOLDER, MEDIA_FIELDS } from '../../controllers/blog/blog.controller.js';
 import authMiddleware from '../../middlewares/auth.middleware.js';
 import { createUploadMiddleware } from '../../middlewares/multer.middleware.js';
 
 const router = express.Router();
 
-const uploadFields = [{ name: 'image', maxCount: 1 }];
-const upload = createUploadMiddleware('blogs', uploadFields);
+const upload = createUploadMiddleware(
+  FOLDER,
+  MEDIA_FIELDS.map((name) => ({ name, maxCount: 1 })),
+);
 
 router.use(authMiddleware());
 router.get('/', BlogController.getAll);

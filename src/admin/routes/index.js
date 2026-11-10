@@ -11,6 +11,7 @@ import socialMediaRoutes from './sitesettings/socialMedia.routes.js';
 
 // Blog
 import blogRoutes from './blog/blog.routes.js';
+import blogCategoryRoutes from './blog/blogCategory.routes.js';
 import blogCmsRoutes from './blog/blogCms.routes.js';
 
 // Contact CMS
@@ -57,6 +58,7 @@ router.use('/social-media', socialMediaRoutes);
 
 // Blog
 router.use('/blogs', blogRoutes);
+router.use('/blog-categories', blogCategoryRoutes);
 router.use('/blog-cms', blogCmsRoutes);
 
 // Contact CMS

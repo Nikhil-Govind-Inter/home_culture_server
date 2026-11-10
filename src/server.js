@@ -2,9 +2,11 @@ import app from './app.js';
 import config from './shared/config/index.js';
 import Database from './shared/config/database.js';
 import logger from './shared/utils/logger.js';
+import seed from './seed.js';
 
 async function bootstrap() {
   await Database.connect();
+  await seed();
 
   const server = app.listen(config.port, () => {
     logger.info(`Server running on port ${config.port} (${config.env})`);

@@ -1,5 +1,4 @@
 import config from './shared/config/index.js';
-import Database from './shared/config/database.js';
 import { models } from './shared/models/index.js';
 import logger from './shared/utils/logger.js';
 import bcrypt from 'bcryptjs';
@@ -49,10 +48,9 @@ const defaultMetaData = [
   meta('How It Works', 'how-it-works', 'How It Works | Home Culture', 'See how booking and hosting works with Home Culture, step by step.', 'how it works, booking, hosting'),
 ];
 
-// Seeds the first admin user, default banners and page metadata: npm run seed
+// Seeds the first admin user, default banners and page metadata.
+// Idempotent (findOrCreate); runs on every server start after the DB is connected.
 async function seed() {
-  await Database.connect();
-
   const { name, email, password } = config.seedAdmin;
   const [, created] = await models.Admin.findOrCreate({
     where: { email },
@@ -79,11 +77,6 @@ async function seed() {
       metaCreated ? `Metadata created: ${data.page_slug}` : `Metadata already exists: ${data.page_slug}`,
     );
   }
-
-  await Database.disconnect();
 }
 
-seed().catch((err) => {
-  logger.error(err);
-  process.exit(1);
-});
+export default seed;
