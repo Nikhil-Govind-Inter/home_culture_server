@@ -14,6 +14,9 @@ import blogRoutes from './blog/blog.routes.js';
 import blogCategoryRoutes from './blog/blogCategory.routes.js';
 import blogCmsRoutes from './blog/blogCms.routes.js';
 
+// Career CMS
+import careerCmsRoutes from './careerCms/careerCms.routes.js';
+
 // Contact CMS
 import contactCmsRoutes from './contactCms/contactCms.routes.js';
 
@@ -60,6 +63,9 @@ router.use('/social-media', socialMediaRoutes);
 router.use('/blogs', blogRoutes);
 router.use('/blog-categories', blogCategoryRoutes);
 router.use('/blog-cms', blogCmsRoutes);
+
+// Career CMS
+router.use('/career-cms', careerCmsRoutes);
 
 // Contact CMS
 router.use('/contact-cms', contactCmsRoutes);

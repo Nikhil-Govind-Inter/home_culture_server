@@ -7,6 +7,7 @@ import defineBanner from './sitesettings/banner.model.js';
 import defineBlog from './blog/blog.model.js';
 import defineBlogCategory from './blog/blogCategory.model.js';
 import defineBlogCms from './blog/blogCms.model.js';
+import defineCareerCms from './careerCms/careerCms.model.js';
 import defineContactCms from './contactCms/contactCms.model.js';
 import defineFaq from './faqCms/faq.model.js';
 import defineFaqCms from './faqCms/faqCms.model.js';
@@ -50,6 +51,7 @@ const models = {
   HowItWorksCms: defineHowItWorksCms(sequelize),
   JourneyStep: defineJourneyStep(sequelize),
   MetaData: defineMetaData(sequelize),
+  CareerCms: defineCareerCms(sequelize),
   ContactCms: defineContactCms(sequelize),
   PrivacyPolicy: definePrivacyPolicy(sequelize),
   SocialMedia: defineSocialMedia(sequelize),

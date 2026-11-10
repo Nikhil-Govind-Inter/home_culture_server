@@ -199,7 +199,6 @@ export default class BlogController {
       const { id } = req.params;
       const record = await Blog.findByPk(id);
       if (!record) throw ApiError.notFound("Blog not found");
-
       await record.destroy(); // soft delete
       res
         .status(200)
