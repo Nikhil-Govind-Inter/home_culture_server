@@ -5,6 +5,7 @@ import defineAboutHighlight from './aboutCms/aboutHighlight.model.js';
 import defineAdmin from './auth/admin.model.js';
 import defineBanner from './sitesettings/banner.model.js';
 import defineBlog from './blog/blog.model.js';
+import defineBlogCms from './blog/blogCms.model.js';
 import defineContactCms from './contactCms/contactCms.model.js';
 import defineFaq from './faqCms/faq.model.js';
 import defineFaqCms from './faqCms/faqCms.model.js';
@@ -32,6 +33,7 @@ const models = {
   Admin: defineAdmin(sequelize),
   Banner: defineBanner(sequelize),
   Blog: defineBlog(sequelize),
+  BlogCms: defineBlogCms(sequelize),
   Faq: defineFaq(sequelize),
   FaqCms: defineFaqCms(sequelize),
   FaqCategory: defineFaqCategory(sequelize),
