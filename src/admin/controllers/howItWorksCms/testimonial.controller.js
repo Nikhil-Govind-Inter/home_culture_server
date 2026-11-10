@@ -68,8 +68,6 @@ export default class TestimonialController {
 
 
       // Media paths come from uploaded files only, never from body values.
-      const { id: _id, ...data } = req.body;
-      req.body = data;
       MEDIA_FIELDS.forEach((fields) => delete req.body[fields]);
 
       handleFileUploadStore(req, MEDIA_FIELDS);

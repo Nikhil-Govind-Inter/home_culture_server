@@ -10,6 +10,7 @@ async function bootstrap() {
     logger.info(`Server running on port ${config.port} (${config.env})`);
   });
 
+
   const shutdown = async () => {
     logger.info('Shutting down server...');
 

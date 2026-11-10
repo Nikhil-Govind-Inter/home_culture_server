@@ -9,6 +9,14 @@ import defineContactCms from './contactCms/contactCms.model.js';
 import defineFaq from './faqCms/faq.model.js';
 import defineFaqCms from './faqCms/faqCms.model.js';
 import defineFaqCategory from './faqCms/faqCategory.model.js';
+import defineExperienceCms from './experienceCms/experienceCms.model.js';
+import defineExperienceHighlight from './experienceCms/experienceHighlight.model.js';
+import defineExperienceFaq from './experienceCms/experienceFaq.model.js';
+import defineExperienceFeature from './experienceCms/experienceFeature.model.js';
+import defineExperienceTimeline from './experienceCms/experienceTimeline.model.js';
+import defineLocation from './experienceCms/location.model.js';
+import defineBookingProcess from './experienceCms/bookingProcess.model.js';
+import defineJourneyProcess from './experienceCms/journeyProcess.model.js';
 import defineHowItWorksCms from './howItWorks/howItWorksCms.model.js';
 import defineJourneyStep from './howItWorks/journeyStep.model.js';
 import defineMetaData from './sitesettings/metaData.model.js';
@@ -27,6 +35,14 @@ const models = {
   Faq: defineFaq(sequelize),
   FaqCms: defineFaqCms(sequelize),
   FaqCategory: defineFaqCategory(sequelize),
+  ExperienceCms: defineExperienceCms(sequelize),
+  ExperienceHighlight: defineExperienceHighlight(sequelize),
+  ExperienceFaq: defineExperienceFaq(sequelize),
+  ExperienceFeature: defineExperienceFeature(sequelize),
+  ExperienceTimeline: defineExperienceTimeline(sequelize),
+  Location: defineLocation(sequelize),
+  BookingProcess: defineBookingProcess(sequelize),
+  JourneyProcess: defineJourneyProcess(sequelize),
   HowItWorksCms: defineHowItWorksCms(sequelize),
   JourneyStep: defineJourneyStep(sequelize),
   MetaData: defineMetaData(sequelize),

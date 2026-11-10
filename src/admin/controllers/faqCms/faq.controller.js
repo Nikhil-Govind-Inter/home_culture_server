@@ -88,7 +88,6 @@ export default class FaqController {
       const errors = validationResult(req);
       if (!errors.isEmpty()) return sendValidationError(res, errors);
 
-      const { id: _id, ...data } = req.body;
       await assertCategoryExists(data.category_id);
       const record = await Faq.create(data);
 
@@ -116,7 +115,6 @@ export default class FaqController {
       const record = await Faq.findByPk(req.params.id);
       if (!record) throw ApiError.notFound("FAQ not found");
 
-      const { id: _id, ...data } = req.body;
       if (data.category_id !== undefined)
         await assertCategoryExists(data.category_id);
       await record.update(data);

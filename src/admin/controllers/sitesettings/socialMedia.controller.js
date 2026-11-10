@@ -72,8 +72,6 @@ export default class SocialMediaController {
       }
 
       // Media paths come from uploaded files only, never from body values.
-      const { id: _id, ...data } = req.body;
-      req.body = data;
       MEDIA_FIELDS.forEach((fields) => delete req.body[fields]);
 
       handleFileUploadStore(req, MEDIA_FIELDS);
@@ -85,6 +83,7 @@ export default class SocialMediaController {
       next(error);
     }
   }
+
 
   static async update(req, res, next) {
     try {
@@ -100,8 +99,6 @@ export default class SocialMediaController {
 
       // Protected keys and media paths can't be set from plain body values;
       // media paths are filled in by handleFileUploadUpdate from uploaded files.
-      const { id: _id, ...data } = req.body;
-      req.body = data;
       MEDIA_FIELDS.forEach((fields) => delete req.body[fields]);
 
       await handleFileUploadUpdate(req, record, MEDIA_FIELDS);

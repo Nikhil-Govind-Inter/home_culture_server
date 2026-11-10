@@ -57,9 +57,6 @@ export default class JourneyStepController {
         return sendValidationError(res, errors);
       }
 
-      const { id: _id, ...data } = req.body;
-      req.body = data;
-
       const record = await JourneyStep.create(req.body);
 
       res.status(201).json({ success: true, statusCode: 201, message: "Journey step created", data: record });

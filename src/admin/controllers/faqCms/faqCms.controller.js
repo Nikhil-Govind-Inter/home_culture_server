@@ -21,6 +21,7 @@ export default class FaqCmsController {
   static async get(req, res, next) {
     try {
       const record = await FaqCms.findOne();
+      if (!record) throw ApiError.notFound('FAQ CMS not found');
       res.status(200).json({ success: true, statusCode: 200, message: 'Success', data: record });
     } catch (error) {
       next(error);
