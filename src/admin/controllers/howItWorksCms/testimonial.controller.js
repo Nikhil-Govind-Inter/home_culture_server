@@ -11,7 +11,7 @@ import { validateId } from "../../validations/common.validation.js";
 import {
   validationRequestPost,
   validationRequestPut,
-} from "../../validations/testimonial.validation.js";
+} from "../../validations/howItWorksCms/testimonial.validation.js";
 import { models } from "../../../shared/models/index.js";
 
 const { Testimonial } = models;
@@ -29,7 +29,7 @@ export default class TestimonialController {
         page,
         limit,
         search,
-        searchFields: ["name", "designation", "quotes"],
+        searchFields: ["name", "designation"],
         order: [
           ["sort_order", "ASC"],
           ["id", "ASC"],

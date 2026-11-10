@@ -1,6 +1,6 @@
 import { validationResult } from 'express-validator';
 import sendValidationError from '../../../shared/utils/sendValidationError.js';
-import { validationRequestPost } from '../../validations/contactCms.validation.js';
+import { validationRequestPost } from '../../validations/contactCms/contactCms.validation.js';
 import { models } from '../../../shared/models/index.js';
 
 const { ContactCms } = models;

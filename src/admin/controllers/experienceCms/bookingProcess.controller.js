@@ -6,7 +6,7 @@ import { validateId } from "../../validations/common.validation.js";
 import {
   validationRequestPost,
   validationRequestPut,
-} from "../../validations/bookingProcess.validation.js";
+} from "../../validations/experienceCms/bookingProcess.validation.js";
 import { models } from "../../../shared/models/index.js";
 
 const { BookingProcess } = models;

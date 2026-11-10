@@ -6,7 +6,7 @@ import { validateId } from "../../validations/common.validation.js";
 import {
   validationRequestPost,
   validationRequestPut,
-} from "../../validations/journeyStep.validation.js";
+} from "../../validations/howItWorksCms/journeyStep.validation.js";
 import { models } from "../../../shared/models/index.js";
 
 const { JourneyStep } = models;

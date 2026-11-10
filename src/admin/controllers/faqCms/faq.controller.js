@@ -6,7 +6,7 @@ import { validateId } from "../../validations/common.validation.js";
 import {
   validationRequestPost,
   validationRequestPut,
-} from "../../validations/faq.validation.js";
+} from "../../validations/faqCms/faq.validation.js";
 import { models } from "../../../shared/models/index.js";
 
 const { Faq, FaqCategory } = models;

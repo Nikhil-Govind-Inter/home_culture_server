@@ -11,7 +11,7 @@ import { validateId } from "../../validations/common.validation.js";
 import {
   validationRequestPost,
   validationRequestPut,
-} from "../../validations/experienceTimeline.validation.js";
+} from "../../validations/experienceCms/experienceTimeline.validation.js";
 import { models } from "../../../shared/models/index.js";
 
 const { ExperienceTimeline } = models;

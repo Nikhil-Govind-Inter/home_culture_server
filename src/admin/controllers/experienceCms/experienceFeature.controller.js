@@ -11,7 +11,7 @@ import { validateId } from "../../validations/common.validation.js";
 import {
   validationRequestPost,
   validationRequestPut,
-} from "../../validations/experienceFeature.validation.js";
+} from "../../validations/experienceCms/experienceFeature.validation.js";
 import { models } from "../../../shared/models/index.js";
 
 const { ExperienceFeature } = models;

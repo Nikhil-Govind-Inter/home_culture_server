@@ -7,7 +7,7 @@ import { cleanupUploads } from "../../../shared/utils/uploads.js";
 import { validateId } from "../../validations/common.validation.js";
 import {
   validationRequestPut,
-} from "../../validations/banner.validation.js";
+} from "../../validations/sitesettings/banner.validation.js";
 import { models } from "../../../shared/models/index.js";
 
 const { Banner } = models;

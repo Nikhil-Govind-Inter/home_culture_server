@@ -6,7 +6,7 @@ import { validateId } from "../../validations/common.validation.js";
 import {
   validationRequestPost,
   validationRequestPut,
-} from "../../validations/location.validation.js";
+} from "../../validations/experienceCms/location.validation.js";
 import { models } from "../../../shared/models/index.js";
 
 const { Location } = models;

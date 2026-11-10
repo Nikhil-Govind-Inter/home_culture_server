@@ -6,7 +6,7 @@ import sendMail from '../../../shared/utils/mailer.js';
 import config from '../../../shared/config/index.js';
 import ApiError from '../../../shared/utils/ApiError.js';
 import sendValidationError from '../../../shared/utils/sendValidationError.js';
-import { login, forgotPassword, verifyOtp, resetPassword } from '../../validations/auth.validation.js';
+import { login, forgotPassword, verifyOtp, resetPassword } from '../../validations/auth/auth.validation.js';
 import { models } from '../../../shared/models/index.js';
 
 const { Admin } = models;

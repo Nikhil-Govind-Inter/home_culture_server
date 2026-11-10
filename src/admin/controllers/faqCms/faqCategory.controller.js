@@ -8,7 +8,7 @@ import { validateId } from "../../validations/common.validation.js";
 import {
   validationRequestPost,
   validationRequestPut,
-} from "../../validations/faqCategory.validation.js";
+} from "../../validations/faqCms/faqCategory.validation.js";
 import { models } from "../../../shared/models/index.js";
 
 const { FaqCategory, Faq } = models;

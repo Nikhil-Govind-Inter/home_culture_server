@@ -4,7 +4,7 @@ import sendValidationError from "../../../shared/utils/sendValidationError.js";
 import paginate from "../../../shared/utils/paginate.js";import { validateId } from "../../validations/common.validation.js";
 import {
   validationRequestPut,
-} from "../../validations/metaData.validation.js";
+} from "../../validations/sitesettings/metaData.validation.js";
 import { models } from "../../../shared/models/index.js";
 
 const { MetaData } = models;

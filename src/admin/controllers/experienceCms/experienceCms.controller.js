@@ -3,7 +3,7 @@ import ApiError from '../../../shared/utils/ApiError.js';
 import sendValidationError from '../../../shared/utils/sendValidationError.js';
 import { handleFileUploadStore, handleFileUploadUpdate } from '../../../shared/utils/fileUpload.js';
 import { cleanupUploads } from '../../../shared/utils/uploads.js';
-import { validationRequestPut } from '../../validations/experienceCms.validation.js';
+import { validationRequestPut } from '../../validations/experienceCms/experienceCms.validation.js';
 import { models } from '../../../shared/models/index.js';
 
 const { ExperienceCms } = models;

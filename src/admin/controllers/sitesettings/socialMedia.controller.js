@@ -11,7 +11,7 @@ import { validateId } from "../../validations/common.validation.js";
 import {
   validationRequestPost,
   validationRequestPut,
-} from "../../validations/socialMedia.validation.js";
+} from "../../validations/sitesettings/socialMedia.validation.js";
 import { models } from "../../../shared/models/index.js";
 
 const { SocialMedia } = models;

@@ -7,7 +7,7 @@ import uploadedPath from '../../../shared/utils/uploadedPath.js';
 import deleteUpload from '../../../shared/utils/deleteUpload.js';
 import { handleFileUploadStore, handleFileUploadUpdate } from '../../../shared/utils/fileUpload.js';
 import { validateId } from '../../validations/common.validation.js';
-import { validationRequestPost, validationRequestPut } from '../../validations/blog.validation.js';
+import { validationRequestPost, validationRequestPut } from '../../validations/blog/blog.validation.js';
 import { models } from '../../../shared/models/index.js';
 
 const { Blog } = models;

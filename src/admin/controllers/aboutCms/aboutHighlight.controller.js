@@ -11,7 +11,7 @@ import { validateId } from '../../validations/common.validation.js';
 import {
   validationRequestPost,
   validationRequestPut,
-} from '../../validations/aboutHighlight.validation.js';
+} from '../../validations/aboutCms/aboutHighlight.validation.js';
 import { models } from '../../../shared/models/index.js';
 
 const { AboutHighlight } = models;

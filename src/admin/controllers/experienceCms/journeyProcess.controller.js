@@ -6,7 +6,7 @@ import { validateId } from "../../validations/common.validation.js";
 import {
   validationRequestPost,
   validationRequestPut,
-} from "../../validations/journeyProcess.validation.js";
+} from "../../validations/experienceCms/journeyProcess.validation.js";
 import { models } from "../../../shared/models/index.js";
 
 const { JourneyProcess } = models;
