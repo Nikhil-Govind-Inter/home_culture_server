@@ -19,8 +19,8 @@ export default (sequelize) => {
       life_at_home_status: BOOLEAN(),
       life_at_home_header_title: STRING(),
       life_at_home_title: STRING(),
-      life_at_home_quote: STRING(),
-      life_at_home_description: STRING(),
+      life_at_home_quote: TEXT(),
+      life_at_home_description: TEXT(),
       life_at_home_skills_title: STRING(),
 
       // Why join us section

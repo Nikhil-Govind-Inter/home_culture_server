@@ -1,179 +1,75 @@
 import { body } from 'express-validator';
 
+// Common validators shared by the fields below.
+const statusField = (field, label) =>
+  body(field)
+    .optional()
+    .isBoolean().withMessage(`${label} status must be a boolean`)
+    .toBoolean();
+
+const requiredString = (field, label, max = 255) =>
+  body(field)
+    .isString().withMessage(`${label} is required`)
+    .trim()
+    .notEmpty().withMessage(`${label} is required`)
+    .isLength({ max }).withMessage(`${label} must be at most ${max} characters`);
+
+// For TEXT columns: required, no length limit.
+const requiredText = (field, label) =>
+  body(field)
+    .isString().withMessage(`${label} is required`)
+    .trim()
+    .notEmpty().withMessage(`${label} is required`);
+
+// Rejects empty HTML such as <p></p>.
+const requiredRichText = (field, label) =>
+  requiredText(field, label)
+    .custom((value) => value.replace(/<[^>]*>/g, '').replace(/&nbsp;|\s/g, '').length > 0)
+    .withMessage(`${label} is required`);
+
+
+
+
+    
 export const validationRequestPut = [
   // Life at home section
-  body('life_at_home_status')
-    .optional()
-    .isBoolean().withMessage('Life at home status must be a boolean')
-    .toBoolean(),
-
-  body('life_at_home_header_title')
-    .isString().withMessage('Life at home header title is required')
-    .trim()
-    .notEmpty().withMessage('Life at home header title is required')
-    .isLength({ max: 255 }).withMessage('Life at home header title must be at most 255 characters'),
-
-  body('life_at_home_title')
-    .isString().withMessage('Life at home title is required')
-    .trim()
-    .notEmpty().withMessage('Life at home title is required')
-    .isLength({ max: 255 }).withMessage('Life at home title must be at most 255 characters'),
-
-  body('life_at_home_quote')
-    .isString().withMessage('Life at home quote is required')
-    .trim()
-    .notEmpty().withMessage('Life at home quote is required')
-    .isLength({ max: 255 }).withMessage('Life at home quote must be at most 255 characters'),
-
-  body('life_at_home_description')
-    .isString().withMessage('Life at home description is required')
-    .trim()
-    .notEmpty().withMessage('Life at home description is required')
-    .isLength({ max: 255 }).withMessage('Life at home description must be at most 255 characters'),
-
-  body('life_at_home_skills_title')
-    .isString().withMessage('Life at home skills title is required')
-    .trim()
-    .notEmpty().withMessage('Life at home skills title is required')
-    .isLength({ max: 255 }).withMessage('Life at home skills title must be at most 255 characters'),
+  statusField('life_at_home_status', 'Life at home'),
+  requiredString('life_at_home_header_title', 'Life at home header title'),
+  requiredString('life_at_home_title', 'Life at home title'),
+  requiredText('life_at_home_quote', 'Life at home quote'),
+  requiredText('life_at_home_description', 'Life at home description'),
+  requiredString('life_at_home_skills_title', 'Life at home skills title'),
 
   // Why join us section
-  body('why_join_us_status')
-    .optional()
-    .isBoolean().withMessage('Why join us status must be a boolean')
-    .toBoolean(),
-
-  body('why_join_us_header_title')
-    .isString().withMessage('Why join us header title is required')
-    .trim()
-    .notEmpty().withMessage('Why join us header title is required')
-    .isLength({ max: 100 }).withMessage('Why join us header title must be at most 100 characters'),
-
-  body('why_join_us_title')
-    .isString().withMessage('Why join us title is required')
-    .trim()
-    .notEmpty().withMessage('Why join us title is required')
-    .isLength({ max: 100 }).withMessage('Why join us title must be at most 100 characters'),
-
-  body('why_join_us_description')
-    .isString().withMessage('Why join us description is required')
-    .trim()
-    .notEmpty().withMessage('Why join us description is required')
-    .isLength({ max: 255 }).withMessage('Why join us description must be at most 255 characters'),
+  statusField('why_join_us_status', 'Why join us'),
+  requiredString('why_join_us_header_title', 'Why join us header title', 100),
+  requiredString('why_join_us_title', 'Why join us title', 100),
+  requiredString('why_join_us_description', 'Why join us description'),
 
   // Media alts
-  body('media_one_alt')
-    .isString().withMessage('Media one alt is required')
-    .trim()
-    .notEmpty().withMessage('Media one alt is required')
-    .isLength({ max: 255 }).withMessage('Media one alt must be at most 255 characters'),
-
-  body('media_two_alt')
-    .isString().withMessage('Media two alt is required')
-    .trim()
-    .notEmpty().withMessage('Media two alt is required')
-    .isLength({ max: 255 }).withMessage('Media two alt must be at most 255 characters'),
-
-  body('media_three_alt')
-    .isString().withMessage('Media three alt is required')
-    .trim()
-    .notEmpty().withMessage('Media three alt is required')
-    .isLength({ max: 255 }).withMessage('Media three alt must be at most 255 characters'),
-
-  body('media_four_alt')
-    .isString().withMessage('Media four alt is required')
-    .trim()
-    .notEmpty().withMessage('Media four alt is required')
-    .isLength({ max: 255 }).withMessage('Media four alt must be at most 255 characters'),
+  requiredString('media_one_alt', 'Media one alt'),
+  requiredString('media_two_alt', 'Media two alt'),
+  requiredString('media_three_alt', 'Media three alt'),
+  requiredString('media_four_alt', 'Media four alt'),
 
   // Current opening section
-  body('current_opening_status')
-    .optional()
-    .isBoolean().withMessage('Current opening status must be a boolean')
-    .toBoolean(),
-
-  body('current_opening_header_title')
-    .isString().withMessage('Current opening header title is required')
-    .trim()
-    .notEmpty().withMessage('Current opening header title is required')
-    .isLength({ max: 100 }).withMessage('Current opening header title must be at most 100 characters'),
-
-  body('current_opening_title')
-    .isString().withMessage('Current opening title is required')
-    .trim()
-    .notEmpty().withMessage('Current opening title is required')
-    .isLength({ max: 100 }).withMessage('Current opening title must be at most 100 characters'),
-
-  body('current_opening_description')
-    .isString().withMessage('Current opening description is required')
-    .trim()
-    .notEmpty().withMessage('Current opening description is required')
-    .isLength({ max: 255 }).withMessage('Current opening description must be at most 255 characters'),
+  statusField('current_opening_status', 'Current opening'),
+  requiredString('current_opening_header_title', 'Current opening header title', 100),
+  requiredString('current_opening_title', 'Current opening title', 100),
+  requiredString('current_opening_description', 'Current opening description'),
 
   // Testimonial section
-  body('testimonial_status')
-    .optional()
-    .isBoolean().withMessage('Testimonial status must be a boolean')
-    .toBoolean(),
-
-  body('testimonial_header_title')
-    .isString().withMessage('Testimonial header title is required')
-    .trim()
-    .notEmpty().withMessage('Testimonial header title is required')
-    .isLength({ max: 100 }).withMessage('Testimonial header title must be at most 100 characters'),
-
-  body('testimonial_title')
-    .isString().withMessage('Testimonial title is required')
-    .trim()
-    .notEmpty().withMessage('Testimonial title is required')
-    .isLength({ max: 100 }).withMessage('Testimonial title must be at most 100 characters'),
-
-  body('testimonial_description')
-    .isString().withMessage('Testimonial description is required')
-    .trim()
-    .notEmpty().withMessage('Testimonial description is required')
-    .isLength({ max: 255 }).withMessage('Testimonial description must be at most 255 characters'),
+  statusField('testimonial_status', 'Testimonial'),
+  requiredString('testimonial_header_title', 'Testimonial header title', 100),
+  requiredString('testimonial_title', 'Testimonial title', 100),
+  requiredString('testimonial_description', 'Testimonial description'),
 
   // CTA section
-  body('cta_status')
-    .optional()
-    .isBoolean().withMessage('CTA status must be a boolean')
-    .toBoolean(),
-
-  body('cta_media_alt')
-    .isString().withMessage('CTA media alt is required')
-    .trim()
-    .notEmpty().withMessage('CTA media alt is required')
-    .isLength({ max: 255 }).withMessage('CTA media alt must be at most 255 characters'),
-
-  body('cta_header_title')
-    .isString().withMessage('CTA header title is required')
-    .trim()
-    .notEmpty().withMessage('CTA header title is required')
-    .isLength({ max: 255 }).withMessage('CTA header title must be at most 255 characters'),
-
-  body('cta_title')
-    .isString().withMessage('CTA title is required')
-    .trim()
-    .notEmpty().withMessage('CTA title is required')
-    .isLength({ max: 255 }).withMessage('CTA title must be at most 255 characters'),
-
-  body('cta_description')
-    .isString().withMessage('CTA description is required')
-    .trim()
-    .notEmpty().withMessage('CTA description is required')
-    .custom((value) => value.replace(/<[^>]*>/g, '').replace(/&nbsp;|\s/g, '').length > 0)
-    .withMessage('CTA description is required'),
-
-  body('cta_button_text')
-    .isString().withMessage('CTA button text is required')
-    .trim()
-    .notEmpty().withMessage('CTA button text is required')
-    .isLength({ max: 255 }).withMessage('CTA button text must be at most 255 characters'),
-
-  body('cta_button_link')
-    .isString().withMessage('CTA button link is required')
-    .trim()
-    .notEmpty().withMessage('CTA button link is required')
-    .isLength({ max: 255 }).withMessage('CTA button link must be at most 255 characters'),
+  statusField('cta_status', 'CTA'),
+  requiredString('cta_media_alt', 'CTA media alt'),
+  requiredString('cta_header_title', 'CTA header title'),
+  requiredString('cta_title', 'CTA title'),
+  requiredRichText('cta_description', 'CTA description'),
+  requiredString('cta_button_text', 'CTA button text'),
+  requiredString('cta_button_link', 'CTA button link'),
 ];
