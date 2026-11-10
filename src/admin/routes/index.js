@@ -16,6 +16,8 @@ import blogCmsRoutes from './blog/blogCms.routes.js';
 
 // Career CMS
 import careerCmsRoutes from './careerCms/careerCms.routes.js';
+import careerVisionRoutes from './careerCms/careerVision.routes.js';
+import careerBenefitRoutes from './careerCms/careerBenefit.routes.js';
 
 // Contact CMS
 import contactCmsRoutes from './contactCms/contactCms.routes.js';
@@ -66,6 +68,8 @@ router.use('/blog-cms', blogCmsRoutes);
 
 // Career CMS
 router.use('/career-cms', careerCmsRoutes);
+router.use('/career-visions', careerVisionRoutes);
+router.use('/career-benefits', careerBenefitRoutes);
 
 // Contact CMS
 router.use('/contact-cms', contactCmsRoutes);
