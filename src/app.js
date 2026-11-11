@@ -20,6 +20,7 @@ app.use(helmet());
 const allowedOrigins = [
   "http://localhost:3000",
   "http://localhost:8080",
+  "https://admin-home-culture.netlify.app"
 ];
 
 
