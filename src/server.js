@@ -6,7 +6,7 @@ import seed from './seed.js';
 
 async function bootstrap() {
   await Database.connect();
-  // await seed();
+  await seed();
 
   const server = app.listen(config.port, () => {
     logger.info(`Server running on port ${config.port} (${config.env})`);
