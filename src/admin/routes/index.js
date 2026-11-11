@@ -19,6 +19,13 @@ import careerCmsRoutes from './careerCms/careerCms.routes.js';
 import careerVisionRoutes from './careerCms/careerVision.routes.js';
 import careerBenefitRoutes from './careerCms/careerBenefit.routes.js';
 
+import departmentRoutes from './careerCms/department.routes.js';
+import jobRoutes from './careerCms/job.routes.js';
+
+// Masters
+import stateRoutes from './masters/state.routes.js';
+import cityRoutes from './masters/city.routes.js';
+
 // Contact CMS
 import contactCmsRoutes from './contactCms/contactCms.routes.js';
 
@@ -70,6 +77,12 @@ router.use('/blog-cms', blogCmsRoutes);
 router.use('/career-cms', careerCmsRoutes);
 router.use('/career-visions', careerVisionRoutes);
 router.use('/career-benefits', careerBenefitRoutes);
+router.use('/departments', departmentRoutes);
+router.use('/jobs', jobRoutes);
+
+// Masters
+router.use('/states', stateRoutes);
+router.use('/cities', cityRoutes);
 
 // Contact CMS
 router.use('/contact-cms', contactCmsRoutes);

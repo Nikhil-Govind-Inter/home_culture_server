@@ -1,0 +1,738 @@
+{
+  "info": {
+    "name": "Home Culture - Masters, Departments, Jobs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{authToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "home_culture",
+      "value": "http://localhost:5000/api"
+    },
+    {
+      "key": "authToken",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{home_culture}}/backend/auth/login",
+          "host": [
+            "{{home_culture}}"
+          ],
+          "path": [
+            "backend",
+            "auth",
+            "login"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          },
+          "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"password\"\n}"
+        },
+        "auth": {
+          "type": "noauth"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const d = pm.response.json().data || {};",
+              "const t = d.token || d.accessToken;",
+              "if (t) pm.collectionVariables.set('authToken', t);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "States",
+      "item": [
+        {
+          "name": "List States",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{home_culture}}/backend/states?page=1&limit=10&search=",
+              "host": [
+                "{{home_culture}}"
+              ],
+              "path": [
+                "backend",
+                "states"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "search",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Active States",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{home_culture}}/backend/states/active",
+              "host": [
+                "{{home_culture}}"
+              ],
+              "path": [
+                "backend",
+                "states",
+                "active"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get States",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{home_culture}}/backend/states/1",
+              "host": [
+                "{{home_culture}}"
+              ],
+              "path": [
+                "backend",
+                "states",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create States",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{home_culture}}/backend/states",
+              "host": [
+                "{{home_culture}}"
+              ],
+              "path": [
+                "backend",
+                "states"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"name\": \"Kerala\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Update States",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{home_culture}}/backend/states/1",
+              "host": [
+                "{{home_culture}}"
+              ],
+              "path": [
+                "backend",
+                "states",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"name\": \"Kerala State\",\n  \"status\": true,\n  \"sort_order\": 1\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete States",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{home_culture}}/backend/states/1",
+              "host": [
+                "{{home_culture}}"
+              ],
+              "path": [
+                "backend",
+                "states",
+                "1"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cities",
+      "item": [
+        {
+          "name": "List Cities",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{home_culture}}/backend/cities?page=1&limit=10&search=",
+              "host": [
+                "{{home_culture}}"
+              ],
+              "path": [
+                "backend",
+                "cities"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "search",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "List Cities (filtered)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{home_culture}}/backend/cities?state_id=1",
+              "host": [
+                "{{home_culture}}"
+              ],
+              "path": [
+                "backend",
+                "cities"
+              ],
+              "query": [
+                {
+                  "key": "state_id",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Active Cities",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{home_culture}}/backend/cities/active",
+              "host": [
+                "{{home_culture}}"
+              ],
+              "path": [
+                "backend",
+                "cities",
+                "active"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Cities",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{home_culture}}/backend/cities/1",
+              "host": [
+                "{{home_culture}}"
+              ],
+              "path": [
+                "backend",
+                "cities",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Cities",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{home_culture}}/backend/cities",
+              "host": [
+                "{{home_culture}}"
+              ],
+              "path": [
+                "backend",
+                "cities"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"state_id\": 1,\n  \"name\": \"Kochi\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Cities",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{home_culture}}/backend/cities/1",
+              "host": [
+                "{{home_culture}}"
+              ],
+              "path": [
+                "backend",
+                "cities",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"name\": \"Cochin\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Cities",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{home_culture}}/backend/cities/1",
+              "host": [
+                "{{home_culture}}"
+              ],
+              "path": [
+                "backend",
+                "cities",
+                "1"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Departments",
+      "item": [
+        {
+          "name": "List Departments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{home_culture}}/backend/departments?page=1&limit=10&search=",
+              "host": [
+                "{{home_culture}}"
+              ],
+              "path": [
+                "backend",
+                "departments"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "search",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Active Departments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{home_culture}}/backend/departments/active",
+              "host": [
+                "{{home_culture}}"
+              ],
+              "path": [
+                "backend",
+                "departments",
+                "active"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Departments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{home_culture}}/backend/departments/1",
+              "host": [
+                "{{home_culture}}"
+              ],
+              "path": [
+                "backend",
+                "departments",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Departments",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{home_culture}}/backend/departments",
+              "host": [
+                "{{home_culture}}"
+              ],
+              "path": [
+                "backend",
+                "departments"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"name\": \"Engineering\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Departments",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{home_culture}}/backend/departments/1",
+              "host": [
+                "{{home_culture}}"
+              ],
+              "path": [
+                "backend",
+                "departments",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"status\": false\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Departments",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{home_culture}}/backend/departments/1",
+              "host": [
+                "{{home_culture}}"
+              ],
+              "path": [
+                "backend",
+                "departments",
+                "1"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Jobs",
+      "item": [
+        {
+          "name": "List Jobs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{home_culture}}/backend/jobs?page=1&limit=10&search=",
+              "host": [
+                "{{home_culture}}"
+              ],
+              "path": [
+                "backend",
+                "jobs"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "search",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "List Jobs (filtered)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{home_culture}}/backend/jobs?city_id=1&department_id=1",
+              "host": [
+                "{{home_culture}}"
+              ],
+              "path": [
+                "backend",
+                "jobs"
+              ],
+              "query": [
+                {
+                  "key": "city_id",
+                  "value": "1"
+                },
+                {
+                  "key": "department_id",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Active Jobs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{home_culture}}/backend/jobs/active",
+              "host": [
+                "{{home_culture}}"
+              ],
+              "path": [
+                "backend",
+                "jobs",
+                "active"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Jobs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{home_culture}}/backend/jobs/1",
+              "host": [
+                "{{home_culture}}"
+              ],
+              "path": [
+                "backend",
+                "jobs",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Jobs",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{home_culture}}/backend/jobs",
+              "host": [
+                "{{home_culture}}"
+              ],
+              "path": [
+                "backend",
+                "jobs"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"city_id\": 1,\n  \"department_id\": 1,\n  \"position\": \"Backend Developer\",\n  \"description\": \"<p>Build APIs</p>\",\n  \"posted_at\": \"2026-11-10\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Jobs",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{home_culture}}/backend/jobs/1",
+              "host": [
+                "{{home_culture}}"
+              ],
+              "path": [
+                "backend",
+                "jobs",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"position\": \"Senior Backend Developer\",\n  \"sort_order\": 2\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Jobs",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{home_culture}}/backend/jobs/1",
+              "host": [
+                "{{home_culture}}"
+              ],
+              "path": [
+                "backend",
+                "jobs",
+                "1"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

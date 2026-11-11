@@ -1,19 +1,29 @@
 import sequelize from '../config/sequelize.js';
 import logger from '../utils/logger.js';
+
+// About
 import defineAboutCms from './aboutCms/aboutCms.model.js';
 import defineAboutHighlight from './aboutCms/aboutHighlight.model.js';
+
+// Auth
 import defineAdmin from './auth/admin.model.js';
-import defineBanner from './sitesettings/banner.model.js';
+
+// Blog
 import defineBlog from './blog/blog.model.js';
 import defineBlogCategory from './blog/blogCategory.model.js';
 import defineBlogCms from './blog/blogCms.model.js';
+
+// Career
 import defineCareerCms from './careerCms/careerCms.model.js';
 import defineCareerBenefit from './careerCms/careerBenefit.model.js';
 import defineCareerVision from './careerCms/careerVision.model.js';
+import defineDepartment from './careerCms/department.model.js';
+import defineJob from './careerCms/jobs.model.js';
+
+// Contact
 import defineContactCms from './contactCms/contactCms.model.js';
-import defineFaq from './faqCms/faq.model.js';
-import defineFaqCms from './faqCms/faqCms.model.js';
-import defineFaqCategory from './faqCms/faqCategory.model.js';
+
+// Experience
 import defineExperienceCms from './experienceCms/experienceCms.model.js';
 import defineExperienceHighlight from './experienceCms/experienceHighlight.model.js';
 import defineExperienceFaq from './experienceCms/experienceFaq.model.js';
@@ -22,26 +32,55 @@ import defineExperienceTimeline from './experienceCms/experienceTimeline.model.j
 import defineLocation from './experienceCms/location.model.js';
 import defineBookingProcess from './experienceCms/bookingProcess.model.js';
 import defineJourneyProcess from './experienceCms/journeyProcess.model.js';
+
+// FAQ
+import defineFaq from './faqCms/faq.model.js';
+import defineFaqCms from './faqCms/faqCms.model.js';
+import defineFaqCategory from './faqCms/faqCategory.model.js';
+
+// How it works
 import defineHowItWorksCms from './howItWorks/howItWorksCms.model.js';
 import defineJourneyStep from './howItWorks/journeyStep.model.js';
-import defineMetaData from './sitesettings/metaData.model.js';
-import definePrivacyPolicy from './privacyPolicy/privacyPolicy.model.js';
-import defineSiteSettings from './sitesettings/siteSettings.model.js';
-import defineSocialMedia from './sitesettings/socialMedia.model.js';
 import defineTestimonial from './howItWorks/testimonial.model.js';
 import defineWorkshopMaterial from './howItWorks/workshopMaterial.model.js';
 
+// Masters
+import defineState from './masters/state.model.js';
+import defineCity from './masters/city.model.js';
+
+// Privacy policy
+import definePrivacyPolicy from './privacyPolicy/privacyPolicy.model.js';
+
+// Site settings
+import defineBanner from './sitesettings/banner.model.js';
+import defineMetaData from './sitesettings/metaData.model.js';
+import defineSiteSettings from './sitesettings/siteSettings.model.js';
+import defineSocialMedia from './sitesettings/socialMedia.model.js';
+
 const models = {
+  // About
   AboutCms: defineAboutCms(sequelize),
   AboutHighlight: defineAboutHighlight(sequelize),
+
+  // Auth
   Admin: defineAdmin(sequelize),
-  Banner: defineBanner(sequelize),
+
+  // Blog
   Blog: defineBlog(sequelize),
   BlogCategory: defineBlogCategory(sequelize),
   BlogCms: defineBlogCms(sequelize),
-  Faq: defineFaq(sequelize),
-  FaqCms: defineFaqCms(sequelize),
-  FaqCategory: defineFaqCategory(sequelize),
+
+  // Career
+  CareerCms: defineCareerCms(sequelize),
+  CareerBenefit: defineCareerBenefit(sequelize),
+  CareerVision: defineCareerVision(sequelize),
+  Department: defineDepartment(sequelize),
+  Job: defineJob(sequelize),
+
+  // Contact
+  ContactCms: defineContactCms(sequelize),
+
+  // Experience
   ExperienceCms: defineExperienceCms(sequelize),
   ExperienceHighlight: defineExperienceHighlight(sequelize),
   ExperienceFaq: defineExperienceFaq(sequelize),
@@ -50,18 +89,30 @@ const models = {
   Location: defineLocation(sequelize),
   BookingProcess: defineBookingProcess(sequelize),
   JourneyProcess: defineJourneyProcess(sequelize),
+
+  // FAQ
+  Faq: defineFaq(sequelize),
+  FaqCms: defineFaqCms(sequelize),
+  FaqCategory: defineFaqCategory(sequelize),
+
+  // How it works
   HowItWorksCms: defineHowItWorksCms(sequelize),
   JourneyStep: defineJourneyStep(sequelize),
-  MetaData: defineMetaData(sequelize),
-  CareerCms: defineCareerCms(sequelize),
-  CareerBenefit: defineCareerBenefit(sequelize),
-  CareerVision: defineCareerVision(sequelize),
-  ContactCms: defineContactCms(sequelize),
-  PrivacyPolicy: definePrivacyPolicy(sequelize),
-  SocialMedia: defineSocialMedia(sequelize),
-  SiteSettings: defineSiteSettings(sequelize),
   Testimonial: defineTestimonial(sequelize),
   WorkshopMaterial: defineWorkshopMaterial(sequelize),
+
+  // Masters
+  State: defineState(sequelize),
+  City: defineCity(sequelize),
+
+  // Privacy policy
+  PrivacyPolicy: definePrivacyPolicy(sequelize),
+
+  // Site settings
+  Banner: defineBanner(sequelize),
+  MetaData: defineMetaData(sequelize),
+  SiteSettings: defineSiteSettings(sequelize),
+  SocialMedia: defineSocialMedia(sequelize),
 };
 
 Object.keys(models).forEach((modelName) => {
