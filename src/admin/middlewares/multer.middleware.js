@@ -14,10 +14,18 @@ const SVG_ONLY = {
 };
 export const SVG_UPLOAD = SVG_ONLY;
 
+// Images or short videos (home page hero/journey media).
+export const MEDIA_UPLOAD = {
+  mimeTypes: [...IMAGE_TYPES, 'video/mp4', 'video/webm'],
+  extensions: ['.jpg', '.jpeg', '.png', '.webp', '.gif', '.mp4', '.webm'],
+  message: 'Only jpeg, png, webp, gif images or mp4, webm videos are allowed',
+};
+export const MEDIA_MAX_FILE_SIZE = 50 * 1024 * 1024; // 50 MB
+
 // createUploadMiddleware('banners', [{ name: 'image', maxCount: 1 }])
 // Optional third argument restricts types: { mimeTypes, extensions, message } (e.g. SVG_UPLOAD).
 // Saves files to uploads/<folder>/ and exposes them as req.files[<field>].
-export function createUploadMiddleware(folder, fields, restrict) {
+export function createUploadMiddleware(folder, fields, restrict, maxFileSize = MAX_FILE_SIZE) {
   const destination = path.join(config.uploadDir, folder);
   fs.mkdirSync(destination, { recursive: true });
 
@@ -39,5 +47,5 @@ export function createUploadMiddleware(folder, fields, restrict) {
     return cb(ApiError.badRequest('Only jpeg, png, webp or gif images are allowed'));
   };
 
-  return multer({ storage, fileFilter, limits: { fileSize: MAX_FILE_SIZE } }).fields(fields);
+  return multer({ storage, fileFilter, limits: { fileSize: maxFileSize } }).fields(fields);
 }

@@ -26,6 +26,15 @@ import jobRoutes from './careerCms/job.routes.js';
 import stateRoutes from './masters/state.routes.js';
 import cityRoutes from './masters/city.routes.js';
 
+// Home CMS
+import homeCmsRoutes from './home/homeCms.routes.js';
+import homeBannerRoutes from './home/homeBanner.routes.js';
+import homeHighlightRoutes from './home/homeHighlight.routes.js';
+import homeExperienceRoutes from './home/homeExperience.routes.js';
+import homeBrokenProcessRoutes from './home/homeBrokenProcess.routes.js';
+import homeProcessStepRoutes from './home/homeProcessStep.routes.js';
+import homeSimplyChooseRoutes from './home/homeSimplyChoose.routes.js';
+
 // Contact CMS
 import contactCmsRoutes from './contactCms/contactCms.routes.js';
 
@@ -83,6 +92,15 @@ router.use('/jobs', jobRoutes);
 // Masters
 router.use('/states', stateRoutes);
 router.use('/cities', cityRoutes);
+
+// Home CMS
+router.use('/home-cms', homeCmsRoutes);
+router.use('/home-banners', homeBannerRoutes);
+router.use('/home-highlights', homeHighlightRoutes);
+router.use('/home-experiences', homeExperienceRoutes);
+router.use('/home-broken-processes', homeBrokenProcessRoutes);
+router.use('/home-process-steps', homeProcessStepRoutes);
+router.use('/home-simply-choose', homeSimplyChooseRoutes);
 
 // Contact CMS
 router.use('/contact-cms', contactCmsRoutes);

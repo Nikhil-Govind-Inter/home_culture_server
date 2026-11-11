@@ -2,6 +2,13 @@ import sequelize from '../config/sequelize.js';
 import logger from '../utils/logger.js';
 
 // About
+import defineHomeCms from './home/homeCms.model.js';
+import defineHomeBanner from './home/homeBanner.model.js';
+import defineHomeHighlight from './home/highlights.model.js';
+import defineHomeExperience from './home/homeExperience.model.js';
+import defineHomeBrokenProcess from './home/brokenProcess.model.js';
+import defineHomeProcessStep from './home/processSteps.model.js';
+import defineHomeSimplyChoose from './home/simplyChoose.model.js';
 import defineAboutCms from './aboutCms/aboutCms.model.js';
 import defineAboutHighlight from './aboutCms/aboutHighlight.model.js';
 
@@ -76,6 +83,15 @@ const models = {
   CareerVision: defineCareerVision(sequelize),
   Department: defineDepartment(sequelize),
   Job: defineJob(sequelize),
+
+  // Home
+  HomeCms: defineHomeCms(sequelize),
+  HomeBanner: defineHomeBanner(sequelize),
+  HomeHighlight: defineHomeHighlight(sequelize),
+  HomeExperience: defineHomeExperience(sequelize),
+  HomeBrokenProcess: defineHomeBrokenProcess(sequelize),
+  HomeProcessStep: defineHomeProcessStep(sequelize),
+  HomeSimplyChoose: defineHomeSimplyChoose(sequelize),
 
   // Contact
   ContactCms: defineContactCms(sequelize),
