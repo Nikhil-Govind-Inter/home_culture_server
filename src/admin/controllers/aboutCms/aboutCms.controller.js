@@ -46,7 +46,7 @@ export default class AboutCmsController {
         return sendValidationError(res, errors);
       }
 
-      // Media paths come from uploaded files, never from plain body values.
+    // Media paths come from uploaded files, never from plain body values.
       MEDIA_FIELDS.forEach((fields) => delete req.body[fields]);
 
       const record = await AboutCms.findOne();

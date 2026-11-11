@@ -38,6 +38,15 @@ export default (sequelize) => {
         defaultValue: true,
         allowNull: false,
       },
+      media_type: {
+        type: DataTypes.ENUM("image", "video"),
+        allowNull: false,
+        defaultValue: "image",
+      },
+      banner_thumbnail_media_path: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       banner_desktop_media_path: {
         type: DataTypes.STRING,
         allowNull: false,

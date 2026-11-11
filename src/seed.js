@@ -11,13 +11,13 @@ const banner = (page, page_slug, header_title, title, description) => ({
   title,
   description,
   status: true,
+  media_type: 'image',
   banner_desktop_media_path: '',
   banner_mobile_media_path: '',
   banner_media_alt: `${page} banner`,
 });
 
 const defaultBanners = [
-  banner('Home', 'home', 'Home', 'Welcome to Home Culture', 'Discover authentic home stays and local experiences.'),
   banner('About', 'about', 'About Us', 'About Us', 'Learn more about Home Culture and what we stand for.'),
   banner('Privacy Policy', 'privacy-policy', 'Privacy Policy', 'Privacy Policy', 'How we collect, use and protect your information.'),
   banner('Contact Us', 'contact-us', 'Contact Us', 'Get in Touch', 'We would love to hear from you.'),
