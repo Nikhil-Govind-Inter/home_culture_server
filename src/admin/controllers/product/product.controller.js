@@ -13,7 +13,8 @@ const { Product, ProductStyle, ProductTrim, ProductSize, ProductAddOn } = models
 
 // FILES
 export const FOLDER = 'products';
-export const MEDIA_FIELDS = ['media_path'];
+export const MEDIA_FIELDS = ['media_path', 'icon_media_path'];
+const REQUIRED_MEDIA = ['media_path'];
 
 // Request field -> related model, association alias and setter on Product.
 const RELATIONS = [
@@ -139,7 +140,7 @@ export default class ProductController {
       // Media paths come from uploaded files only, never from body values.
       MEDIA_FIELDS.forEach((field) => delete req.body[field]);
 
-      const missing = MEDIA_FIELDS.filter((field) => !req.files?.[field]?.[0]);
+      const missing = REQUIRED_MEDIA.filter((field) => !req.files?.[field]?.[0]);
       if (missing.length) throw ApiError.badRequest(`Missing required files: ${missing.join(', ')}`);
 
       const selections = await extractSelections(req.body);
