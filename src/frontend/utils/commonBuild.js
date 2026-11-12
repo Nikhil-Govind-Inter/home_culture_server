@@ -13,8 +13,11 @@ export class commonBuilder {
   }
 
   // A section is only returned when its status is true; otherwise null.
+  // The status flag itself is not part of the response.
   static whenActive(section) {
-    return section?.status === true ? section : null;
+    if (section?.status !== true) return null;
+    const { status, ...rest } = section;
+    return rest;
   }
 
   // Desktop / mobile image pair, e.g. a CTA background.
