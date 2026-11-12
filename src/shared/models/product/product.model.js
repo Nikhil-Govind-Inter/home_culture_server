@@ -18,6 +18,7 @@ export default (sequelize) => {
       media_path: { type: DataTypes.TEXT, allowNull: true },
       media_alt: { type: DataTypes.STRING, allowNull: true },
       icon_media_path: { type: DataTypes.TEXT, allowNull: true },
+      icon_media_alt: { type: DataTypes.STRING, allowNull: true },
       button_text: { type: DataTypes.STRING, allowNull: true },
       sort_order: { type: DataTypes.INTEGER, defaultValue: 0 },
       status: { type: DataTypes.BOOLEAN, defaultValue: true },

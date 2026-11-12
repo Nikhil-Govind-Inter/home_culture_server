@@ -54,6 +54,7 @@ const common = [
 ];
 
 export const validationRequestPost = [
+  body('icon_media_alt').optional({ values: 'falsy' }).isString().withMessage('Icon alt must be a string').isLength({ max: 255 }).withMessage('Icon alt must be at most 255 characters').trim(),
   body('media_alt').notEmpty().withMessage('Media alt is required').isString().withMessage('Media alt must be a string').isLength({ max: 255 }).withMessage('Media alt must be at most 255 characters').trim(),
   body('title').notEmpty().withMessage('Title is required').isString().withMessage('Title must be a string').isLength({ max: 255 }).withMessage('Title must be at most 255 characters').trim(),
   body('excerpt').notEmpty().withMessage('Excerpt is required').isString().withMessage('Excerpt must be a string').isLength({ max: 255 }).withMessage('Excerpt must be at most 255 characters').trim(),
@@ -64,6 +65,7 @@ export const validationRequestPost = [
 ];
 
 export const validationRequestPut = [
+  body('icon_media_alt').optional({ values: 'falsy' }).isString().withMessage('Icon alt must be a string').isLength({ max: 255 }).withMessage('Icon alt must be at most 255 characters').trim(),
   body('media_alt').optional().notEmpty().withMessage('Media alt cannot be empty').isString().withMessage('Media alt must be a string').isLength({ max: 255 }).withMessage('Media alt must be at most 255 characters').trim(),
   body('title').optional().notEmpty().withMessage('Title cannot be empty').isString().withMessage('Title must be a string').isLength({ max: 255 }).withMessage('Title must be at most 255 characters').trim(),
   body('excerpt').optional().notEmpty().withMessage('Excerpt cannot be empty').isString().withMessage('Excerpt must be a string').isLength({ max: 255 }).withMessage('Excerpt must be at most 255 characters').trim(),

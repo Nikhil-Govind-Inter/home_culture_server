@@ -149,7 +149,7 @@ export default class homeService {
       slug: item.slug,
       media: mediaUtils.singleMedia(item.media_path, item.media_alt),
       icon: item.icon_media_path
-        ? mediaUtils.singleMedia(item.icon_media_path, item.media_alt)
+        ? mediaUtils.singleMedia(item.icon_media_path, item.icon_media_alt)
         : null,
     }));
   }
