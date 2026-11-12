@@ -8,7 +8,12 @@ async function bootstrap() {
   await Database.connect();
   // await seed();
 
-  const server = app.listen(config.port, () => {
+  const server = app.listen(config.port, (err) => {
+    // Express 5 passes listen errors (e.g. EADDRINUSE) to this callback.
+    if (err) {
+      logger.error('Failed to start server:', err);
+      process.exit(1);
+    }
     logger.info(`Server running on port ${config.port} (${config.env})`);
   });
 

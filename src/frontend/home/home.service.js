@@ -1,5 +1,5 @@
 import { models } from "../../shared/models/index.js";
-import { mediaUtils } from "../utils/mediaUtils.js";
+import homeBuildSection from "./home.build.js";
 
 const {
   HomeCms,
@@ -50,175 +50,17 @@ export default class homeService {
     ]);
 
     return {
-      bannerSection: this.buildBannerSection(banners),
-      challengesSection: this.buildChallengesSection(cms, brokenProcesses),
-      ownershipSection: this.buildOwnershipSection(cms, simplyChoose),
-      welcomeSection: this.buildWelcomeSection(cms, highlights),
-      processSection: this.buildProcessSection(processSteps),
-      productSection: this.buildProductSection(products),
-      styleSection: this.buildStyleSection(cms, styles),
-      experienceSection: this.buildExperienceSection(cms, experiences),
-      journeySection: this.buildJourneySection(cms),
-      insightsSection: this.buildInsightsSection(cms, blogs),
-      ctaSection: this.buildCtaSection(cms),
-    };
-  }
-
-  // status / header_title / title / description columns share a section prefix.
-  static heading(cms, prefix) {
-    return {
-      status: cms?.[`${prefix}status`],
-      header_title: cms?.[`${prefix}header_title`],
-      title: cms?.[`${prefix}title`],
-      description: cms?.[`${prefix}description`],
-    };
-  }
-
-  static buildBannerSection(banners) {
-    return banners.map((item) => ({
-      header_title: item.header_title,
-      title: item.title,
-      description: item.description,
-      media: mediaUtils.mediaFromRecord(item),
-      button_one: mediaUtils.buttonFromRecord(item, "button_one_"),
-      button_two: mediaUtils.buttonFromRecord(item, "button_two_"),
-    }));
-  }
-
-
-  static buildChallengesSection(cms, brokenProcesses) {
-    return {
-      ...this.heading(cms, "challenges_section_"),
-      right_title: cms?.challenges_section_right_title,
-      button: mediaUtils.buttonFromRecord(cms, "challenges_section_button_"),
-      items: brokenProcesses.map((item) => ({
-        title: item.title,
-        media: mediaUtils.mediaFromRecord(item),
-      })),
-    };
-  }
-
-  static buildOwnershipSection(cms, simplyChoose) {
-    return {
-      ...this.heading(cms, "ownership_"),
-      media: mediaUtils.mediaFromRecord(
-        cms,
-        "ownership_",
-        "ownership_mobile_media_alt",
-      ),
-      choose_title: cms?.ownership_choose_title,
-      choose_items: simplyChoose.map((item) => item.title),
-      button: mediaUtils.buttonFromRecord(cms, "ownership_button_"),
-    };
-  }
-
-  static buildWelcomeSection(cms, highlights) {
-    return {
-      ...this.heading(cms, "welcome_section_"),
-      items: highlights.map((item) => ({
-        title: item.title,
-        media: mediaUtils.singleMedia(item.media_path, item.media_alt),
-      })),
-    };
-  }
-
-  static buildStyleSection(cms, styles) {
-    const { status, title } = this.heading(cms, "style_section_");
-    return {
-      status,
-      title,
-      items: styles.map((item) => ({
-        title: item.title,
-        description: item.description,
-        media: mediaUtils.singleMedia(item.media_path, item.media_alt),
-      })),
-    };
-  }
-
-  static buildProcessSection(process) {
-    return process.map((item) => ({
-        title: item.title,
-        description: item.description,
-      }))
-  }
-
-  static buildProductSection(products) {
-    return products.map((item) => ({
-      title: item.title,
-      excerpt: item.excerpt,
-      slug: item.slug,
-      media: mediaUtils.singleMedia(item.media_path, item.media_alt),
-      icon: item.icon_media_path
-        ? mediaUtils.singleMedia(item.icon_media_path, item.icon_media_alt)
-        : null,
-    }));
-  }
-
-  static buildExperienceSection(cms, experiences) {
-    const { status, header_title, title } = this.heading(
-      cms,
-      "experience_section_",
-    );
-    return {
-      status,
-      header_title,
-      title,
-      modal: {
-        title: cms?.modal_title,
-        description: cms?.modal_description,
-        button_one: mediaUtils.buttonFromRecord(cms, "button_one_"),
-        button_two_text: cms?.button_two_text,
-        phone: cms?.phone,
-        whatsapp_number: cms?.whatsapp_number,
-      },
-      titles: experiences.map((item) => item.title),
-      items: experiences.map((item) => ({
-        title: item.title,
-        media: mediaUtils.mediaWithTypes(
-          item.media_type,
-          item.media_path,
-          null,
-          item.thumbnail,
-          item.media_alt,
-        ),
-      })),
-    };
-  }
-
-  static buildJourneySection(cms) {
-    return {
-      ...this.heading(cms, "journey_section_"),
-      media: mediaUtils.mediaFromRecord(cms, "journey_section_"),
-      button: mediaUtils.buttonFromRecord(cms, "journey_section_button_"),
-    };
-  }
-
-  static buildInsightsSection(cms, blogs) {
-    return {
-      ...this.heading(cms, "insights_"),
-      button: mediaUtils.buttonFromRecord(cms, "insights_button_"),
-      items: blogs.map((item) => ({
-        title: item.title,
-        slug: item.slug,
-        excerpt: item.excerpt,
-        media: mediaUtils.singleMedia(
-          item.thumbnail_media_path,
-          item.thumbnail_media_alt,
-        ),
-      })),
-    };
-  }
-
-  static buildCtaSection(cms) {
-    return {
-      ...this.heading(cms, "cta_"),
-      media: {
-        desktop: mediaUtils.url(cms?.cta_desktop_media_path),
-        mobile: mediaUtils.url(cms?.cta_mobile_media_path),
-        alt: cms?.cta_media_alt,
-      },
-      button_one: mediaUtils.buttonFromRecord(cms, "cta_button_one_"),
-      button_two: mediaUtils.buttonFromRecord(cms, "cta_button_two_"),
+      bannerSection: homeBuildSection.buildBannerSection(banners),
+      challengesSection: homeBuildSection.buildChallengesSection(cms, brokenProcesses),
+      ownershipSection: homeBuildSection.buildOwnershipSection(cms, simplyChoose),
+      welcomeSection: homeBuildSection.buildWelcomeSection(cms, highlights),
+      processSection: homeBuildSection.buildProcessSection(processSteps),
+      productSection: homeBuildSection.buildProductSection(products),
+      styleSection: homeBuildSection.buildStyleSection(cms, styles),
+      experienceSection: homeBuildSection.buildExperienceSection(cms, experiences),
+      journeySection: homeBuildSection.buildJourneySection(cms),
+      insightsSection: homeBuildSection.buildInsightsSection(cms, blogs),
+      ctaSection: homeBuildSection.buildCtaSection(cms),
     };
   }
 }
