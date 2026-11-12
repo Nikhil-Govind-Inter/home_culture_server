@@ -1,14 +1,13 @@
-import express from 'express';
+import express from "express";
 
-import homeController from '../home/home.controller.js';
-import aboutController from '../about/about.controller.js';
-
-import howItWorksController from '../howItWorks/howItWorks.controller.js';
+import HomeController from "../home/home.controller.js";
+import AboutController from "../about/about.controller.js";
+import HowItWorksController from "../howItWorks/howItWorks.controller.js";
 
 const router = express.Router();
 
-router.use('/home', homeController.get);
-router.get('/about', aboutController.get);
-router.get('/how-it-works', howItWorksController.get);
+router.get("/home", HomeController.get);
+router.get("/about", AboutController.get);
+router.get("/how-it-works", HowItWorksController.get);
 
 export default router;

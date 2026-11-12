@@ -1,18 +1,13 @@
 import { mediaUtils } from "../utils/mediaUtils.js";
 import { commonBuilder } from "../utils/commonBuild.js";
-import aboutBuildSection from "../about/about.build.js";
 
-export default class howItWorksBuildSection {
-  static buildBannerSection(banner) {
-    return aboutBuildSection.buildBannerSection(banner);
-  }
-
+export default class HowItWorksBuildSection {
   static buildVisionSection(cms) {
-    return aboutBuildSection.buildMediaSection(cms, "vision_section_");
+    return commonBuilder.mediaSection(cms, "vision_section_");
   }
 
   static buildWorkshopSection(cms, materials) {
-    const section = aboutBuildSection.buildMediaSection(cms, "workshop_section_");
+    const section = commonBuilder.mediaSection(cms, "workshop_section_");
     if (!section) return null;
     return {
       ...section,

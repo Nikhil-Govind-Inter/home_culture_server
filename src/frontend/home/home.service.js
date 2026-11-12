@@ -1,5 +1,6 @@
 import { models } from "../../shared/models/index.js";
-import homeBuildSection from "./home.build.js";
+import { commonBuilder } from "../utils/commonBuild.js";
+import HomeBuildSection from "./home.build.js";
 
 const {
   HomeCms,
@@ -14,12 +15,9 @@ const {
   Blog,
 } = models;
 
-const activeList = {
-  where: { status: true },
-  order: [["sort_order", "ASC"]],
-};
+const activeList = commonBuilder.activeList();
 
-export default class homeService {
+export default class HomeService {
   // The home page is a single record plus several list sections.
   static async get() {
     const [
@@ -50,17 +48,17 @@ export default class homeService {
     ]);
 
     return {
-      bannerSection: homeBuildSection.buildBannerSection(banners),
-      challengesSection: homeBuildSection.buildChallengesSection(cms, brokenProcesses),
-      ownershipSection: homeBuildSection.buildOwnershipSection(cms, simplyChoose),
-      welcomeSection: homeBuildSection.buildWelcomeSection(cms, highlights),
-      processSection: homeBuildSection.buildProcessSection(processSteps),
-      productSection: homeBuildSection.buildProductSection(products),
-      styleSection: homeBuildSection.buildStyleSection(cms, styles),
-      experienceSection: homeBuildSection.buildExperienceSection(cms, experiences),
-      journeySection: homeBuildSection.buildJourneySection(cms),
-      insightsSection: homeBuildSection.buildInsightsSection(cms, blogs),
-      ctaSection: homeBuildSection.buildCtaSection(cms),
+      bannerSection: HomeBuildSection.buildBannerSection(banners),
+      challengesSection: HomeBuildSection.buildChallengesSection(cms, brokenProcesses),
+      ownershipSection: HomeBuildSection.buildOwnershipSection(cms, simplyChoose),
+      welcomeSection: HomeBuildSection.buildWelcomeSection(cms, highlights),
+      processSection: HomeBuildSection.buildProcessSection(processSteps),
+      productSection: HomeBuildSection.buildProductSection(products),
+      styleSection: HomeBuildSection.buildStyleSection(cms, styles),
+      experienceSection: HomeBuildSection.buildExperienceSection(cms, experiences),
+      journeySection: HomeBuildSection.buildJourneySection(cms),
+      insightsSection: HomeBuildSection.buildInsightsSection(cms, blogs),
+      ctaSection: HomeBuildSection.buildCtaSection(cms),
     };
   }
 }

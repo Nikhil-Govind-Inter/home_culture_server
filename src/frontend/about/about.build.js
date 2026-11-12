@@ -1,40 +1,14 @@
 import { mediaUtils } from "../utils/mediaUtils.js";
 import { commonBuilder } from "../utils/commonBuild.js";
 
-export default class aboutBuildSection {
-  static buildBannerSection(banner) {
-    return commonBuilder.whenActive({
-      status: banner?.status,
-      header_title: banner?.header_title,
-      title: banner?.title,
-      description: banner?.description,
-      media: mediaUtils.mediaWithTypes(
-        banner?.media_type,
-        banner?.banner_desktop_media_path,
-        banner?.banner_mobile_media_path,
-        banner?.banner_thumbnail_media_path,
-        banner?.banner_media_alt,
-      ),
-    });
-  }
-
-  static buildMediaSection(cms, prefix) {
-    return commonBuilder.whenActive({
-      ...commonBuilder.heading(cms, prefix),
-      media: mediaUtils.singleMedia(
-        cms?.[`${prefix}media_path`],
-        cms?.[`${prefix}media_alt`],
-      ),
-    });
-  }
-
+export default class AboutBuildSection {
   static buildPhilosophySection(cms) {
-    const section = aboutBuildSection.buildMediaSection(cms, "philosophy_section_");
+    const section = commonBuilder.mediaSection(cms, "philosophy_section_");
     if (!section) return null;
     return {
       ...section,
-      vision: aboutBuildSection.buildPoint(cms, "vision_"),
-      mission: aboutBuildSection.buildPoint(cms, "mission_"),
+      vision: AboutBuildSection.buildPoint(cms, "vision_"),
+      mission: AboutBuildSection.buildPoint(cms, "mission_"),
     };
   }
 

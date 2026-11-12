@@ -1,7 +1,7 @@
 import { mediaUtils } from "../utils/mediaUtils.js";
 import { commonBuilder } from "../utils/commonBuild.js";
 
-export default class homeBuildSection {
+export default class HomeBuildSection {
   static buildBannerSection(banners) {
     return banners.map((item) => ({
       header_title: item.header_title,

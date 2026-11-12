@@ -1,11 +1,11 @@
-import howItWorksService from './howItWorks.service.js';
+import HowItWorksService from "./howItWorks.service.js";
 
-export default class howItWorksController {
+export default class HowItWorksController {
   static async get(req, res, next) {
     try {
-      const record = await howItWorksService.get();
+      const record = await HowItWorksService.get();
 
-      res.status(200).json({ success: true, statusCode: 200, message: 'Success', data: record });
+      res.status(200).json({ success: true, statusCode: 200, message: "Success", data: record });
     } catch (err) {
       next(err);
     }
