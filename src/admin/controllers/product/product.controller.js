@@ -57,16 +57,48 @@ const extractSelections = async (body) => {
 const applySelections = (product, selections, transaction) =>
   Promise.all(selections.map(({ setter, ids }) => product[setter](ids, { transaction })));
 
+// Query param -> relation field, e.g. ?style_slug=modern filters on the styles relation.
+const FILTERS = [
+  { param: 'style_slug', field: 'style_slugs' },
+  { param: 'trim_slug', field: 'trim_slugs' },
+  { param: 'size_slug', field: 'size_slugs' },
+  { param: 'add_ons_slug', field: 'add_ons_slugs' },
+];
+
+// Ids of the products that have every requested option (filters are AND-ed).
+// Returns null when no filter was sent, and [] when nothing matches.
+const filterProductIds = async (query) => {
+  let ids = null;
+  for (const { param, field } of FILTERS) {
+    const slug = typeof query[param] === 'string' ? query[param].trim() : '';
+    if (!slug) continue;
+
+    const { Model, as } = RELATIONS.find((relation) => relation.field === field);
+    const matches = await Product.findAll({
+      attributes: ['id'],
+      include: [{ model: Model, as, attributes: [], where: { slug }, through: { attributes: [] } }],
+      raw: true,
+    });
+    const found = matches.map((row) => String(row.id));
+    ids = ids === null ? found : ids.filter((id) => found.includes(id));
+  }
+  return ids;
+};
+
 export default class ProductController {
   static async getAll(req, res, next) {
     try {
       const { page, limit, search } = req.query;
+
+      const ids = await filterProductIds(req.query);
+      const where = ids === null ? {} : { id: ids };
 
       const { rows, pagination } = await paginate(Product, {
         page,
         limit,
         search,
         searchFields: ['title', 'header_title', 'slug'],
+        where,
         include: buildInclude(),
         order: [
           ['sort_order', 'ASC'],
