@@ -66,6 +66,14 @@ import journeyStepRoutes from './howItWorksCms/journeyStep.routes.js';
 import testimonialRoutes from './howItWorksCms/testimonial.routes.js';
 import workshopMaterialRoutes from './howItWorksCms/workshopMaterial.routes.js';
 
+// Product
+import productCmsRoutes from './product/productCms.routes.js';
+import productStyleRoutes from './product/productStyle.routes.js';
+import productTrimRoutes from './product/productTrim.routes.js';
+import productSizeRoutes from './product/productSize.routes.js';
+import productAddOnRoutes from './product/productAddOn.routes.js';
+import productRoutes from './product/product.routes.js';
+
 const router = express.Router();
 
 // Auth
@@ -132,5 +140,13 @@ router.use('/how-it-works-cms', howItWorksCmsRoutes);
 router.use('/journey-steps', journeyStepRoutes);
 router.use('/testimonials', testimonialRoutes);
 router.use('/workshop-materials', workshopMaterialRoutes);
+
+// Product
+router.use('/product-cms', productCmsRoutes);
+router.use('/product-styles', productStyleRoutes);
+router.use('/product-trims', productTrimRoutes);
+router.use('/product-sizes', productSizeRoutes);
+router.use('/product-add-ons', productAddOnRoutes);
+router.use('/products', productRoutes);
 
 export default router;

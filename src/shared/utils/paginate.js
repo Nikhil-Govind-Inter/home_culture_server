@@ -25,7 +25,8 @@ export default async function paginate(
   const { rows, count } = await model.findAndCountAll({
     where: finalWhere,
     order,
-    ...(include ? { include } : {}),
+    // distinct: count parent rows, not the rows multiplied by many-to-many includes.
+    ...(include ? { include, distinct: true } : {}),
     ...(attributes ? { attributes } : {}),
     limit: size,
     offset: (pageNo - 1) * size,

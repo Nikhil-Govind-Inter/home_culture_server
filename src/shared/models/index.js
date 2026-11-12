@@ -58,6 +58,14 @@ import defineCity from './masters/city.model.js';
 // Privacy policy
 import definePrivacyPolicy from './privacyPolicy/privacyPolicy.model.js';
 
+// Product
+import defineProductCms from './product/productCms.model.js';
+import defineProduct from './product/product.model.js';
+import defineProductStyle from './product/productStyle.model.js';
+import defineProductTrim from './product/productTrim.model.js';
+import defineProductSize from './product/productSize.model.js';
+import defineProductAddOn from './product/productAddOn.model.js';
+
 // Site settings
 import defineBanner from './sitesettings/banner.model.js';
 import defineMetaData from './sitesettings/metaData.model.js';
@@ -123,6 +131,14 @@ const models = {
 
   // Privacy policy
   PrivacyPolicy: definePrivacyPolicy(sequelize),
+
+  // Product
+  ProductCms: defineProductCms(sequelize),
+  Product: defineProduct(sequelize),
+  ProductStyle: defineProductStyle(sequelize),
+  ProductTrim: defineProductTrim(sequelize),
+  ProductSize: defineProductSize(sequelize),
+  ProductAddOn: defineProductAddOn(sequelize),
 
   // Site settings
   Banner: defineBanner(sequelize),
