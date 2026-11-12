@@ -97,7 +97,7 @@ export default class ProductController {
         page,
         limit,
         search,
-        searchFields: ['title', 'header_title', 'slug'],
+        searchFields: ['title', 'excerpt', 'header_title', 'slug'],
         where,
         include: buildInclude(),
         order: [

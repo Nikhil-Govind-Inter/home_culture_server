@@ -60,9 +60,8 @@ app.use("/uploads", (req, res, next) => {
 app.use("/uploads", express.static(config.uploadDir));
 
 // Routes
-app.use("/api", frontendRoutes);
+app.use("/api/frontend", frontendRoutes);
 app.use("/api/backend", adminRoutes);
-
 // Error handling
 app.use(notFoundHandler);
 app.use(errorHandler);

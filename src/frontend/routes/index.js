@@ -1,11 +1,9 @@
 import express from 'express';
 
-// Contact CMS
-import contactCmsRoutes from './contactCms.routes.js';
+import homeController from '../home/home.controller.js';
 
 const router = express.Router();
 
-// Contact CMS
-router.use('/contact-cms', contactCmsRoutes);
+router.use('/home', homeController.get);
 
 export default router;

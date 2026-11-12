@@ -11,6 +11,7 @@ export default (sequelize) => {
         allowNull: false,
       },
       title: { type: DataTypes.STRING, allowNull: true },
+      excerpt: { type: DataTypes.STRING, allowNull: true },
       slug: { type: DataTypes.STRING, allowNull: false, unique: true },
       header_title: { type: DataTypes.STRING, allowNull: true },
       description: { type: DataTypes.STRING, allowNull: true },

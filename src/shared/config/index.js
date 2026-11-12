@@ -7,6 +7,8 @@ const config = {
   env: process.env.NODE_ENV || 'development',
   port: Number(process.env.PORT) || 5000,
   corsOrigin: process.env.CORS_ORIGIN || '*',
+  // Public base URL prepended to stored `/uploads/...` paths in public API responses.
+  mediaBaseUrl: (process.env.MEDIA_BASE_URL || `http://localhost:${Number(process.env.PORT) || 5000}`).replace(/\/+$/, ''),
   db: {
     host: process.env.DB_HOST,
     port: Number(process.env.DB_PORT),
