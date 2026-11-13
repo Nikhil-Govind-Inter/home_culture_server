@@ -7,6 +7,8 @@ import ExperienceController from "../experience/experience.controller.js";
 import ContactUsController from "../contactUs/contactUs.controller.js";
 import BlogController from "../blog/blog.controller.js";
 
+import CareerController from "../career/career.controller.js";
+
 const router = express.Router();
 
 router.get("/home", HomeController.get);
@@ -17,5 +19,6 @@ router.get("/contact-us", ContactUsController.get);
 router.get("/blogs", BlogController.get);
 router.get("/blogs/list", BlogController.list);
 router.get("/blogs/:slug", BlogController.detail);
+router.get("/career", CareerController.get);
 
 export default router;
