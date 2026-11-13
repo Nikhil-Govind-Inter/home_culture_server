@@ -9,6 +9,7 @@ import BlogController from "../blog/blog.controller.js";
 
 import CareerController from "../career/career.controller.js";
 import FaqController from "../faq/faq.controller.js";
+import PrivacyPolicyController from "../privacyPolicy/privacyPolicy.controller.js";
 
 const router = express.Router();
 
@@ -22,5 +23,6 @@ router.get("/blogs/list", BlogController.list);
 router.get("/blogs/:slug", BlogController.detail);
 router.get("/career", CareerController.get);
 router.get("/faq", FaqController.get);
+router.get("/privacy-policy", PrivacyPolicyController.get);
 
 export default router;
