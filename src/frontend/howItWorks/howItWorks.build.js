@@ -7,15 +7,17 @@ export default class HowItWorksBuildSection {
   }
 
   static buildWorkshopSection(cms, materials) {
-    const section = commonBuilder.mediaSection(cms, "workshop_section_");
-    if (!section) return null;
-    return {
-      ...section,
+    return commonBuilder.whenActive({
+      ...commonBuilder.heading(cms, "workshop_section_"),
+      media: mediaUtils.singleMediaWithoutType(
+        cms?.workshop_section_media_path,
+        cms?.workshop_section_media_alt,
+      ),
       items: materials.map((item) => ({
         title: item.title,
-        media: mediaUtils.singleMedia(item.media_path, item.title),
+        media: mediaUtils.singleMediaWithoutType(item.media_path, item.title),
       })),
-    };
+    });
   }
 
   static buildArtisansSection(cms, testimonials) {
@@ -34,7 +36,7 @@ export default class HowItWorksBuildSection {
     return commonBuilder.whenActive({
       status: cms?.journey_section_status,
       title: cms?.journey_section_title,
-      media: mediaUtils.singleMedia(
+      media: mediaUtils.singleMediaWithoutType(
         cms?.journey_section_media_path,
         cms?.journey_section_media_alt,
       ),
@@ -48,11 +50,10 @@ export default class HowItWorksBuildSection {
   static buildCtaSection(cms) {
     return commonBuilder.whenActive({
       ...commonBuilder.heading(cms, "cta_"),
-      media: commonBuilder.desktopMobileMedia(
-        cms,
-        "cta_desktop_media_path",
-        "cta_mobile_media_path",
-        "cta_media_alt",
+      media: mediaUtils.mediaWithoutTypes(
+        cms?.cta_desktop_media_path,
+        cms?.cta_mobile_media_path,
+        cms?.cta_media_alt,
       ),
       button: mediaUtils.buttonFromRecord(cms, "cta_button_"),
     });

@@ -10,7 +10,7 @@ const { ExperienceCms } = models;
 
 // FILES
 export const FOLDER = 'experience-cms';
-export const MEDIA_FIELDS = ['intro_section_media_path', 'visit_section_media_path'];
+export const MEDIA_FIELDS = ['intro_section_media_path', 'visit_section_media_path', 'visit_section_thumbnail'];
 
 // Experience CMS is a single record: it can only be fetched and updated.
 export default class ExperienceCmsController {
@@ -41,14 +41,34 @@ export default class ExperienceCmsController {
       MEDIA_FIELDS.forEach((fields) => delete req.body[fields]);
 
       const record = await ExperienceCms.findOne();
+      const mediaType = req.body.visit_section_media_type || record?.visit_section_media_type || 'image';
+      const isVideo = mediaType === 'video';
+
+      // Visit media must match the media type (video/* vs image/*).
+      const visitFile = req.files?.visit_section_media_path?.[0];
+      if (visitFile && !visitFile.mimetype.startsWith(isVideo ? 'video/' : 'image/')) {
+        throw ApiError.badRequest(
+          isVideo
+            ? 'Visit section media must be a valid video file (mp4 or webm)'
+            : 'Visit section media must be a valid image file (jpg, png, webp or gif)',
+        );
+      }
 
       if (!record) {
-        const missing = MEDIA_FIELDS.filter((fields) => !req.files?.[fields]?.[0]);
+        // The thumbnail is only required when the visit media is a video.
+        const missing = MEDIA_FIELDS
+          .filter((field) => field !== 'visit_section_thumbnail' || isVideo)
+          .filter((field) => !req.files?.[field]?.[0]);
         if (missing.length) throw ApiError.badRequest(`Missing required files: ${missing.join(', ')}`);
 
         handleFileUploadStore(req, MEDIA_FIELDS);
         const created = await ExperienceCms.create(req.body);
         return res.status(201).json({ success: true, statusCode: 201, message: 'Experience CMS created', data: created });
+      }
+
+      // A video needs a thumbnail, uploaded now or already stored.
+      if (isVideo && !req.files?.visit_section_thumbnail?.[0] && !record.visit_section_thumbnail) {
+        throw ApiError.badRequest('Missing required files: visit_section_thumbnail');
       }
 
       await handleFileUploadUpdate(req, record, MEDIA_FIELDS);

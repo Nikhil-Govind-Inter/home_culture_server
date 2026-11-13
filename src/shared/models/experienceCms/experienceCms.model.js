@@ -38,7 +38,12 @@ export default (sequelize) => {
 
       // Section Four - Visit
       visit_section_status: BOOLEAN(),
+      visit_section_media_type: {
+        type: DataTypes.ENUM('image', 'video'),
+        defaultValue: 'image',
+      },
       visit_section_media_path: TEXT(),
+      visit_section_thumbnail: TEXT(),
       visit_section_media_alt: STRING(),
       visit_section_header_title: STRING(),
       visit_section_title: STRING(),

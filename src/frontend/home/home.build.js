@@ -13,7 +13,6 @@ export default class HomeBuildSection {
     }));
   }
 
-
   static buildChallengesSection(cms, brokenProcesses) {
     return commonBuilder.whenActive({
       ...commonBuilder.heading(cms, "challenges_section_"),
@@ -45,7 +44,7 @@ export default class HomeBuildSection {
       ...commonBuilder.heading(cms, "welcome_section_"),
       items: highlights.map((item) => ({
         title: item.title,
-        media: mediaUtils.singleMedia(item.media_path, item.media_alt),
+        media: mediaUtils.singleMediaWithoutType(item.media_path, item.media_alt),
       })),
     });
   }
@@ -58,16 +57,16 @@ export default class HomeBuildSection {
       items: styles.map((item) => ({
         title: item.title,
         description: item.description,
-        media: mediaUtils.singleMedia(item.media_path, item.media_alt),
+        media: mediaUtils.singleMediaWithoutType(item.media_path, item.media_alt),
       })),
     });
   }
 
   static buildProcessSection(process) {
     return process.map((item) => ({
-        title: item.title,
-        description: item.description,
-      }))
+      title: item.title,
+      description: item.description,
+    }));
   }
 
   static buildProductSection(products) {
@@ -75,7 +74,7 @@ export default class HomeBuildSection {
       title: item.title,
       excerpt: item.excerpt,
       slug: item.slug,
-      media: mediaUtils.singleMedia(item.media_path, item.media_alt),
+      media: mediaUtils.singleMediaWithoutType(item.media_path, item.media_alt),
     }));
   }
 
@@ -126,7 +125,7 @@ export default class HomeBuildSection {
         title: item.title,
         slug: item.slug,
         excerpt: item.excerpt,
-        media: mediaUtils.singleMedia(
+        media: mediaUtils.singleMediaWithoutType(
           item.thumbnail_media_path,
           item.thumbnail_media_alt,
         ),
@@ -137,11 +136,10 @@ export default class HomeBuildSection {
   static buildCtaSection(cms) {
     return commonBuilder.whenActive({
       ...commonBuilder.heading(cms, "cta_"),
-      media: commonBuilder.desktopMobileMedia(
-        cms,
-        "cta_desktop_media_path",
-        "cta_mobile_media_path",
-        "cta_media_alt",
+      media: mediaUtils.mediaWithoutTypes(
+        cms?.cta_desktop_media_path,
+        cms?.cta_mobile_media_path,
+        cms?.cta_media_alt,
       ),
       button_one: mediaUtils.buttonFromRecord(cms, "cta_button_one_"),
       button_two: mediaUtils.buttonFromRecord(cms, "cta_button_two_"),

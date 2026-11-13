@@ -35,6 +35,9 @@ export const validationRequestPut = [
 
   // Visit Section
   sectionStatus('visit_section_status', 'Visit section'),
+  body('visit_section_media_type')
+    .optional()
+    .isIn(['image', 'video']).withMessage('Visit section media type must be image or video'),
   requiredShort('visit_section_media_alt', 'Visit section media alt'),
   requiredShort('visit_section_header_title', 'Visit section header title'),
   requiredShort('visit_section_title', 'Visit section title'),

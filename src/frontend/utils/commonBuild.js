@@ -20,15 +20,6 @@ export class commonBuilder {
     return rest;
   }
 
-  // Desktop / mobile image pair, e.g. a CTA background.
-  static desktopMobileMedia(record, desktopKey, mobileKey, altKey) {
-    return {
-      desktop: mediaUtils.url(record?.[desktopKey]),
-      mobile: mediaUtils.url(record?.[mobileKey]),
-      alt: record?.[altKey],
-    };
-  }
-
   // Page banner (`banners` row): header_title / title / description + media.
   static banner(banner) {
     return commonBuilder.whenActive({
@@ -50,7 +41,7 @@ export class commonBuilder {
   static mediaSection(record, prefix) {
     return commonBuilder.whenActive({
       ...commonBuilder.heading(record, prefix),
-      media: mediaUtils.singleMedia(
+      media: mediaUtils.singleMediaWithoutType(
         record?.[`${prefix}media_path`],
         record?.[`${prefix}media_alt`],
       ),

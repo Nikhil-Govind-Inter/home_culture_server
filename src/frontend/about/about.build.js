@@ -3,13 +3,15 @@ import { commonBuilder } from "../utils/commonBuild.js";
 
 export default class AboutBuildSection {
   static buildPhilosophySection(cms) {
-    const section = commonBuilder.mediaSection(cms, "philosophy_section_");
-    if (!section) return null;
-    return {
-      ...section,
+    return commonBuilder.whenActive({
+      ...commonBuilder.heading(cms, "philosophy_section_"),
+      media: mediaUtils.singleMediaWithoutType(
+        cms?.philosophy_section_media_path,
+        cms?.philosophy_section_media_alt,
+      ),
       vision: AboutBuildSection.buildPoint(cms, "vision_"),
       mission: AboutBuildSection.buildPoint(cms, "mission_"),
-    };
+    });
   }
 
   static buildPoint(cms, prefix) {
@@ -40,11 +42,11 @@ export default class AboutBuildSection {
   static buildPromiseSection(cms) {
     return commonBuilder.whenActive({
       ...commonBuilder.heading(cms, "promise_section_"),
-      left_media: mediaUtils.singleMedia(
+      left_media: mediaUtils.singleMediaWithoutType(
         cms?.promise_section_left_media_path,
         cms?.promise_section_left_media_alt,
       ),
-      right_media: mediaUtils.singleMedia(
+      right_media: mediaUtils.singleMediaWithoutType(
         cms?.promise_section_right_media_path,
         cms?.promise_section_right_media_alt,
       ),
@@ -54,11 +56,10 @@ export default class AboutBuildSection {
   static buildCtaSection(cms) {
     return commonBuilder.whenActive({
       ...commonBuilder.heading(cms, "cta_section_"),
-      media: commonBuilder.desktopMobileMedia(
-        cms,
-        "cta_section_desktop_media_path",
-        "cta_section_mobile_media_path",
-        "cta_section_media_alt",
+      media: mediaUtils.mediaWithoutTypes(
+        cms?.cta_section_desktop_media_path,
+        cms?.cta_section_mobile_media_path,
+        cms?.cta_section_media_alt,
       ),
       button: mediaUtils.buttonFromRecord(cms, "cta_section_button_"),
     });

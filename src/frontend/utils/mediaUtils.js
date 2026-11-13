@@ -7,24 +7,7 @@ export class mediaUtils {
     return `${config.mediaBaseUrl}/${String(path).replace(/^\/+/, "")}`;
   }
 
-  static mediaWithTypes(type, desktop, mobile, thumbnail, alt) {
-    // Video: `desktop` is the video file, shown with its thumbnail.
-    if (type === "video") {
-      return {
-        type,
-        video: mediaUtils.url(desktop) ?? "",
-        thumbnail: mediaUtils.url(thumbnail) ?? "",
-        alt,
-      };
-    }
 
-    return {
-      type,
-      desktop: mediaUtils.url(desktop) ?? "",
-      mobile: mediaUtils.url(mobile) ?? "",
-      alt: alt ?? "",
-    };
-  }
 
   // Builds a media object from a record whose columns share a prefix:
   // `${prefix}media_type`, `${prefix}desktop_media_path`,
@@ -54,10 +37,57 @@ export class mediaUtils {
     };
   }
 
-  static singleMedia(path, alt) {
+  // One image, no type: `{ path, alt }`.
+  static singleMediaWithoutType(path, alt) {
     return {
       path: mediaUtils.url(path),
       alt,
+    };
+  }
+
+    static mediaWithTypes(type, desktop, mobile, thumbnail, alt) {
+    // Video: `desktop` is the video file, shown with its thumbnail.
+    if (type === "video") {
+      return {
+        type,
+        video: mediaUtils.url(desktop) ?? "",
+        thumbnail: mediaUtils.url(thumbnail) ?? "",
+        alt,
+      };
+    }
+
+    return {
+      type,
+      desktop: mediaUtils.url(desktop) ?? "",
+      mobile: mediaUtils.url(mobile) ?? "",
+      alt: alt ?? "",
+    };
+  }
+
+  // Desktop / mobile image pair, no type: `{ desktop, mobile, alt }`.
+  static mediaWithoutTypes(desktop, mobile, alt) {
+    return {
+      desktop: mediaUtils.url(desktop) ?? "",
+      mobile: mediaUtils.url(mobile) ?? "",
+      alt: alt ?? "",
+    };
+  }
+
+  // One image or one video, with its type.
+  // image: `{ type, path, alt }`; video: `{ type, video, thumbnail, alt }`.
+  static singleMediaWithType(type, path, thumbnail, alt) {
+    if (type === "video") {
+      return {
+        type,
+        video: mediaUtils.url(path) ?? "",
+        thumbnail: mediaUtils.url(thumbnail) ?? "",
+        alt: alt ?? "",
+      };
+    }
+    return {
+      type: "image",
+      path: mediaUtils.url(path) ?? "",
+      alt: alt ?? "",
     };
   }
 }
