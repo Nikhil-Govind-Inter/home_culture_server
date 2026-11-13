@@ -18,6 +18,7 @@ export default (sequelize) => {
       button_text: { type: DataTypes.STRING, allowNull: true },
       sort_order: { type: DataTypes.INTEGER, defaultValue: 0 },
       status: { type: DataTypes.BOOLEAN, defaultValue: true },
+      show_in_home: { type: DataTypes.BOOLEAN, defaultValue: true },
     },
     {
       tableName: 'product_style',

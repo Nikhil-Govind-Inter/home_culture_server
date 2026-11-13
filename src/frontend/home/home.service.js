@@ -39,8 +39,8 @@ export default class HomeService {
       HomeExperience.findAll(activeList),
       HomeBrokenProcess.findAll(activeList),
       HomeProcessStep.findAll(activeList),
-      Product.findAll(activeList),
-      ProductStyle.findAll(activeList),
+      Product.findAll({ ...activeList, where: { status: true, show_in_home: true } }),
+      ProductStyle.findAll({ ...activeList, where: { status: true, show_in_home: true } }),
       Blog.findAll({
         ...activeList,
         where: { status: true, show_in_home: true },

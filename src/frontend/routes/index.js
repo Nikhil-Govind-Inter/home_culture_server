@@ -5,6 +5,7 @@ import AboutController from "../about/about.controller.js";
 import HowItWorksController from "../howItWorks/howItWorks.controller.js";
 import ExperienceController from "../experience/experience.controller.js";
 import ContactUsController from "../contactUs/contactUs.controller.js";
+import LayoutController from "../layout/layout.controller.js";
 import BlogController from "../blog/blog.controller.js";
 
 import CareerController from "../career/career.controller.js";
@@ -13,6 +14,7 @@ import PrivacyPolicyController from "../privacyPolicy/privacyPolicy.controller.j
 
 const router = express.Router();
 
+router.get("/layout", LayoutController.get);
 router.get("/home", HomeController.get);
 router.get("/about", AboutController.get);
 router.get("/how-it-works", HowItWorksController.get);
