@@ -23,7 +23,6 @@ const defaultBanners = [
   banner('Contact Us', 'contact-us', 'Contact Us', 'Get in Touch', 'We would love to hear from you.'),
   banner('Blogs', 'blogs', 'Blogs', 'Our Blogs', 'Stories, tips and travel inspiration.'),
   banner('Careers', 'careers', 'Careers', 'Join Our Team', 'Explore opportunities to work with us.'),
-  banner('FAQ', 'faq', 'FAQ', 'Frequently Asked Questions', 'Answers to the questions we hear most.'),
   banner('Experience Stay', 'experience-stay', 'Experience Stay', 'Experience Stay', 'Live like a local with a Home Culture stay.'),
   banner('How It Works', 'how-it-works', 'How It Works', 'How It Works', 'See how booking and hosting works, step by step.'),
 ];
@@ -43,7 +42,6 @@ const defaultMetaData = [
   meta('Contact Us', 'contact-us', 'Contact Us | Home Culture', 'Get in touch with the Home Culture team. We would love to hear from you.', 'contact home culture, support, enquiry'),
   meta('Blogs', 'blogs', 'Blogs | Home Culture', 'Stories, tips and travel inspiration from Home Culture.', 'travel blog, home stay tips, travel stories'),
   meta('Careers', 'careers', 'Careers | Home Culture', 'Explore opportunities to work with Home Culture.', 'careers, jobs, work with us'),
-  meta('FAQ', 'faq', 'FAQ | Home Culture', 'Answers to the questions we hear most about Home Culture stays.', 'faq, questions, help, home stay'),
   meta('Experience Stay', 'experience-stay', 'Experience Stay | Home Culture', 'Live like a local with a Home Culture stay.', 'experience stay, live like a local, home stay'),
   meta('How It Works', 'how-it-works', 'How It Works | Home Culture', 'See how booking and hosting works with Home Culture, step by step.', 'how it works, booking, hosting'),
 ];

@@ -47,7 +47,6 @@ export default class BlogBuildSection {
 
   static buildBlogs(blogs = []) {
     return blogs.map((blog) => ({
-      id: blog.id,
       slug: blog.slug,
       title: blog.title,
       excerpt: blog.excerpt,

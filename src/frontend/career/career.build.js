@@ -10,7 +10,6 @@ export default class CareerBuildSection {
       quote: cms.life_at_home_quote,
       skills_title: cms.life_at_home_skills_title,
       visions: visions.map((v) => ({
-        id: v.id,
         title: v.title,
         description: v.description,
       })),
@@ -33,7 +32,6 @@ export default class CareerBuildSection {
       ...commonBuilder.heading(cms, "why_join_us_"),
       media,
       benefits: benefits.map((b) => ({
-        id: b.id,
         title: b.title,
         description: b.description,
         media: mediaUtils.singleMediaWithoutType(b.media_path, b.title),
@@ -47,7 +45,6 @@ export default class CareerBuildSection {
     return commonBuilder.whenActive({
       ...commonBuilder.heading(cms, "current_opening_"),
       jobs: jobs.map((j) => ({
-        id: j.id,
         position: j.position,
         slug: j.slug,
         // "Kochi, Kerala"
@@ -65,7 +62,6 @@ export default class CareerBuildSection {
     return commonBuilder.whenActive({
       ...commonBuilder.heading(cms, "testimonial_"),
       testimonials: testimonials.map((t) => ({
-        id: t.id,
         name: t.name,
         designation: t.designation,
         quotes: t.quotes,
