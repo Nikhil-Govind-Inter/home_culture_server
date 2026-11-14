@@ -18,7 +18,10 @@ export default class AboutBuildSection {
     return {
       title: cms?.[`${prefix}title`] ?? "",
       description: cms?.[`${prefix}description`] ?? "",
-      icon: mediaUtils.url(cms?.[`${prefix}icon`]),
+      icon: mediaUtils.singleMediaWithoutType(
+        cms?.[`${prefix}icon`],
+        cms?.[`${prefix}title`]
+      ),
     };
   }
 
@@ -34,7 +37,10 @@ export default class AboutBuildSection {
       items: (highlights ?? []).map((item) => ({
         title: item.title ?? "",
         description: item.description ?? "",
-        icon: mediaUtils.url(item.icon_media_path),
+        icon: mediaUtils.singleMediaWithoutType(
+          item.icon_media_path,
+          item.title
+        ),
       })),
     });
   }

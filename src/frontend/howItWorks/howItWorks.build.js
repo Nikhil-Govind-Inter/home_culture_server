@@ -27,7 +27,7 @@ export default class HowItWorksBuildSection {
         name: item.name ?? "",
         designation: item.designation ?? "",
         quotes: item.quotes ?? "",
-        image: mediaUtils.url(item.media_path),
+        image: mediaUtils.singleMediaWithoutType(item.media_path, item.name),
       })),
     });
   }

@@ -29,7 +29,7 @@ export default class ContactUsService {
     ]);
 
     return {
-      bannerSection: commonBuilder.banner(banner),
+      bannerSection: ContactUsBuildSection.banner(banner),
       formSection: ContactUsBuildSection.buildFormSection(cms, socialMedia),
       faqSection: ContactUsBuildSection.buildFaqSection(cms),
     };

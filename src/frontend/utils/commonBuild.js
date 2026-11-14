@@ -2,11 +2,16 @@ import { mediaUtils } from "./mediaUtils.js";
 
 // Builders shared by the page section builders (home, about, ...).
 export class commonBuilder {
+  // header_title is the trimmed value, or "" when it is missing / empty.
+  static headerTitle(value) {
+    return typeof value === "string" ? value.trim() : "";
+  }
+
   // status / header_title / title / description columns share a section prefix.
   static heading(record, prefix) {
     return {
       status: record?.[`${prefix}status`],
-      header_title: record?.[`${prefix}header_title`] ?? "",
+      header_title: commonBuilder.headerTitle(record?.[`${prefix}header_title`]),
       title: record?.[`${prefix}title`] ?? "",
       description: record?.[`${prefix}description`] ?? "",
     };
@@ -24,7 +29,7 @@ export class commonBuilder {
   static banner(banner) {
     return commonBuilder.whenActive({
       status: banner?.status,
-      header_title: banner?.header_title ?? "",
+      header_title: commonBuilder.headerTitle(banner?.header_title),
       title: banner?.title ?? "",
       description: banner?.description ?? "",
       media: mediaUtils.mediaWithTypes(
@@ -41,10 +46,13 @@ export class commonBuilder {
   static mediaSection(record, prefix) {
     return commonBuilder.whenActive({
       ...commonBuilder.heading(record, prefix),
-      media: mediaUtils.singleMediaWithoutType(
-        record?.[`${prefix}media_path`],
-        record?.[`${prefix}media_alt`],
-      ),
+      // Excluded / empty path -> no media at all (not an empty `{ path: "" }`).
+      media: record?.[`${prefix}media_path`]
+        ? mediaUtils.singleMediaWithoutType(
+            record[`${prefix}media_path`],
+            record?.[`${prefix}media_alt`],
+          )
+        : null,
     });
   }
 

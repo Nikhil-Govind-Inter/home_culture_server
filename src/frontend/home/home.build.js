@@ -39,7 +39,7 @@ export default class HomeBuildSection {
         "ownership_mobile_media_alt",
       ),
       choose_title: cms?.ownership_choose_title ?? "",
-      choose_items: (simplyChoose ?? []).map((item) => item.title),
+      choose_items: (simplyChoose ?? []).map((item) => item.title ?? ""),
       button: mediaUtils.buttonFromRecord(cms, "ownership_button_"),
     });
   }
@@ -103,7 +103,7 @@ export default class HomeBuildSection {
         phone: cms?.phone ?? "",
         whatsapp_number: cms?.whatsapp_number ?? "",
       },
-      titles: (experiences ?? []).map((item) => item.title),
+      titles: (experiences ?? []).map((item) => item.title ?? ""),
       items: (experiences ?? []).map((item) => ({
         title: item.title ?? "",
         media: mediaUtils.singleMediaWithType(

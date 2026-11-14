@@ -1,11 +1,22 @@
 import { commonBuilder } from "../utils/commonBuild.js";
 import { mediaUtils } from "../utils/mediaUtils.js";
 
+// The contact page does not use header titles.
+const withoutHeaderTitle = (section) => {
+  if (!section) return section;
+  const { header_title, ...rest } = section;
+  return rest;
+};
+
 export default class ContactUsBuildSection {
+  static banner(banner) {
+    return withoutHeaderTitle(commonBuilder.banner(banner));
+  }
+
   static buildFormSection(cms, socialMedia = []) {
     if (!cms) return null;
 
-    return commonBuilder.whenActive({
+    return withoutHeaderTitle(commonBuilder.whenActive({
       ...commonBuilder.heading(cms, "form_section_"),
       from: {
         title: cms.form_title ?? "",
@@ -19,15 +30,15 @@ export default class ContactUsBuildSection {
           item.media_alt,
         ),
       })),
-    });
+    }));
   }
 
   static buildFaqSection(cms) {
     if (!cms) return null;
     
-    return commonBuilder.whenActive({
+    return withoutHeaderTitle(commonBuilder.whenActive({
       ...commonBuilder.heading(cms, "faq_section_"),
       button: mediaUtils.buttonFromRecord(cms, "faq_section_button_"),
-    });
+    }));
   }
 }

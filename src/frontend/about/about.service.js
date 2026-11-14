@@ -21,7 +21,9 @@ export default class AboutService {
         where: { page_slug: "about" },
       }),
       AboutCms.findOne({
-        attributes: { exclude: ["id", "createdAt", "updatedAt"] },
+        attributes: {
+          exclude: ["id", "createdAt", "updatedAt"],
+        },
       }),
       AboutHighlight.findAll({
         ...commonBuilder.activeList(["title", "description", "icon_media_path"]),
