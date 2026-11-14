@@ -12,6 +12,12 @@ import BlogController from "../blog/blog.controller.js";
 import CareerController from "../career/career.controller.js";
 import FaqController from "../faq/faq.controller.js";
 import PrivacyPolicyController from "../privacyPolicy/privacyPolicy.controller.js";
+import ProductController from "../products/product/product.controller.js";
+import ProductStyleController from "../products/productStyle/productStyle.controller.js";
+import ProductTrimController from "../products/productTrim/productTrim.controller.js";
+import ProductSizeController from "../products/productSize/productSize.controller.js";
+import ProductAddOnController from "../products/productAddOn/productAddOn.controller.js";
+import ProductSummaryController from "../products/productSummary/productSummary.controller.js";
 
 const router = express.Router();
 
@@ -28,5 +34,11 @@ router.get("/blogs/:slug", BlogController.detail);
 router.get("/career", CareerController.get);
 router.get("/faq", FaqController.get);
 router.get("/privacy-policy", PrivacyPolicyController.get);
+router.get("/products", ProductController.get);
+router.get("/product/:slug/style", ProductStyleController.get);
+router.get("/product/:slug/trim", ProductTrimController.get);
+router.get("/product/:slug/size", ProductSizeController.get);
+router.get("/product/:slug/add-ons", ProductAddOnController.get);
+router.get("/product/:slug/summary", ProductSummaryController.get);
 
 export default router;

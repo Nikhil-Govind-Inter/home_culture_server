@@ -50,6 +50,12 @@ export class commonBuilder {
 
   // Query options for list sections: active rows in admin sort order.
   static activeList() {
-    return { where: { status: true }, order: [["sort_order", "ASC"]] };
+    return {
+      where: { status: true },
+      order: [
+        ["sort_order", "ASC"],
+        ["id", "ASC"],
+      ],
+    };
   }
 }
