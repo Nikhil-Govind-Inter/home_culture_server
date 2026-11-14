@@ -5,10 +5,10 @@ export default class ProductSummaryBuildSection {
   static buildSummarySection(cms) {
     if (!cms) return null;
     return {
-      title: cms.summary_section_title,
-      description: cms.summary_section_description,
-      media_header_title: cms.summary_section_media_header_title,
-      media_title: cms.summary_section_media_title,
+      title: cms.summary_section_title ?? "",
+      description: cms.summary_section_description ?? "",
+      media_header_title: cms.summary_section_media_header_title ?? "",
+      media_title: cms.summary_section_media_title ?? "",
       media: {
         ...mediaUtils.singleMediaWithoutType(
           cms.summary_section_media_path,

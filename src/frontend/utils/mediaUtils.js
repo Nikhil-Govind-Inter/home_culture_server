@@ -3,7 +3,8 @@ import config from "../../shared/config/index.js";
 export class mediaUtils {
   // Turns a stored path like `/uploads/home/a.png` into a full URL.
   static url(path) {
-    if (!path || /^https?:\/\//i.test(path)) return path;
+    if (!path) return "";
+    if (/^https?:\/\//i.test(path)) return path;
     return `${config.mediaBaseUrl}/${String(path).replace(/^\/+/, "")}`;
   }
 
@@ -32,8 +33,8 @@ export class mediaUtils {
 
   static button(label, link) {
     return {
-      label,
-      link,
+      label: label ?? "",
+      link: link ?? "",
     };
   }
 
@@ -41,7 +42,7 @@ export class mediaUtils {
   static singleMediaWithoutType(path, alt) {
     return {
       path: mediaUtils.url(path),
-      alt,
+      alt: alt ?? "",
     };
   }
 
@@ -52,12 +53,12 @@ export class mediaUtils {
         type,
         video: mediaUtils.url(desktop) ?? "",
         thumbnail: mediaUtils.url(thumbnail) ?? "",
-        alt,
+        alt: alt ?? "",
       };
     }
 
     return {
-      type,
+      type: type ?? "image",
       desktop: mediaUtils.url(desktop) ?? "",
       mobile: mediaUtils.url(mobile) ?? "",
       alt: alt ?? "",

@@ -5,8 +5,8 @@ export default class ProductSizeBuildSection {
   static buildContentSection(cms) {
     if (!cms) return null;
     return {
-      title: cms.size_section_title,
-      description: cms.size_section_description,
+      title: cms.size_section_title ?? "",
+      description: cms.size_section_description ?? "",
     };
   }
 
@@ -26,9 +26,9 @@ export default class ProductSizeBuildSection {
 
   static buildSection(list) {
     return (list || []).map((item) => ({
-      title: item.title,
-      size: item.size,
-      slug: item.slug,
+      title: item.title ?? "",
+      size: item.size ?? "",
+      slug: item.slug ?? "",
       media: mediaUtils.singleMediaWithoutType(item.media_path, item.title),
     }));
   }

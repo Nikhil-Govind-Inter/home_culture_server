@@ -7,11 +7,10 @@ const { SiteSettings, SocialMedia, Product } = models;
 export default class LayoutService {
   static async get() {
     const [settings, socialMedia, products] = await Promise.all([
-      SiteSettings.findOne({ order: [["id", "DESC"]] }),
-      SocialMedia.findAll(commonBuilder.activeList()),
+      SiteSettings.findOne({ attributes: { exclude: ["id", "createdAt", "updatedAt", "deleted_at"] }, order: [["id", "DESC"]] }),
+      SocialMedia.findAll({ ...commonBuilder.activeList(), attributes: ["link", "icon_media_path", "media_alt"] }),
       Product.findAll({
-        ...commonBuilder.activeList(),
-        attributes: ["id", "slug", "title", "excerpt", "icon_media_path", "icon_media_alt"],
+        ...commonBuilder.activeList(["slug", "title", "excerpt", "icon_media_path", "icon_media_alt"]),
       }),
     ]);
 

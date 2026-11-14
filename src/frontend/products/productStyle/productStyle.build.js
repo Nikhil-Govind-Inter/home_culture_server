@@ -5,8 +5,8 @@ export default class ProductStyleBuildSection {
   static buildContentSection(cms) {
     if (!cms) return null;
     return {
-      title: cms.style_section_title,
-      description: cms.style_section_description,
+      title: cms.style_section_title ?? "",
+      description: cms.style_section_description ?? "",
     };
   }
 
@@ -26,11 +26,10 @@ export default class ProductStyleBuildSection {
 
   static buildProductStyleSection(styles = []) {
 
-    return styles.map((item) => ({
-      title: item?.title,
-      header_title: item?.header_title,
-      description: item?.description,
-      slug: item?.slug,
+    return (styles ?? []).map((item) => ({
+      title: item?.title ?? "",
+      description: item?.description ?? "",
+      slug: item?.slug ?? "",
       media: mediaUtils.singleMediaWithoutType(
         item?.media_path,
         item?.title,

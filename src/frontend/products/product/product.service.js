@@ -6,8 +6,6 @@ const { Product, ProductCms } = models;
 
 export default class ProductService {
   static async get() {
-    const activeList = commonBuilder.activeList();
-
     const [cms, products] = await Promise.all([
       ProductCms.findOne({
         attributes: [
@@ -25,15 +23,14 @@ export default class ProductService {
         ],
       }),
       Product.findAll({
-        ...activeList,
-        attributes: [
+        ...commonBuilder.activeList([
           "title",
           "excerpt",
           "slug",
           "media_path",
           "media_alt",
           "header_title",
-        ],
+        ]),
       }),
     ]);
 

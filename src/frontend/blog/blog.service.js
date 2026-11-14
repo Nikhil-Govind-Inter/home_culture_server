@@ -9,12 +9,12 @@ const { Blog, BlogCategory, BlogCms, Banner } = models;
 
 const PAGE_SIZE = 6;
 
-const LIST_ATTRIBUTES = ["id", "title", "slug", "excerpt", "media_path", "media_alt"];
+const LIST_ATTRIBUTES = ["title", "slug", "excerpt", "media_path", "media_alt"];
 const LIST_INCLUDE = [
   {
     model: BlogCategory,
     as: "category",
-    attributes: ["id", "title", "slug"],
+    attributes: ["title"],
     where: { status: true },
     required: true,
   },
@@ -27,8 +27,35 @@ const LIST_ORDER = [
 export default class BlogService {
   static async get() {
     const [banner, cms, featured] = await Promise.all([
-      Banner.findOne({ where: { page_slug: "blogs" } }),
-      BlogCms.findOne({ order: [["id", "DESC"]] }),
+      Banner.findOne({
+        attributes: {
+          exclude: [
+            "id",
+            "page",
+            "page_slug",
+            "createdAt",
+            "updatedAt",
+            "deleted_at",
+          ],
+        },
+        where: { page_slug: "blogs" },
+      }),
+      BlogCms.findOne({
+        attributes: {
+          // the list page needs only the cta_* columns
+          exclude: [
+            "id",
+            "createdAt",
+            "updatedAt",
+            "detail_page_status",
+            "detail_page_header_title",
+            "detail_page_title",
+            "detail_page_button_text",
+            "detail_page_button_link",
+          ],
+        },
+        order: [["id", "DESC"]],
+      }),
       Blog.findAll({
         where: { status: true, is_featured: true },
         attributes: LIST_ATTRIBUTES,
@@ -59,8 +86,25 @@ export default class BlogService {
 
   static async getDetail(slug) {
     const [blog, cms] = await Promise.all([
-      Blog.findOne({ where: { slug: String(slug), status: true }, include: LIST_INCLUDE }),
-      BlogCms.findOne({ order: [["id", "DESC"]] }),
+      Blog.findOne({
+        where: { slug: String(slug), status: true },
+        // id / sort_order / createdAt / category_id stay: the neighbour and related lookups use them
+        attributes: {
+          exclude: [
+            "slug",
+            "status",
+            "is_featured",
+            "show_in_home",
+            "updatedAt",
+            "deleted_at",
+          ],
+        },
+        include: LIST_INCLUDE,
+      }),
+      BlogCms.findOne({
+        attributes: { exclude: ["id", "createdAt", "updatedAt"] },
+        order: [["id", "DESC"]],
+      }),
     ]);
 
     if (!blog) throw new ApiError(404, "Blog not found");
@@ -68,7 +112,7 @@ export default class BlogService {
     const neighbour = (where, order) =>
       Blog.findOne({
         where: { status: true, ...where },
-        attributes: ["id", "title", "slug"],
+        attributes: ["title", "slug"],
         include: LIST_INCLUDE,
         order,
       });
@@ -79,8 +123,15 @@ export default class BlogService {
         {
           [Op.or]: [
             { sort_order: { [Op.lt]: blog.sort_order } },
-            { sort_order: blog.sort_order, createdAt: { [Op.gt]: blog.createdAt } },
-            { sort_order: blog.sort_order, createdAt: blog.createdAt, id: { [Op.gt]: blog.id } },
+            {
+              sort_order: blog.sort_order,
+              createdAt: { [Op.gt]: blog.createdAt },
+            },
+            {
+              sort_order: blog.sort_order,
+              createdAt: blog.createdAt,
+              id: { [Op.gt]: blog.id },
+            },
           ],
         },
         [
@@ -93,8 +144,15 @@ export default class BlogService {
         {
           [Op.or]: [
             { sort_order: { [Op.gt]: blog.sort_order } },
-            { sort_order: blog.sort_order, createdAt: { [Op.lt]: blog.createdAt } },
-            { sort_order: blog.sort_order, createdAt: blog.createdAt, id: { [Op.lt]: blog.id } },
+            {
+              sort_order: blog.sort_order,
+              createdAt: { [Op.lt]: blog.createdAt },
+            },
+            {
+              sort_order: blog.sort_order,
+              createdAt: blog.createdAt,
+              id: { [Op.lt]: blog.id },
+            },
           ],
         },
         [
@@ -104,7 +162,11 @@ export default class BlogService {
         ],
       ),
       Blog.findAll({
-        where: { status: true, category_id: blog.category_id, id: { [Op.ne]: blog.id } },
+        where: {
+          status: true,
+          category_id: blog.category_id,
+          id: { [Op.ne]: blog.id },
+        },
         attributes: [...LIST_ATTRIBUTES, "reading_time"],
         include: LIST_INCLUDE,
         order: LIST_ORDER,

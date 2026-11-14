@@ -6,9 +6,9 @@ export class commonBuilder {
   static heading(record, prefix) {
     return {
       status: record?.[`${prefix}status`],
-      header_title: record?.[`${prefix}header_title`],
-      title: record?.[`${prefix}title`],
-      description: record?.[`${prefix}description`],
+      header_title: record?.[`${prefix}header_title`] ?? "",
+      title: record?.[`${prefix}title`] ?? "",
+      description: record?.[`${prefix}description`] ?? "",
     };
   }
 
@@ -24,9 +24,9 @@ export class commonBuilder {
   static banner(banner) {
     return commonBuilder.whenActive({
       status: banner?.status,
-      header_title: banner?.header_title,
-      title: banner?.title,
-      description: banner?.description,
+      header_title: banner?.header_title ?? "",
+      title: banner?.title ?? "",
+      description: banner?.description ?? "",
       media: mediaUtils.mediaWithTypes(
         banner?.media_type,
         banner?.banner_desktop_media_path,
@@ -49,13 +49,14 @@ export class commonBuilder {
   }
 
   // Query options for list sections: active rows in admin sort order.
-  static activeList() {
+  static activeList(attributes) {
     return {
       where: { status: true },
       order: [
         ["sort_order", "ASC"],
         ["id", "ASC"],
       ],
+      attributes,
     };
   }
 }

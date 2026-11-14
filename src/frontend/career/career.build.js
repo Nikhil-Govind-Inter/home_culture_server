@@ -7,11 +7,11 @@ export default class CareerBuildSection {
 
     return commonBuilder.whenActive({
       ...commonBuilder.heading(cms, "life_at_home_"),
-      quote: cms.life_at_home_quote,
-      skills_title: cms.life_at_home_skills_title,
-      visions: visions.map((v) => ({
-        title: v.title,
-        description: v.description,
+      quote: cms.life_at_home_quote ?? "",
+      skills_title: cms.life_at_home_skills_title ?? "",
+      visions: (visions ?? []).map((v) => ({
+        title: v.title ?? "",
+        description: v.description ?? "",
       })),
     });
   }
@@ -20,8 +20,8 @@ export default class CareerBuildSection {
     const media = ["one", "two", "three", "four"]
       .map((n) =>
         mediaUtils.singleMediaWithoutType(
-          cms[`media_${n}_path`],
-          cms[`media_${n}_alt`],
+          cms?.[`media_${n}_path`],
+          cms?.[`media_${n}_alt`],
         ),
       )
       .filter(Boolean);
@@ -31,9 +31,9 @@ export default class CareerBuildSection {
     return commonBuilder.whenActive({
       ...commonBuilder.heading(cms, "why_join_us_"),
       media,
-      benefits: benefits.map((b) => ({
-        title: b.title,
-        description: b.description,
+      benefits: (benefits ?? []).map((b) => ({
+        title: b.title ?? "",
+        description: b.description ?? "",
         media: mediaUtils.singleMediaWithoutType(b.media_path, b.title),
       })),
     });
@@ -44,14 +44,14 @@ export default class CareerBuildSection {
 
     return commonBuilder.whenActive({
       ...commonBuilder.heading(cms, "current_opening_"),
-      jobs: jobs.map((j) => ({
-        position: j.position,
-        slug: j.slug,
+      jobs: (jobs ?? []).map((j) => ({
+        position: j.position ?? "",
+        slug: j.slug ?? "",
         // "Kochi, Kerala"
         location: [j.city?.name, j.city?.state?.name]
           .filter(Boolean)
           .join(", "),
-        department: j.department?.name ?? null,
+        department: j.department?.name ?? "",
       })),
     });
   }
@@ -61,10 +61,10 @@ export default class CareerBuildSection {
 
     return commonBuilder.whenActive({
       ...commonBuilder.heading(cms, "testimonial_"),
-      testimonials: testimonials.map((t) => ({
-        name: t.name,
-        designation: t.designation,
-        quotes: t.quotes,
+      testimonials: (testimonials ?? []).map((t) => ({
+        name: t.name ?? "",
+        designation: t.designation ?? "",
+        quotes: t.quotes ?? "",
         media: mediaUtils.singleMediaWithoutType(t.media_path, t.name),
       })),
     });

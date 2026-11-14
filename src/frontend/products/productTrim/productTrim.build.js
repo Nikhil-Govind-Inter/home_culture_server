@@ -5,8 +5,8 @@ export default class ProductTrimBuildSection {
   static buildContentSection(cms) {
     if (!cms) return null;
     return {
-      title: cms.trim_section_title,
-      description: cms.trim_section_description,
+      title: cms.trim_section_title ?? "",
+      description: cms.trim_section_description ?? "",
     };
   }
 
@@ -26,9 +26,9 @@ export default class ProductTrimBuildSection {
 
   static buildSection(list) {
     return (list || []).map((item) => ({
-      title: item.title,
-      description: item.description,
-      slug: item.slug,
+      title: item.title ?? "",
+      description: item.description ?? "",
+      slug: item.slug ?? "",
       media: mediaUtils.singleMediaWithoutType(item.media_path, item.title),
     }));
   }

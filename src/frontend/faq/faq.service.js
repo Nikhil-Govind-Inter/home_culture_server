@@ -2,12 +2,12 @@ import { models } from "../../shared/models/index.js";
 import { commonBuilder } from "../utils/commonBuild.js";
 import FaqBuildSection from "./faq.build.js";
 
-const { Faq, FaqCategory, FaqCms, Banner } = models;
+const { Faq, FaqCategory, FaqCms } = models;
 
 export default class FaqService {
   static async get() {
     const [cms, categories] = await Promise.all([
-      FaqCms.findOne({ order: [["id", "DESC"]] }),
+      FaqCms.findOne({ attributes: { exclude: ["id", "createdAt", "updatedAt"] }, order: [["id", "DESC"]] }),
       FaqCategory.findAll({
         where: { status: true },
         attributes: ["id", "title", "slug"],

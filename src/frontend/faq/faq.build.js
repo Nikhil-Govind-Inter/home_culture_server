@@ -16,8 +16,8 @@ export default class FaqBuildSection {
 
     return commonBuilder.whenActive({
       status: cms.status,
-      title: cms.sidebar_title,
-      quotes: cms.sidebar_quotes,
+      title: cms.sidebar_title ?? "",
+      quotes: cms.sidebar_quotes ?? "",
     });
   }
 
@@ -34,11 +34,11 @@ export default class FaqBuildSection {
     return categories
       .filter((category) => category.faqs?.length)
       .map((category) => ({
-        title: category.title,
-        slug: category.slug,
-        faqs: category.faqs.map((faq) => ({
-          question: faq.question,
-          answer: faq.answer,
+        title: category.title ?? "",
+        slug: category.slug ?? "",
+        faqs: (category.faqs ?? []).map((faq) => ({
+          question: faq.question ?? "",
+          answer: faq.answer ?? "",
         })),
       }));
   }

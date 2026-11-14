@@ -13,8 +13,8 @@ export default class HowItWorksBuildSection {
         cms?.workshop_section_media_path,
         cms?.workshop_section_media_alt,
       ),
-      items: materials.map((item) => ({
-        title: item.title,
+      items: (materials ?? []).map((item) => ({
+        title: item.title ?? "",
         media: mediaUtils.singleMediaWithoutType(item.media_path, item.title),
       })),
     });
@@ -23,10 +23,10 @@ export default class HowItWorksBuildSection {
   static buildArtisansSection(cms, testimonials) {
     return commonBuilder.whenActive({
       ...commonBuilder.heading(cms, "artisans_section_"),
-      items: testimonials.map((item) => ({
-        name: item.name,
-        designation: item.designation,
-        quotes: item.quotes,
+      items: (testimonials ?? []).map((item) => ({
+        name: item.name ?? "",
+        designation: item.designation ?? "",
+        quotes: item.quotes ?? "",
         image: mediaUtils.url(item.media_path),
       })),
     });
@@ -35,14 +35,14 @@ export default class HowItWorksBuildSection {
   static buildJourneySection(cms, steps) {
     return commonBuilder.whenActive({
       status: cms?.journey_section_status,
-      title: cms?.journey_section_title,
+      title: cms?.journey_section_title ?? "",
       media: mediaUtils.singleMediaWithoutType(
         cms?.journey_section_media_path,
         cms?.journey_section_media_alt,
       ),
-      items: steps.map((item) => ({
-        title: item.title,
-        description: item.description,
+      items: (steps ?? []).map((item) => ({
+        title: item.title ?? "",
+        description: item.description ?? "",
       })),
     });
   }

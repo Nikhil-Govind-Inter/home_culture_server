@@ -9,16 +9,16 @@ export default class ExperienceBuildSection {
         cms?.intro_section_media_path,
         cms?.intro_section_media_alt,
       ),
-      quote: cms?.intro_section_quote,
+      quote: cms?.intro_section_quote ?? "",
     });
   }
 
   static buildJourneySection(cms, items) {
     return commonBuilder.whenActive({
       ...commonBuilder.heading(cms, "journey_section_"),
-      items: items.map((item) => ({
-        title: item.title,
-        description: item.description,
+      items: (items ?? []).map((item) => ({
+        title: item.title ?? "",
+        description: item.description ?? "",
       })),
     });
   }
@@ -26,17 +26,17 @@ export default class ExperienceBuildSection {
   static buildLifestyleSection(cms, items, highlights) {
     return commonBuilder.whenActive({
       ...commonBuilder.heading(cms, "lifestyle_"),
-      items: items.map((item) => ({
-        title: item.title,
-        subtitle: item.subtitle,
+      items: (items ?? []).map((item) => ({
+        title: item.title ?? "",
+        subtitle: item.subtitle ?? "",
         media: mediaUtils.singleMediaWithoutType(
           item.media_path,
           item.media_alt,
         ),
       })),
-      highlights: highlights.map((item) => ({
-        title: item.title,
-        description: item.description,
+      highlights: (highlights ?? []).map((item) => ({
+        title: item.title ?? "",
+        description: item.description ?? "",
       })),
     });
   }
@@ -50,9 +50,9 @@ export default class ExperienceBuildSection {
         cms?.visit_section_thumbnail,
         cms?.visit_section_media_alt,
       ),
-      items: locations.map((item) => ({
-        location: item.location,
-        location_link: item.location_link,
+      items: (locations ?? []).map((item) => ({
+        location: item.location ?? "",
+        location_link: item.location_link ?? "",
       })),
     });
   }
@@ -66,8 +66,8 @@ export default class ExperienceBuildSection {
       status,
       header_title,
       title,
-      items: features.map((item) => ({
-        title: item.title,
+      items: (features ?? []).map((item) => ({
+        title: item.title ?? "",
         media: mediaUtils.singleMediaWithoutType(item.media_path, item.title),
       })),
     });
@@ -82,9 +82,9 @@ export default class ExperienceBuildSection {
       status,
       header_title,
       title,
-      items: items.map((item) => ({
-        title: item.title,
-        description: item.description,
+      items: (items ?? []).map((item) => ({
+        title: item.title ?? "",
+        description: item.description ?? "",
       })),
     });
   }
@@ -92,9 +92,9 @@ export default class ExperienceBuildSection {
   static buildFaqSection(cms, items) {
     return commonBuilder.whenActive({
       ...commonBuilder.heading(cms, "faq_section_"),
-      items: items.map((item) => ({
-        question: item.question,
-        answer: item.answer,
+      items: (items ?? []).map((item) => ({
+        question: item.question ?? "",
+        answer: item.answer ?? "",
       })),
     });
   }

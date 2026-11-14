@@ -5,8 +5,8 @@ export default class ProductBuildSection {
   static buildContentSection(cms) {
     if (!cms) return null;
     return {
-      title: cms.product_section_title,
-      description: cms.product_section_description,
+      title: cms.product_section_title ?? "",
+      description: cms.product_section_description ?? "",
     };
   }
 
@@ -25,11 +25,11 @@ export default class ProductBuildSection {
   }
 
   static buildProductSection(record) {
-    return record.map((item) => ({
-      title: item?.title,
-      header_title: item?.header_title,
-      excerpt: item?.excerpt,
-      slug: item.slug,
+    return (record ?? []).map((item) => ({
+      title: item?.title ?? "",
+      header_title: item?.header_title ?? "",
+      excerpt: item?.excerpt ?? "",
+      slug: item.slug ?? "",
       media: mediaUtils.singleMediaWithoutType(item.media_path, item.media_alt),
     }));
   }

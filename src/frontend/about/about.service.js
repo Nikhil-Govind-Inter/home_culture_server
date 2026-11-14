@@ -7,16 +7,35 @@ const { AboutCms, AboutHighlight, Banner } = models;
 export default class AboutService {
   static async get() {
     const [banner, cms, highlights] = await Promise.all([
-      Banner.findOne({ where: { page_slug: "about" } }),
-      AboutCms.findOne({}),
-      AboutHighlight.findAll(commonBuilder.activeList()),
+      Banner.findOne({
+        attributes: {
+          exclude: [
+            "id",
+            "page",
+            "page_slug",
+            "createdAt",
+            "updatedAt",
+            "deleted_at",
+          ],
+        },
+        where: { page_slug: "about" },
+      }),
+      AboutCms.findOne({
+        attributes: { exclude: ["id", "createdAt", "updatedAt"] },
+      }),
+      AboutHighlight.findAll({
+        ...commonBuilder.activeList(["title", "description", "icon_media_path"]),
+      }),
     ]);
 
     return {
       bannerSection: commonBuilder.banner(banner),
       storySection: commonBuilder.mediaSection(cms, "story_section_"),
       philosophySection: AboutBuildSection.buildPhilosophySection(cms),
-      highlightSection: AboutBuildSection.buildHighlightSection(cms, highlights),
+      highlightSection: AboutBuildSection.buildHighlightSection(
+        cms,
+        highlights,
+      ),
       promiseSection: AboutBuildSection.buildPromiseSection(cms),
       ctaSection: AboutBuildSection.buildCtaSection(cms),
     };

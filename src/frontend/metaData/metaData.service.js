@@ -6,7 +6,10 @@ const { MetaData } = models;
 
 export default class MetaDataService {
   static async get(slug) {
-    const record = await MetaData.findOne({ where: { page_slug: String(slug) } });
+    const record = await MetaData.findOne({
+      attributes: ["meta_title", "meta_description", "meta_keywords"],
+      where: { page_slug: String(slug) },
+    });
     if (!record) throw new ApiError(404, "Meta data not found");
     return MetaDataBuildSection.buildMetaData(record);
   }

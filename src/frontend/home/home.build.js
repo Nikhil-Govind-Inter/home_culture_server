@@ -3,10 +3,10 @@ import { commonBuilder } from "../utils/commonBuild.js";
 
 export default class HomeBuildSection {
   static buildBannerSection(banners) {
-    return banners.map((item) => ({
-      header_title: item.header_title,
-      title: item.title,
-      description: item.description,
+    return (banners ?? []).map((item) => ({
+      header_title: item.header_title ?? "",
+      title: item.title ?? "",
+      description: item.description ?? "",
       media: mediaUtils.mediaFromRecord(item),
       button_one: mediaUtils.buttonFromRecord(item, "button_one_"),
       button_two: mediaUtils.buttonFromRecord(item, "button_two_"),
@@ -16,10 +16,10 @@ export default class HomeBuildSection {
   static buildChallengesSection(cms, brokenProcesses) {
     return commonBuilder.whenActive({
       ...commonBuilder.heading(cms, "challenges_section_"),
-      right_title: cms?.challenges_section_right_title,
+      right_title: cms?.challenges_section_right_title ?? "",
       button: mediaUtils.buttonFromRecord(cms, "challenges_section_button_"),
-      items: brokenProcesses.map((item) => ({
-        title: item.title,
+      items: (brokenProcesses ?? []).map((item) => ({
+        title: item.title ?? "",
         media: mediaUtils.singleMediaWithType(
           item?.media_type,
           item?.media_path,
@@ -38,8 +38,8 @@ export default class HomeBuildSection {
         "ownership_",
         "ownership_mobile_media_alt",
       ),
-      choose_title: cms?.ownership_choose_title,
-      choose_items: simplyChoose.map((item) => item.title),
+      choose_title: cms?.ownership_choose_title ?? "",
+      choose_items: (simplyChoose ?? []).map((item) => item.title),
       button: mediaUtils.buttonFromRecord(cms, "ownership_button_"),
     });
   }
@@ -47,8 +47,8 @@ export default class HomeBuildSection {
   static buildWelcomeSection(cms, highlights) {
     return commonBuilder.whenActive({
       ...commonBuilder.heading(cms, "welcome_section_"),
-      items: highlights.map((item) => ({
-        title: item.title,
+      items: (highlights ?? []).map((item) => ({
+        title: item.title ?? "",
         media: mediaUtils.singleMediaWithoutType(
           item.media_path,
           item.media_alt,
@@ -62,26 +62,26 @@ export default class HomeBuildSection {
     return commonBuilder.whenActive({
       status,
       title,
-      items: styles.map((item) => ({
-        title: item.title,
-        description: item.description,
+      items: (styles ?? []).map((item) => ({
+        title: item.title ?? "",
+        description: item.description ?? "",
         media: mediaUtils.singleMediaWithoutType(item.media_path, item.title),
       })),
     });
   }
 
   static buildProcessSection(process) {
-    return process.map((item) => ({
-      title: item.title,
-      description: item.description,
+    return (process ?? []).map((item) => ({
+      title: item.title ?? "",
+      description: item.description ?? "",
     }));
   }
 
   static buildProductSection(products) {
-    return products.map((item) => ({
-      title: item.title,
-      excerpt: item.excerpt,
-      slug: item.slug,
+    return (products ?? []).map((item) => ({
+      title: item.title ?? "",
+      excerpt: item.excerpt ?? "",
+      slug: item.slug ?? "",
       media: mediaUtils.singleMediaWithoutType(item.media_path, item.media_alt),
     }));
   }
@@ -96,16 +96,16 @@ export default class HomeBuildSection {
       header_title,
       title,
       modal: {
-        title: cms?.modal_title,
-        description: cms?.modal_description,
+        title: cms?.modal_title ?? "",
+        description: cms?.modal_description ?? "",
         button_one: mediaUtils.buttonFromRecord(cms, "button_one_"),
-        button_two_text: cms?.button_two_text,
-        phone: cms?.phone,
-        whatsapp_number: cms?.whatsapp_number,
+        button_two_text: cms?.button_two_text ?? "",
+        phone: cms?.phone ?? "",
+        whatsapp_number: cms?.whatsapp_number ?? "",
       },
-      titles: experiences.map((item) => item.title),
-      items: experiences.map((item) => ({
-        title: item.title,
+      titles: (experiences ?? []).map((item) => item.title),
+      items: (experiences ?? []).map((item) => ({
+        title: item.title ?? "",
         media: mediaUtils.singleMediaWithType(
           item.media_type,
           item.media_path,
@@ -128,10 +128,10 @@ export default class HomeBuildSection {
     return commonBuilder.whenActive({
       ...commonBuilder.heading(cms, "insights_"),
       button: mediaUtils.buttonFromRecord(cms, "insights_button_"),
-      items: blogs.map((item) => ({
-        title: item.title,
-        slug: item.slug,
-        excerpt: item.excerpt,
+      items: (blogs ?? []).map((item) => ({
+        title: item.title ?? "",
+        slug: item.slug ?? "",
+        excerpt: item.excerpt ?? "",
         media: mediaUtils.singleMediaWithoutType(
           item.media_path,
           item.media_alt,

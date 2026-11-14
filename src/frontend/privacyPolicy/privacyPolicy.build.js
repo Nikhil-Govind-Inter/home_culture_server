@@ -7,8 +7,8 @@ export default class PrivacyPolicyBuildSection {
 
     return commonBuilder.whenActive({
       status: record.content_section_status,
-      side_title: record.content_section_side_title,
-      content: record.content,
+      side_title: record.content_section_side_title ?? "",
+      content: record.content ?? "",
     });
   }
 

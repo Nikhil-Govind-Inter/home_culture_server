@@ -5,8 +5,8 @@ export default class ProductAddOnBuildSection {
   static buildContentSection(cms) {
     if (!cms) return null;
     return {
-      title: cms.add_ons_section_title,
-      description: cms.add_ons_section_description,
+      title: cms.add_ons_section_title ?? "",
+      description: cms.add_ons_section_description ?? "",
     };
   }
 
@@ -26,9 +26,9 @@ export default class ProductAddOnBuildSection {
 
   static buildSection(list) {
     return (list || []).map((item) => ({
-      title: item.title,
-      subtitle: item.subtitle,
-      slug: item.slug,
+      title: item.title ?? "",
+      subtitle: item.subtitle ?? "",
+      slug: item.slug ?? "",
       media: mediaUtils.singleMediaWithoutType(item.media_path, item.title),
     }));
   }

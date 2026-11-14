@@ -16,8 +16,8 @@ export default class AboutBuildSection {
 
   static buildPoint(cms, prefix) {
     return {
-      title: cms?.[`${prefix}title`],
-      description: cms?.[`${prefix}description`],
+      title: cms?.[`${prefix}title`] ?? "",
+      description: cms?.[`${prefix}description`] ?? "",
       icon: mediaUtils.url(cms?.[`${prefix}icon`]),
     };
   }
@@ -31,9 +31,9 @@ export default class AboutBuildSection {
       status,
       header_title,
       title,
-      items: highlights.map((item) => ({
-        title: item.title,
-        description: item.description,
+      items: (highlights ?? []).map((item) => ({
+        title: item.title ?? "",
+        description: item.description ?? "",
         icon: mediaUtils.url(item.icon_media_path),
       })),
     });
