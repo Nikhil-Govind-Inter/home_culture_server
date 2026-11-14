@@ -17,11 +17,7 @@ export default (sequelize) => {
       media_type: {
         type: DataTypes.ENUM("image", "video"),
       },
-      desktop_media_path: {
-        type: DataTypes.TEXT,
-        allowNull: true,
-      },
-      mobile_media_path: {
+      media_path: {
         type: DataTypes.TEXT,
         allowNull: true,
       },

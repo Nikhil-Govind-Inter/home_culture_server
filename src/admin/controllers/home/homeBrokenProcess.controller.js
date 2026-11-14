@@ -11,14 +11,14 @@ import { models } from "../../../shared/models/index.js";
 const { HomeBrokenProcess } = models;
 
 export const FOLDER = "home-broken-process";
-export const MEDIA_FIELDS = ["desktop_media_path", "mobile_media_path", "thumbnail"];
+export const MEDIA_FIELDS = ["media_path", "thumbnail"];
 
 // Files that must be uploaded for a given media type.
-const requiredFiles = (type) => ["desktop_media_path", type === "video" ? "thumbnail" : "mobile_media_path"];
+const requiredFiles = (type) => type === "video" ? ["media_path", "thumbnail"] : ["media_path"];
 
-// Media must match the chosen type (video/* vs image/*); thumbnails and mobile images are always images.
-const MATCH_FIELDS = ["desktop_media_path"];
-const IMAGE_FIELDS = ["mobile_media_path", "thumbnail"];
+// Media must match the chosen type (video/* vs image/*); thumbnails are always images.
+const MATCH_FIELDS = ["media_path"];
+const IMAGE_FIELDS = ["thumbnail"];
 const checkMediaTypes = (req, type) => {
   const wantVideo = type === "video";
   const bad = (field, prefix) => {
@@ -33,7 +33,7 @@ const checkMediaTypes = (req, type) => {
     );
   }
   if (IMAGE_FIELDS.some((field) => bad(field, "image/"))) {
-    throw ApiError.badRequest("Thumbnail and mobile media must be valid image files (jpg, png, webp or gif)");
+    throw ApiError.badRequest("Thumbnail must be a valid image files (jpg, png, webp or gif)");
   }
 };
 

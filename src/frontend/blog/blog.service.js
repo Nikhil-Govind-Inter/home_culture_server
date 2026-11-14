@@ -9,7 +9,7 @@ const { Blog, BlogCategory, BlogCms, Banner } = models;
 
 const PAGE_SIZE = 6;
 
-const LIST_ATTRIBUTES = ["id", "title", "slug", "excerpt", "thumbnail_media_path", "thumbnail_media_alt"];
+const LIST_ATTRIBUTES = ["id", "title", "slug", "excerpt", "media_path", "media_alt"];
 const LIST_INCLUDE = [
   {
     model: BlogCategory,

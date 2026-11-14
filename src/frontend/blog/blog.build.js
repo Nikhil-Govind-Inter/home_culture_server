@@ -53,7 +53,7 @@ export default class BlogBuildSection {
       category: blog.category?.title ?? null,
       // Only present when the query selected it (the detail page's related blogs).
       ...(blog.reading_time !== undefined && { reading_time: blog.reading_time }),
-      thumbnail: mediaUtils.singleMediaWithoutType(blog.thumbnail_media_path, blog.thumbnail_media_alt),
+      media: mediaUtils.singleMediaWithoutType(blog.media_path, blog.media_alt),
     }));
   }
 }

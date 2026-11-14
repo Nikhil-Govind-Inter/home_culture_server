@@ -46,14 +46,6 @@ export default (sequelize) => {
       },
 
       // Media
-      thumbnail_media_path: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-      },
-      thumbnail_media_alt: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       media_path: {
         type: DataTypes.TEXT,
         allowNull: false,

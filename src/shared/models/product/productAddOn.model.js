@@ -15,7 +15,6 @@ export default (sequelize) => {
         allowNull: true,
       },
       media_path: { type: DataTypes.TEXT, allowNull: true },
-      media_alt: { type: DataTypes.STRING, allowNull: true },
       slug: { type: DataTypes.STRING, allowNull: false, unique: true },
       subtitle: { type: DataTypes.STRING, allowNull: true },
       sort_order: { type: DataTypes.INTEGER, defaultValue: 0 },

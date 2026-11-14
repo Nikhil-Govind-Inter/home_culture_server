@@ -61,7 +61,7 @@ export default class HomeCmsController {
         const wantVideo = req.body[mismatched[0]] === 'video';
         throw ApiError.badRequest(
           wantVideo
-            ? 'Desktop video must be a valid video file (mp4 or webm)'
+            ? 'Video must be a valid video file (mp4 or webm)'
             : 'Desktop image must be a valid image file (jpg, png, webp or gif)',
         );
       }

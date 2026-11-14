@@ -20,7 +20,12 @@ export default class HomeBuildSection {
       button: mediaUtils.buttonFromRecord(cms, "challenges_section_button_"),
       items: brokenProcesses.map((item) => ({
         title: item.title,
-        media: mediaUtils.mediaFromRecord(item),
+        media: mediaUtils.singleMediaWithType(
+          item?.media_type,
+          item?.media_path,
+          item?.thumbnail,
+          item?.media_alt,
+        ),
       })),
     });
   }
@@ -44,7 +49,10 @@ export default class HomeBuildSection {
       ...commonBuilder.heading(cms, "welcome_section_"),
       items: highlights.map((item) => ({
         title: item.title,
-        media: mediaUtils.singleMediaWithoutType(item.media_path, item.media_alt),
+        media: mediaUtils.singleMediaWithoutType(
+          item.media_path,
+          item.media_alt,
+        ),
       })),
     });
   }
@@ -57,7 +65,7 @@ export default class HomeBuildSection {
       items: styles.map((item) => ({
         title: item.title,
         description: item.description,
-        media: mediaUtils.singleMediaWithoutType(item.media_path, item.media_alt),
+        media: mediaUtils.singleMediaWithoutType(item.media_path, item.title),
       })),
     });
   }
@@ -98,10 +106,9 @@ export default class HomeBuildSection {
       titles: experiences.map((item) => item.title),
       items: experiences.map((item) => ({
         title: item.title,
-        media: mediaUtils.mediaWithTypes(
+        media: mediaUtils.singleMediaWithType(
           item.media_type,
           item.media_path,
-          null,
           item.thumbnail,
           item.media_alt,
         ),
@@ -126,8 +133,8 @@ export default class HomeBuildSection {
         slug: item.slug,
         excerpt: item.excerpt,
         media: mediaUtils.singleMediaWithoutType(
-          item.thumbnail_media_path,
-          item.thumbnail_media_alt,
+          item.media_path,
+          item.media_alt,
         ),
       })),
     });

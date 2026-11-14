@@ -19,7 +19,7 @@ const { Blog, BlogCategory } = models;
 
 // FILES
 export const FOLDER = "blogs";
-export const MEDIA_FIELDS = ["thumbnail_media_path", "media_path"];
+export const MEDIA_FIELDS = ["media_path"];
 
 
 const assertCategoryExists = async (categoryId) => {

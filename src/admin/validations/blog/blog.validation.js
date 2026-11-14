@@ -40,11 +40,6 @@ export const validationRequestPost = [
     .notEmpty().withMessage('Reading time is required')
     .isInt({ min: 1 }).withMessage('Reading time must be a positive number of minutes')
     .toInt(),
-  body('thumbnail_media_alt')
-    .notEmpty().withMessage('Thumbnail media alt is required')
-    .isString().withMessage('Thumbnail media alt must be a string')
-    .trim()
-    .isLength({ max: 255 }).withMessage('Thumbnail media alt must be at most 255 characters'),
   body('media_alt')
     .notEmpty().withMessage('Media alt is required')
     .isString().withMessage('Media alt must be a string')
@@ -80,12 +75,6 @@ export const validationRequestPut = [
     .optional()
     .isInt({ min: 1 }).withMessage('Reading time must be a positive number of minutes')
     .toInt(),
-  body('thumbnail_media_alt')
-    .optional()
-    .notEmpty().withMessage('Thumbnail media alt cannot be empty')
-    .isString().withMessage('Thumbnail media alt must be a string')
-    .trim()
-    .isLength({ max: 255 }).withMessage('Thumbnail media alt must be at most 255 characters'),
   body('media_alt')
     .optional()
     .notEmpty().withMessage('Media alt cannot be empty')
