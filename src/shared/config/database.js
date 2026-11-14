@@ -4,7 +4,7 @@ import logger from '../utils/logger.js';
 export default class Database {
   static async connect() {
     await sequelize.authenticate();
-    // await sequelize.sync({ alter: true });
+    await sequelize.sync({ alter: true });
     logger.info('PostgreSQL connected');
   }
 
